@@ -1,0 +1,19 @@
+{
+  "name": "next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix app/frontend\" \"npm run dev --prefix app/backend\"",
+    "build": "npm run build --prefix app/frontend && npm run build --prefix app/backend",
+    "start": "node app/backend/src/server.mts",
+    "lint": "next lint"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "serve": "^14.2.4"
+  },
+  "workspaces": [
+    "packages/frontend",
+    "packages/backend"
+  ]
+}
