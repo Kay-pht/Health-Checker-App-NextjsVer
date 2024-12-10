@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix app/frontend\" \"npm run dev --prefix app/backend\"",
-    "build": "npm run build --prefix app/frontend && npm run build --prefix app/backend",
-    "start": "node app/backend/src/server.mts",
-    "lint": "next lint"
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
+    "build": "npm run build --prefix frontend && npm run build --prefix backend",
+    "start": "node backend/src/server.mts"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
