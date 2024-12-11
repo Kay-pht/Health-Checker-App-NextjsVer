@@ -11,11 +11,13 @@ export const fetchHistoryData = async (url: string, token: string) => {
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
+      cache: "no-cache",
+      next: { revalidate: 0 },
     });
     if (!response.ok) {
       throw new Error("Failed to fetch data from the server");
     }
-    return response;
+    return response.json();
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;

@@ -3,7 +3,7 @@ export default {
     return [
       {
         source: "/api/:path*",
-        destination: "http://backend:3000/api/:path*", // プロキシ先のバックエンドサーバー
+        destination: "http://backend:5050/api/:path*", // プロキシ先のバックエンドサーバー
       },
     ];
   },

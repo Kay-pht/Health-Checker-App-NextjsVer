@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import { frequencyArray } from "../../utils/queryData";
 import type { QuestionCompProps } from "../../interfaces/interfaces";

@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import React from "react";
 import { Alert, TextField } from "@mui/material";
 import TopBar from "../../components/TopBar";
@@ -10,8 +12,11 @@ import {
   logInWithAnonymous,
   signUpWithEmailAndPassword,
 } from "../../services/firebase";
+import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 
 const RegisterPage = () => {
+  useCheckIsLoggedin("/questionnaire");
+
   // フォームのバリデーションチェック
   const {
     register,
@@ -118,7 +123,7 @@ const RegisterPage = () => {
               </button>
               <p className="mt-4">
                 アカウントを持っている方は
-                <Link to="/login" className="text-blue-500">
+                <Link href="/login" className="text-blue-500">
                   ログイン
                 </Link>
               </p>

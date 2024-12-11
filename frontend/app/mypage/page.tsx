@@ -1,26 +1,45 @@
-import useSWR from "swr";
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
-import fetchUserHistoryData from "../../services/fetchUserHistoryData";
-import { useFocusTopPage } from "../../hooks/useFocusPageTop";
 import { DBResultType } from "../../interfaces/interfaces";
+// import { logOut } from "@/services/firebase";
+// import fetchUserHistoryData from "@/services/fetchUserHistoryData";
+import MyPageClientSideWrapper from "@/components/MyPageClientSideWrapper";
 
-const MyPage = () => {
-  useFocusTopPage();
-
+const MyPage = async () => {
   // 過去の診断データをバックエンドから受け取る
-  const { data, error } = useSWR("/api/mypage", fetchUserHistoryData);
+  // const data = await fetchUserHistoryData("/api/mypage");
+  const data: DBResultType[] = [
+    {
+      createdAt: new Date("2023-05-01"),
+      score: 75,
+      missingNutrients: ["ビタミンC", "鉄分"],
+      recommendedFoods: ["オレンジ", "ほうれん草"],
+    },
+    {
+      createdAt: new Date("2023-05-15"),
+      score: 82,
+      missingNutrients: ["カルシウム", "ビタミンD"],
+      recommendedFoods: ["牛乳", "サーモン"],
+    },
+    {
+      createdAt: new Date("2023-06-01"),
+      score: 90,
+      missingNutrients: ["食物繊維"],
+      recommendedFoods: ["玄米", "ブロッコリー"],
+    },
+  ];
 
-  if (error) {
-    // setTimeout(async () => {
-    //   await logOut();
-    //   window.location.reload();
-    // }, 5000); // エラーなら3秒後にログアウト
-    return <div>Sorry...Please Log in again</div>;
-  }
+  // if (error) {
+  //   setTimeout(async () => {
+  //     await logOut();
+  //     window.location.reload();
+  //   }, 5000); // エラーなら5秒後にログアウト
+  //   return <div>Sorry...Please Log in again</div>;
+  // }
 
   return (
     <div>
+      <MyPageClientSideWrapper />
       <TopBar />
       <div className="p-6 bg-gray-100 min-h-screen">
         <h1 className="text-2xl font-bold mb-4">これまでの診断結果</h1>

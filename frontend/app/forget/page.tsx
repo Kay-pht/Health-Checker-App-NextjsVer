@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Alert, TextField } from "@mui/material";
 
 import TopBar from "../../components/TopBar";
@@ -9,10 +9,9 @@ import useFormValidation from "../../hooks/useFormValidation";
 import { ForgetFormValues } from "../../interfaces/interfaces";
 import { submitPasswordResetEmail } from "../../services/firebase";
 import { forgetValidationSchema } from "../../utils/validationSchema";
-import useCheckIsLoggedin from "@/hooks/useCheckLogin";
+import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 
 const ForgetPasswordPage = () => {
-  
   useCheckIsLoggedin("/questionnaire");
 
   const [message, setMessage] = useState("");
@@ -64,7 +63,7 @@ const ForgetPasswordPage = () => {
               </button>
               <p className="mt-4">
                 アカウントをお持ちでない場合は
-                <Link to="/register" className="text-blue-500">
+                <Link href="/register" className="text-blue-500">
                   新規登録
                 </Link>
               </p>

@@ -1,4 +1,4 @@
-import StartButton from "@/components/StartButton";
+import StartButton from "@/components/buttons/StartButton";
 
 const LandingPage = () => {
   return (

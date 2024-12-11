@@ -1,14 +1,16 @@
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import { ResultPageProps } from "../../interfaces/interfaces";
-import { useFocusTopPage } from "../../hooks/useFocusPageTop";
 import CautionInResult from "../../components/CautionInResult";
+import FocusTopPageHandler from "@/components/handlersComp/FocusTopPageHandler";
+import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
 
 // 診断結果ページ
 const ResultPage = ({ result }: ResultPageProps) => {
-  useFocusTopPage();
   return (
     <div>
+      <UserIsLoggedinHandler />
+      <FocusTopPageHandler />
       <TopBar />
       <div className="p-6 bg-gray-100 min-h-screen">
         <div className="p-6 max-w-lg mx-auto bg-white rounded-xl shadow-md space-y-4">

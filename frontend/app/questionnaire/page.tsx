@@ -1,3 +1,5 @@
+"use client";
+
 import KeyboardDoubleArrowLeftRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftRounded";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
@@ -10,6 +12,7 @@ import { useFocusTopComp } from "../../hooks/useFocusPageTop";
 import usePageHandler from "../../hooks/usePageHandler";
 import { ResultProps } from "../../interfaces/interfaces";
 import { foodQueryPages } from "../../utils/queryData";
+import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
 
 // 質問フォームの親コンポーネント
 const QuestionFormPage = ({ setDiagnosisResult }: ResultProps) => {
@@ -27,6 +30,7 @@ const QuestionFormPage = ({ setDiagnosisResult }: ResultProps) => {
 
   return (
     <div>
+      <UserIsLoggedinHandler />
       <TopBar />
       <div className="max-w-4xl mx-auto p-5 bg-gray-100 shadow-md">
         <form
@@ -65,7 +69,6 @@ const QuestionFormPage = ({ setDiagnosisResult }: ResultProps) => {
                 className="w-24 text-center bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition-transform transform hover:scale-105"
                 onClick={pageDownHandler}
               >
-                {/* previous */}
                 <KeyboardDoubleArrowLeftRoundedIcon />
               </button>
             )}
@@ -74,7 +77,7 @@ const QuestionFormPage = ({ setDiagnosisResult }: ResultProps) => {
                 className="w-24 text-center bg-green-500 text-white font-bold py-2 rounded hover:bg-green-600 transition-transform transform hover:scale-105"
                 type="submit"
               >
-                send <SendRoundedIcon fontSize="inherit" />
+                Finish <SendRoundedIcon fontSize="inherit" />
               </button>
             )}
             {currentPageNum !== 5 && (
@@ -82,7 +85,6 @@ const QuestionFormPage = ({ setDiagnosisResult }: ResultProps) => {
                 className="w-24 text-center bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition-transform transform hover:scale-105 ml-auto"
                 onClick={pageUpHandler}
               >
-                {/* next */}
                 <KeyboardDoubleArrowRightRoundedIcon />
               </button>
             )}

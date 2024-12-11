@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation"; // 色付き
 
 // URLパス変更が発生しないコンポーネント変更時にスクロール位置をトップに戻すロジック
 export const useFocusTopComp = (someState: number) => {
@@ -11,8 +11,8 @@ export const useFocusTopComp = (someState: number) => {
 //  URLパス変更が発生する場合にスクロール位置をトップに戻すロジック
 
 export const useFocusTopPage = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [pathname]);
 };

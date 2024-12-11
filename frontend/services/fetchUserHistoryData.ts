@@ -7,8 +7,7 @@ const fetchUserHistoryData = async (url: string) => {
 
   // 過去の診断データをバックエンドから受け取る
   const response = await fetchHistoryData(url, token);
-  const responseData = await response.json();
-  return responseData;
+  return response;
 };
 
 export default fetchUserHistoryData;

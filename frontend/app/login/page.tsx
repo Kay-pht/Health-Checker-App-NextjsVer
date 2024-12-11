@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { Alert, TextField } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import LogInWithGoogleButton from "../../components/LogInWithGoogleButton";
 import useFormValidation from "../../hooks/useFormValidation";
@@ -11,7 +10,8 @@ import {
   logInWithAnonymous,
   logInWithEmailAndPassword,
 } from "../../services/firebase";
-import useCheckIsLoggedin from "@/hooks/useCheckLogin";
+import { Alert, TextField } from "@mui/material";
+import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 
 // ログインページ
 const LoginPage = () => {
