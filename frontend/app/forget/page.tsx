@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Alert, TextField } from "@mui/material";
@@ -7,8 +9,12 @@ import useFormValidation from "../../hooks/useFormValidation";
 import { ForgetFormValues } from "../../interfaces/interfaces";
 import { submitPasswordResetEmail } from "../../services/firebase";
 import { forgetValidationSchema } from "../../utils/validationSchema";
+import useCheckIsLoggedin from "@/hooks/useCheckLogin";
 
 const ForgetPasswordPage = () => {
+  
+  useCheckIsLoggedin("/questionnaire");
+
   const [message, setMessage] = useState("");
   // フォームのバリデーションチェック
   const {

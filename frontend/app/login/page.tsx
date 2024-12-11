@@ -11,9 +11,12 @@ import {
   logInWithAnonymous,
   logInWithEmailAndPassword,
 } from "../../services/firebase";
+import useCheckIsLoggedin from "@/hooks/useCheckLogin";
 
 // ログインページ
 const LoginPage = () => {
+  useCheckIsLoggedin("/questionnaire");
+
   // フォームのバリデーションチェック
   const {
     register,
