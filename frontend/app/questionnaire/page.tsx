@@ -15,7 +15,7 @@ import { foodQueryPages } from "../../utils/queryData";
 import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
 
 // 質問フォームの親コンポーネント
-const QuestionFormPage = ({ setDiagnosisResult }: ResultProps) => {
+const QuestionFormPage = ({ setAnalyzedResult }: ResultProps) => {
   //ユーザーの回答を記録するロジック
   const { userAnswers, getAnswersInEachPage } = useGetUserAnswers();
 
@@ -38,7 +38,7 @@ const QuestionFormPage = ({ setDiagnosisResult }: ResultProps) => {
             fetchAnswers({
               e,
               userAnswers,
-              setDiagnosisResult,
+              setAnalyzedResult,
             })
           }
         >

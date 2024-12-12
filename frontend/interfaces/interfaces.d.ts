@@ -29,7 +29,7 @@ export interface ResultType {
   score: number;
 }
 export interface ResultProps {
-  setDiagnosisResult: React.Dispatch<React.SetStateAction<ResultType | null>>;
+  setAnalyzedResult: React.Dispatch<React.SetStateAction<ResultType | null>>;
 }
 
 export interface QuestionCompProps {
@@ -51,7 +51,7 @@ export interface FocusNextInputType {
 export interface FetchAnswersFromAIType {
   e: React.FormEvent<HTMLFormElement>;
   userAnswers: { [key: string]: string };
-  setDiagnosisResult: React.Dispatch<React.SetStateAction<ResultType | null>>;
+  setAnalyzedResult: React.Dispatch<React.SetStateAction<ResultType | null>>;
 }
 
 export interface ResultPageProps {

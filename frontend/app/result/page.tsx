@@ -1,12 +1,20 @@
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
-import { ResultPageProps } from "../../interfaces/interfaces";
 import CautionInResult from "../../components/CautionInResult";
 import FocusTopPageHandler from "@/components/handlersComp/FocusTopPageHandler";
 import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
+// import { fetchUserLatestResult } from "@/services/fetchFromBackend";
 
 // 診断結果ページ
-const ResultPage = ({ result }: ResultPageProps) => {
+const ResultPage = () => {
+  const result = {
+    missingNutrients: ["ビタミンC", "鉄分"],
+    recommendedFoods: ["オレンジ", "ほうれんそう"],
+    score: 75,
+  };
+
+  // const result = fetchUserLatestResult("/api/result");
+
   return (
     <div>
       <UserIsLoggedinHandler />
@@ -39,7 +47,6 @@ const ResultPage = ({ result }: ResultPageProps) => {
                   </span>
                 </p>
               </div>
-              <CautionInResult />
             </div>
           ) : (
             <div>
@@ -49,6 +56,7 @@ const ResultPage = ({ result }: ResultPageProps) => {
               <p className="text-lg text-gray-500">Loading...</p>
             </div>
           )}
+          <CautionInResult />
         </div>
       </div>
     </div>
