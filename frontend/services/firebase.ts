@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { firebaseConfig } from "../config";
+import { verifyToken } from "@/api/api";
 
 const app = initializeApp(firebaseConfig);
 
@@ -111,6 +112,7 @@ export const logInWithAnonymous = async () => {
     const userCredential = await signInAnonymously(auth);
     const user = userCredential.user;
     await saveTokenInStorage(user);
+    await verifyToken();
     console.log("Anonymous user logged in successfully!");
 
     return user;

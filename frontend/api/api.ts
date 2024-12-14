@@ -7,6 +7,7 @@ export const fetchHistoryData = async (token: string) => {
   try {
     // トークンをヘッダーに載せてバックエンドに送付(検証用)
     // レスとしてこれまでの診断データ(from DB)を送ってもらう
+    console.log("path", configENV.baseUrl);
     const response = await fetch(`${configENV.baseUrl}/api/mypage`, {
       method: "GET",
       headers: {
