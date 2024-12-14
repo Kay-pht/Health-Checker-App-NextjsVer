@@ -7,11 +7,7 @@ import { useRouter } from "next/navigation";
 const useAIAnswerFetcher = () => {
   const router = useRouter();
 
-  const fetchAnswer = async ({
-    e,
-    userAnswers,
-    setAnalyzedResult,
-  }: FetchAnswersFromAIType) => {
+  const fetchAnswer = async ({ e, userAnswers }: FetchAnswersFromAIType) => {
     e.preventDefault();
     const submittedAnswer = { content: userAnswers };
 
@@ -19,13 +15,9 @@ const useAIAnswerFetcher = () => {
     const token = getStoredToken();
 
     // 回答を送信し、診断結果をレスとして受け取る
-    const response = await postAnswersFunc({ token, submittedAnswer });
-    const responseData = await response.json();
+    await postAnswersFunc({ token, submittedAnswer });
 
     router.push("/result");
-
-    // ここで得た診断結果をResult.tsxで表示する
-    setAnalyzedResult(responseData);
   };
   return fetchAnswer;
 };

@@ -51,7 +51,6 @@ export interface FocusNextInputType {
 export interface FetchAnswersFromAIType {
   e: React.FormEvent<HTMLFormElement>;
   userAnswers: { [key: string]: string };
-  setAnalyzedResult: React.Dispatch<React.SetStateAction<ResultType | null>>;
 }
 
 export interface ResultPageProps {

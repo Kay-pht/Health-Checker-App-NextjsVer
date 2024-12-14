@@ -5,6 +5,7 @@ import { auth, logOut } from "../services/firebase";
 import { Avatar } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const TopBar = () => {
   const router = useRouter();
@@ -33,7 +34,11 @@ const TopBar = () => {
             className="flex items-center space-x-2"
           >
             {userPhotoURL ? (
-              <img src={userPhotoURL} alt="" className="w-6 h-6 rounded-full" />
+              <Image
+                src={userPhotoURL}
+                alt=""
+                className="w-6 h-6 rounded-full"
+              />
             ) : (
               <Avatar variant="circular" className="w-6 h-6" />
             )}

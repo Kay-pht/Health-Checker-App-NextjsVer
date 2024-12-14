@@ -10,12 +10,11 @@ import QuestionBlockComp from "../../components/questionFormComps/QuestionBlockC
 import useGetUserAnswers from "../../hooks/useGetUserAnswers";
 import { useFocusTopComp } from "../../hooks/useFocusPageTop";
 import usePageHandler from "../../hooks/usePageHandler";
-import { ResultProps } from "../../interfaces/interfaces";
 import { foodQueryPages } from "../../utils/queryData";
 import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
 
 // 質問フォームの親コンポーネント
-const QuestionFormPage = ({ setAnalyzedResult }: ResultProps) => {
+const QuestionFormPage = () => {
   //ユーザーの回答を記録するロジック
   const { userAnswers, getAnswersInEachPage } = useGetUserAnswers();
 
@@ -38,7 +37,6 @@ const QuestionFormPage = ({ setAnalyzedResult }: ResultProps) => {
             fetchAnswers({
               e,
               userAnswers,
-              setAnalyzedResult,
             })
           }
         >
