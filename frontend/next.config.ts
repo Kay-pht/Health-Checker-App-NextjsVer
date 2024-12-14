@@ -1,11 +1,15 @@
-export default {
+import { configENV } from "./config";
+
+// 修正箇所: 設定オブジェクトを変数に代入
+const nextConfig = {
   async rewrites() {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:5050/api/:path*", // プロキシ先のバックエンドサーバー
+        destination: configENV.baseUrl + "/api/:path*",
       },
     ];
   },
-  // 他のNext.jsの設定をここに追加
 };
+
+export default nextConfig;
