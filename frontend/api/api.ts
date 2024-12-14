@@ -59,7 +59,7 @@ export const postAnswersFunc = async ({
 }: SendAnswersType) => {
   // ヘッダーにトークンを付与。バックエンドでの検証用
   try {
-    const response = await fetch("/api/completion", {
+    const response = await fetch(`${configENV.baseUrl}/api/completion`, {
       method: "POST",
       headers: {
         Authorization: `Bearer:${token}`,
@@ -82,7 +82,7 @@ export const verifyToken = async () => {
   try {
     const token = getStoredToken();
 
-    const response = await fetch("/api/auth", {
+    const response = await fetch(`${configENV.baseUrl}/api/auth`, {
       method: "GET",
       headers: {
         Authorization: `Bearer:${token}`,
