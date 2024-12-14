@@ -122,6 +122,7 @@ export const logInWithAnonymous = async () => {
     } else {
       alert("An unknown error occurred.");
     }
+    // logOut();
   }
 };
 // ログアウト用の関数

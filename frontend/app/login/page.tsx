@@ -10,7 +10,7 @@ import { loginValidationSchema, UserAuth } from "@/utils/validationSchema";
 import {
   logInWithAnonymous,
   logInWithEmailAndPassword,
-  logOut,
+  // logOut,
 } from "@/services/firebase";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/LogInWithGoogleButton";
@@ -35,7 +35,7 @@ const LoginPage = () => {
       console.log(`Token verified successfully.`);
     } catch (error) {
       if (error instanceof Error) {
-        await logOut();
+        // await logOut();
         alert(`Error logging in: ${error.message}`);
       } else {
         alert("An unknown error occurred.");
