@@ -102,6 +102,7 @@ export const logInWithEmailAndPassword = async (
     } else {
       alert("An unknown error occurred.");
     }
+    throw error;
   }
 };
 // ゲスト(匿名)でログイン(サインアップ)する用の関数

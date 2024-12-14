@@ -9,6 +9,7 @@ const configEnv = {
   port: process.env.PORT || 5050,
   mongoUri: process.env.MONGO_URI,
   serviceAccountKey: process.env.SERVICE_ACCOUNT_KEY,
+  NODE_ENV: process.env.NODE_ENV,
 };
 
 export default configEnv;

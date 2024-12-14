@@ -31,8 +31,8 @@ async function registerResult(
   }
 }
 
-// 結果をMongoDBから取得(マイページ表示用)
-async function getResultsByUserId(req: CustomAuthRequest) {
+// 指定ユーザーの全ての診断結果を全てDBから取得(マイページ用)
+async function getUserHistoryById(req: CustomAuthRequest) {
   try {
     const results = await resultsCollection
       .find({ userId: req.userId })
@@ -49,5 +49,22 @@ async function getResultsByUserId(req: CustomAuthRequest) {
     throw new Error("Failed to fetch results from DB");
   }
 }
+// 指定ユーザーの最新の診断結果を1件DBから取得(結果表示ページ用)
+async function getResultById(req: CustomAuthRequest) {
+  try {
+    const result = await resultsCollection.findOne(
+      { userId: req.userId },
+      { sort: { createdAt: -1 } }
+    );
 
-export { getResultsByUserId, registerResult };
+    if (!result) {
+      throw new Error("Failed to fetch result from DB");
+    }
+    return result;
+  } catch (error) {
+    console.error("Failed to get result with user ID", error);
+    throw new Error("Failed to fetch result from DB");
+  }
+}
+
+export { getUserHistoryById, registerResult, getResultById };

@@ -3,16 +3,18 @@
 import Link from "next/link";
 import React from "react";
 import { Alert, TextField } from "@mui/material";
-import TopBar from "../../components/TopBar";
-import LogInWithGoogleButton from "../../components/LogInWithGoogleButton";
-import useFormValidation from "../../hooks/useFormValidation";
-import { RegisterFormValues } from "../../interfaces/interfaces";
-import { registerValidationSchema } from "../../utils/validationSchema";
+import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
+import { verifyToken } from "@/api/api";
 import {
   logInWithAnonymous,
+  logOut,
   signUpWithEmailAndPassword,
-} from "../../services/firebase";
-import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
+} from "@/services/firebase";
+import { RegisterFormValues } from "@/interfaces/interfaces";
+import useFormValidation from "@/hooks/useFormValidation";
+import { registerValidationSchema } from "@/utils/validationSchema";
+import TopBar from "@/components/TopBar";
+import LogInWithGoogleButton from "@/components/LogInWithGoogleButton";
 
 const RegisterPage = () => {
   useCheckIsLoggedin("/questionnaire");
@@ -26,13 +28,19 @@ const RegisterPage = () => {
 
   // firebaseに入力情報を新規登録する
   const onSubmit = async (data: RegisterFormValues) => {
-    console.log(data);
-    const user = await signUpWithEmailAndPassword(
-      data.email,
-      data.password,
-      data.name
-    );
-    console.log(user);
+    try {
+      console.log(data);
+      await signUpWithEmailAndPassword(data.email, data.password, data.name);
+      await verifyToken();
+      console.log(`Token verified successfully.`);
+    } catch (error) {
+      if (error instanceof Error) {
+        await logOut();
+        alert(`Error logging in: ${error.message}`);
+      } else {
+        alert("An unknown error occurred.");
+      }
+    }
   };
 
   return (

@@ -3,17 +3,11 @@ import TopBar from "../../components/TopBar";
 import CautionInResult from "../../components/CautionInResult";
 import FocusTopPageHandler from "@/components/handlersComp/FocusTopPageHandler";
 import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
-// import { fetchUserLatestResult } from "@/services/fetchFromBackend";
+import { fetchUserLatestResult } from "@/services/fetchFromBackend";
 
 // 診断結果ページ
-const ResultPage = () => {
-  const result = {
-    missingNutrients: ["ビタミンC", "鉄分"],
-    recommendedFoods: ["オレンジ", "ほうれんそう"],
-    score: 75,
-  };
-
-  // const result = fetchUserLatestResult("/api/result");
+const ResultPage = async () => {
+  const result = await fetchUserLatestResult();
 
   return (
     <div>

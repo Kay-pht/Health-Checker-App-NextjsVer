@@ -2,16 +2,18 @@
 
 import React from "react";
 import Link from "next/link";
-import TopBar from "../../components/TopBar";
-import LogInWithGoogleButton from "../../components/LogInWithGoogleButton";
-import useFormValidation from "../../hooks/useFormValidation";
-import { loginValidationSchema, UserAuth } from "../../utils/validationSchema";
+import { Alert, TextField } from "@mui/material";
+import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
+import { verifyToken } from "@/api/api";
+import useFormValidation from "@/hooks/useFormValidation";
+import { loginValidationSchema, UserAuth } from "@/utils/validationSchema";
 import {
   logInWithAnonymous,
   logInWithEmailAndPassword,
-} from "../../services/firebase";
-import { Alert, TextField } from "@mui/material";
-import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
+  logOut,
+} from "@/services/firebase";
+import TopBar from "@/components/TopBar";
+import LogInWithGoogleButton from "@/components/LogInWithGoogleButton";
 
 // ログインページ
 const LoginPage = () => {
@@ -26,9 +28,19 @@ const LoginPage = () => {
 
   // 入力情報(メアド・パスワード)をfirebaseで確認
   const onSubmit = async (data: UserAuth) => {
-    const userInfo = await logInWithEmailAndPassword(data.email, data.password);
-    // TODO:初回ログイン時の検証
-    console.log(`User logged in:${userInfo}`);
+    try {
+      await logInWithEmailAndPassword(data.email, data.password);
+      // TODO:初回ログイン時の検証
+      await verifyToken();
+      console.log(`Token verified successfully.`);
+    } catch (error) {
+      if (error instanceof Error) {
+        await logOut();
+        alert(`Error logging in: ${error.message}`);
+      } else {
+        alert("An unknown error occurred.");
+      }
+    }
   };
 
   return (
