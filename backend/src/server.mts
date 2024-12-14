@@ -14,15 +14,13 @@ env.config();
 const app = express();
 const { port } = configEnv;
 
-app.use(express.static("/app/dist/frontend"));
-
 app.use(express.json());
 
 // ルーティング
 app.post("/api/completion", firebaseAuthMiddleware, postChatCompletion);
+app.get("/api/auth", firebaseAuthMiddleware, getAuthToken);
 app.get("/api/result", firebaseAuthMiddleware, getResult);
 app.get("/api/mypage", firebaseAuthMiddleware, getMyPage);
-app.get("/api/auth", firebaseAuthMiddleware, getAuthToken);
 
 // 上記以外のルートはindex.htmlを返す
 app.get("*", (req: Request, res: Response) => {
