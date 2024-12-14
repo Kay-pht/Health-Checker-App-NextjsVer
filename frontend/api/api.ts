@@ -72,3 +72,23 @@ export const postAnswersFunc = async ({
     throw error;
   }
 };
+
+// 認証完了時にバックエンドに検証用にトークンを送付して、クッキーにトークンをセットする関数
+export const verifyToken = async (token: string) => {
+  try {
+    const response = await fetch("/api/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to verify token");
+    }
+    return response;
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    throw error;
+  }
+};

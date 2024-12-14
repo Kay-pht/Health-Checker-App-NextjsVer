@@ -19,3 +19,4 @@ export const fetchUserLatestResult = async (url: string) => {
   const response = await fetchResult(url, token);
   return response;
 };
+

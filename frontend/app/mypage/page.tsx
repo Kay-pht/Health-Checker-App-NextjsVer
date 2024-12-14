@@ -1,33 +1,35 @@
+"use client";
+
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import { DBResultType } from "../../interfaces/interfaces";
 // import { logOut } from "@/services/firebase";
-// import fetchUserHistoryData from "@/services/fetchUserHistoryData";
 import MyPageClientSideWrapper from "@/components/MyPageClientSideWrapper";
+import { fetchUserHistoryData } from "@/services/fetchFromBackend";
 
 const MyPage = async () => {
   // 過去の診断データをバックエンドから受け取る
-  // const data = await fetchUserHistoryData("/api/mypage");
-  const data: DBResultType[] = [
-    {
-      createdAt: new Date("2023-05-01"),
-      score: 75,
-      missingNutrients: ["ビタミンC", "鉄分"],
-      recommendedFoods: ["オレンジ", "ほうれん草"],
-    },
-    {
-      createdAt: new Date("2023-05-15"),
-      score: 82,
-      missingNutrients: ["カルシウム", "ビタミンD"],
-      recommendedFoods: ["牛乳", "サーモン"],
-    },
-    {
-      createdAt: new Date("2023-06-01"),
-      score: 90,
-      missingNutrients: ["食物繊維"],
-      recommendedFoods: ["玄米", "ブロッコリー"],
-    },
-  ];
+  const data = await fetchUserHistoryData("/api/mypage");
+  // const data: DBResultType[] = [
+  //   {
+  //     createdAt: new Date("2023-05-01"),
+  //     score: 75,
+  //     missingNutrients: ["ビタミンC", "鉄分"],
+  //     recommendedFoods: ["オレンジ", "ほうれん草"],
+  //   },
+  //   {
+  //     createdAt: new Date("2023-05-15"),
+  //     score: 82,
+  //     missingNutrients: ["カルシウム", "ビタミンD"],
+  //     recommendedFoods: ["牛乳", "サーモン"],
+  //   },
+  //   {
+  //     createdAt: new Date("2023-06-01"),
+  //     score: 90,
+  //     missingNutrients: ["食物繊維"],
+  //     recommendedFoods: ["玄米", "ブロッコリー"],
+  //   },
+  // ];
 
   // if (error) {
   //   setTimeout(async () => {
