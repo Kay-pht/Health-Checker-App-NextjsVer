@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "types": ["jest"],
     "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types"], // 修正箇所: 型定義ファイルのルートを指定
     "skipLibCheck": true
   },
   "include": ["src"]
