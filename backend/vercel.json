@@ -9,7 +9,7 @@
       }
     }
   ],
-  "rewrites": [
+  "routes": [
     {
       "src": "/(.*)",
       "dest": "dist/api/server.mjs"
