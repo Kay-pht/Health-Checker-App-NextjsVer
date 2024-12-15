@@ -21,6 +21,9 @@ app.post("/api/completion", firebaseAuthMiddleware, postChatCompletion);
 app.get("/api/auth", firebaseAuthMiddleware, getAuthToken);
 app.get("/api/result", firebaseAuthMiddleware, getResult);
 app.get("/api/mypage", firebaseAuthMiddleware, getMyPage);
+app.get("/", (req: Request, res: Response) => {
+  res.json("Hello, World! I'm running on Firebase Express Server.");
+});
 
 // 上記以外のルートはindex.htmlを返す
 app.get("*", (req: Request, res: Response) => {
