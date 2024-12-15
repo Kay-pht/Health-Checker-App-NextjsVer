@@ -30,8 +30,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).send("Something broke!");
 });
 
-app.listen(Number(port), () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+// app.listen(Number(port), () => {
+//   console.log(`Server is running at http://localhost:${port}`);
+// });
 
 export default app;
