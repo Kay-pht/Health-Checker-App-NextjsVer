@@ -2,7 +2,6 @@ import { configENV } from "./config";
 
 // 修正箇所: 設定オブジェクトを変数に代入
 const nextConfig = {
-  distDir: ".next",
   async rewrites() {
     return [
       {
