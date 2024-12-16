@@ -1,12 +1,13 @@
 import express, { NextFunction, Request, Response } from "express";
-import "../helpers/connectDB.mjs";
-import configEnv from "../configEnv.mjs";
-import { firebaseAuthMiddleware } from "../middlewares/firebaseAuthMiddleware.mjs";
-import postChatCompletion from "../handlers/postChatCompletion.mjs";
-import getMyPage from "../handlers/getMyPage.mjs";
+import "./helpers/connectDB.mjs";
+import configEnv from "./configEnv.mjs";
+import { firebaseAuthMiddleware } from "./middlewares/firebaseAuthMiddleware.mjs";
+import postChatCompletion from "./handlers/postChatCompletion.mjs";
+import getMyPage from "./handlers/getMyPage.mjs";
 import env from "dotenv";
-import getAuthToken from "../handlers/getAuthToken.mjs";
-import getResult from "../handlers/getResult.mjs";
+import getAuthToken from "./handlers/getAuthToken.mjs";
+import getResult from "./handlers/getResult.mjs";
+import cors from "cors";
 
 // .envファイルの内容をprocess.envにロード
 env.config();
@@ -14,6 +15,8 @@ env.config();
 const app = express();
 const { port } = configEnv;
 
+//TODO:特定のオリジンからのリクエストのみを許可する
+app.use(cors());
 app.use(express.json());
 
 // ルーティング

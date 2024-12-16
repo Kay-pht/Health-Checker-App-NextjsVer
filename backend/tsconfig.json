@@ -6,11 +6,11 @@
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "resolveJsonModule": true,
-    // "types": ["jest"],
+    "types": ["jest"],
     "moduleResolution": "node",
-    // "typeRoots": ["./node_modules/@types"], // 修正箇所: 型定義ファイルのルートを指定
-    "skipLibCheck": true
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src"]
 }
