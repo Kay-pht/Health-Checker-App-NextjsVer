@@ -4,10 +4,11 @@ import { DBResultType } from "../../interfaces/interfaces";
 // import { logOut } from "@/services/firebase";
 import MyPageClientSideWrapper from "@/components/MyPageClientSideWrapper";
 import { fetchUserHistoryData } from "@/services/fetchFromBackend";
+import { GetServerSideProps } from "next";
 
-const MyPage = async () => {
+const MyPage = async ({ data }: { data: DBResultType[] }) => {
   // 過去の診断データをバックエンドから受け取る
-  const data = await fetchUserHistoryData();
+  // const data = await fetchUserHistoryData();
 
   // if (error) {
   //   setTimeout(async () => {
@@ -83,6 +84,15 @@ const MyPage = async () => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await fetchUserHistoryData();
+  return {
+    props: {
+      data,
+    },
+  };
 };
 
 export default MyPage;

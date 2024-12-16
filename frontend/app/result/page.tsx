@@ -4,10 +4,12 @@ import CautionInResult from "../../components/CautionInResult";
 import FocusTopPageHandler from "@/components/handlersComp/FocusTopPageHandler";
 import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
 import { fetchUserLatestResult } from "@/services/fetchFromBackend";
+import { GetServerSideProps } from "next";
+import { ResultType } from "@/interfaces/interfaces";
 
 // 診断結果ページ
-const ResultPage = async () => {
-  const result = await fetchUserLatestResult();
+const ResultPage = async ({ result }: { result: ResultType }) => {
+  // const result = await fetchUserLatestResult();
 
   return (
     <div>
@@ -55,6 +57,16 @@ const ResultPage = async () => {
       </div>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const result = await fetchUserLatestResult();
+
+  return {
+    props: {
+      result,
+    },
+  };
 };
 
 export default ResultPage;
