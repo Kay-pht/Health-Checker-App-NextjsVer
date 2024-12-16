@@ -2,12 +2,10 @@ import { Request, Response } from "express";
 import { getTokenFromRequest } from "../middlewares/firebaseAuthMiddleware.mjs";
 import configEnv from "../configEnv.mjs";
 
-// TODO:verify token and set it in cookie
 // tokenをcookieに格納する
 const getAuthToken = async (req: Request, res: Response) => {
-  // 修正箇所
   try {
-    // トークンの検証（この部分は実際の認証ロジックに置き換える必要があります）
+    // トークンの検証
     const authHeader = req.headers.authorization;
     const token = getTokenFromRequest(authHeader);
 

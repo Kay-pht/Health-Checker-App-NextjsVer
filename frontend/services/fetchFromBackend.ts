@@ -29,11 +29,13 @@ export const fetchUserLatestResult = async () => {
 };
 
 // Cookieからトークンを取り出す関数
-const getTokenFromCookie = async () => {
+export const getTokenFromCookie = async () => {
   const cookieStore = await cookies();
 
   const token = cookieStore.get("authToken")?.value;
+
   if (!token) {
+    console.error("Authentication token not found in cookies");
     throw new Error("Authentication token not found");
   }
   return token;

@@ -16,7 +16,12 @@ const app = express();
 const { port } = configEnv;
 
 //TODO:特定のオリジンからのリクエストのみを許可する
-app.use(cors());
+app.use(
+  cors({
+    origin: configEnv.frontendBaseUrl, // 許可するオリジンを指定
+    credentials: true, // クッキーを含むリクエストを許可
+  })
+);
 app.use(express.json());
 
 // ルーティング

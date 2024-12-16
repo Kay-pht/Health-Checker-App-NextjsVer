@@ -88,10 +88,12 @@ export const verifyToken = async () => {
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error("Failed to verify token");
     }
+
     return response;
   } catch (error) {
     console.error("Error verifying token:", error);

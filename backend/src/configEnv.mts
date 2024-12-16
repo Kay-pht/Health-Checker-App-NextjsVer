@@ -10,6 +10,7 @@ const configEnv = {
   mongoUri: process.env.MONGO_URI,
   serviceAccountKey: process.env.SERVICE_ACCOUNT_KEY,
   NODE_ENV: process.env.NODE_ENV,
+  frontendBaseUrl: process.env.FRONTEND_BASE_URL,
 };
 
 export default configEnv;
