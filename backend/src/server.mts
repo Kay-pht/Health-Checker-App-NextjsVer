@@ -18,7 +18,10 @@ const { port } = configEnv;
 //TODO:特定のオリジンからのリクエストのみを許可する
 app.use(
   cors({
-    origin: configEnv.frontendBaseUrl, // 許可するオリジンを指定
+    origin:
+      configEnv.NODE_ENV === "production"
+        ? configEnv.frontendBaseUrl
+        : "http://localhost:3000", // 許可するオリジンを指定
     credentials: true, // クッキーを含むリクエストを許可
   })
 );
@@ -40,6 +43,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Cors enabled for ${configEnv.frontendBaseUrl} origin.`);
 });
 
 export default app;

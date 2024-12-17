@@ -18,6 +18,8 @@ WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
 
+# .envファイルをコピー
+COPY .env .env
 
 # バックエンドのサーバーを起動
 WORKDIR /app/dist

@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://health-checker-app-nextjs-ver.vercel.app/"
+      "destination": "https://z6pnvkmhmc.ap-northeast-1.awsapprunner.com"
     }
   ],
   "cleanUrls": true,
