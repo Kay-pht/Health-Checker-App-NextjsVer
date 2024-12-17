@@ -1,4 +1,4 @@
-import { verifyToken } from "@/api/api";
+import { verifyToken } from "@/services/api";
 import { auth, getToken, saveTokenInStorage } from "@/services/firebase";
 import { User } from "firebase/auth";
 import { useRouter } from "next/navigation";

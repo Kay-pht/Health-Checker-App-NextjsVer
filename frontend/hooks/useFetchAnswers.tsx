@@ -1,6 +1,6 @@
 import { FetchAnswersFromAIType } from "../interfaces/interfaces";
 import { getStoredToken } from "../services/firebase";
-import { postAnswersFunc } from "../api/api";
+import { postAnswersFunc } from "../services/api";
 import { useRouter } from "next/navigation";
 
 //ユーザー回答をバックエンドに投げて、AIによる診断結果(レス)を表示するフック

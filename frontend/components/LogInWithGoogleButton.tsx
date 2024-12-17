@@ -6,7 +6,7 @@ import {
   saveTokenInStorage,
 } from "../services/firebase";
 import { registerProps } from "../interfaces/interfaces";
-import { verifyToken } from "@/api/api";
+import { verifyToken } from "@/services/api";
 
 const LogInWithGoogleButton = ({ register }: registerProps) => {
   const signInWithGoogle = async () => {

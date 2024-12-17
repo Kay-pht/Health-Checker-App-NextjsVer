@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
-import { verifyToken } from "@/api/api";
+import { verifyToken } from "@/services/api";
 import {
   logInWithAnonymous,
   logOut,

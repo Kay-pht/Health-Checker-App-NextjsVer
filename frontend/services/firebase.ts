@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { firebaseConfig } from "../config";
-import { verifyToken } from "@/api/api";
+import { verifyToken } from "@/services/api";
 
 const app = initializeApp(firebaseConfig);
 

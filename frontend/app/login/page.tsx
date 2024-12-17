@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
-import { verifyToken } from "@/api/api";
+import { verifyToken } from "@/services/api";
 import useFormValidation from "@/hooks/useFormValidation";
 import { loginValidationSchema, UserAuth } from "@/utils/validationSchema";
 import {
@@ -14,7 +14,6 @@ import {
 } from "@/services/firebase";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/LogInWithGoogleButton";
-
 
 // ログインページ
 const LoginPage = () => {
