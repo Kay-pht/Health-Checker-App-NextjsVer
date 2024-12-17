@@ -1,4 +1,6 @@
-import { auth } from "@/services/firebase";
+import { verifyToken } from "@/api/api";
+import { auth, getToken, saveTokenInStorage } from "@/services/firebase";
+import { User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -7,9 +9,21 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export const useCheckIsLoggedin = (loginPath: string) => {
   const router = useRouter();
   const [user] = useAuthState(auth);
+
+  const verifyUser = async (user: User) => {
+    try {
+      await getToken(user);
+      await saveTokenInStorage(user);
+      await verifyToken();
+      router.push(loginPath);
+    } catch {
+      return;
+    }
+  };
+
   useEffect(() => {
     if (user) {
-      router.push(loginPath);
+      verifyUser(user);
     }
     //pathとrouterを依存配列から除外
   }, [user]);
@@ -19,9 +33,22 @@ export const useCheckIsLoggedin = (loginPath: string) => {
 export const useUserIsLoggedin = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
+
+  const verifyUser = async (user: User) => {
+    try {
+      await getToken(user);
+      await saveTokenInStorage(user);
+      await verifyToken();
+    } catch {
+      return;
+    }
+  };
+
   useEffect(() => {
     if (!user) {
       router.push("/login");
+    } else {
+      verifyUser(user);
     }
     //pathとrouterを依存配列から除外
   }, [user]);

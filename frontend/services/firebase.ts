@@ -68,7 +68,6 @@ export const signUpWithEmailAndPassword = async (
     });
     await saveTokenInStorage(user);
     await sendEmailVerification(user);
-
     console.log("User signed up successfully with name!");
     return user;
   } catch (error) {
