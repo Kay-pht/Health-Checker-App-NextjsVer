@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import CautionInResult from "../../components/CautionInResult";

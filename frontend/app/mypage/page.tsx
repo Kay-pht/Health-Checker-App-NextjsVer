@@ -1,7 +1,8 @@
+export const dynamic = "force-dynamic";
+
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import { DBResultType } from "../../interfaces/interfaces";
-// import { logOut } from "@/services/firebase";
 import MyPageClientSideWrapper from "@/components/MyPageClientSideWrapper";
 import { fetchUserHistoryData } from "@/services/fetchFromBackend";
 
