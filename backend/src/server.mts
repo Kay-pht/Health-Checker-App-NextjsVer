@@ -16,12 +16,19 @@ const app = express();
 const { port } = configEnv;
 
 //TODO:特定のオリジンからのリクエストのみを許可する
+// app.use(
+//   cors({
+//     origin:
+//       configEnv.NODE_ENV === "production"
+//         ? configEnv.frontendBaseUrl
+//         : "http://localhost:3000", // 許可するオリジンを指定
+//     credentials: true, // クッキーを含むリクエストを許可
+//   })
+// );
+
 app.use(
   cors({
-    origin:
-      configEnv.NODE_ENV === "production"
-        ? configEnv.frontendBaseUrl
-        : "http://localhost:3000", // 許可するオリジンを指定
+    origin: true, // 修正箇所: 全てのオリジンを許可
     credentials: true, // クッキーを含むリクエストを許可
   })
 );
