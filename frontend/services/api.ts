@@ -7,13 +7,13 @@ export const fetchHistoryData = async (token: string) => {
   try {
     // トークンをヘッダーに載せてバックエンドに送付(検証用)
     // レスとしてこれまでの診断データ(from DB)を送ってもらう
-    console.log("path", configENV.baseUrl);
     const response = await fetch(`${configENV.baseUrl}/api/mypage`, {
       method: "GET",
       headers: {
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
+      credentials: "include",
       cache: "no-cache",
       next: { revalidate: 0 },
     });
@@ -39,6 +39,7 @@ export const fetchResult = async (token: string) => {
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
+      credentials: "include",
       cache: "no-cache",
       next: { revalidate: 0 },
     });
@@ -65,6 +66,7 @@ export const postAnswersFunc = async ({
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(submittedAnswer),
     });
     if (!response.ok) {

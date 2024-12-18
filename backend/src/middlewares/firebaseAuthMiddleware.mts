@@ -23,7 +23,7 @@ export const firebaseAuthMiddleware = async (
     next();
   } catch (error) {
     console.error("Error verifying ID token:", error);
-    res.status(403).json({ error: "Invalid token" });
+    res.status(403).json({ error: "Invalid IDtoken" });
   }
 };
 
