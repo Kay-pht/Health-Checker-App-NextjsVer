@@ -13,6 +13,7 @@ export const fetchUserHistoryData = async () => {
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);
+    throw error;
   }
 };
 
@@ -25,6 +26,7 @@ export const fetchUserLatestResult = async () => {
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);
+    throw error;
   }
 };
 
