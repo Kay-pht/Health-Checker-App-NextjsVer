@@ -5,7 +5,7 @@ import configEnv from "../configEnv.mjs";
 // tokenをcookieに格納する
 const getAuthToken = async (req: Request, res: Response) => {
   try {
-    // トークンの検証
+    // トークンの取得
     const authHeader = req.headers.authorization;
     const token = getTokenFromRequest(authHeader);
 
@@ -14,8 +14,9 @@ const getAuthToken = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: configEnv.NODE_ENV === "production",
       path: "/",
-      maxAge: 3600000, // 1時間
-      sameSite: "none", // SameSite cookies を無効化
+      maxAge: 3600000,
+      sameSite: "none",
+      domain: ".vercel.app",
     });
 
     res
