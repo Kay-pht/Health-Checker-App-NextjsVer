@@ -38,7 +38,7 @@ export const getTokenFromCookie = async () => {
 
   if (!token) {
     console.error("Authentication token not found in cookies");
-    throw new Error("Authentication token not found");
+    throw new Error("Authentication token not found in cookies");
   }
   return token;
 };

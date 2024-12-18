@@ -15,6 +15,7 @@ const getAuthToken = async (req: Request, res: Response) => {
       secure: configEnv.NODE_ENV === "production",
       path: "/",
       maxAge: 3600000, // 1時間
+      sameSite: "none", // SameSite cookies を無効化
     });
 
     res
