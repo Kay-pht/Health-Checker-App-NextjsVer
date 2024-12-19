@@ -99,6 +99,6 @@ export const verifyToken = async () => {
     return response;
   } catch (error) {
     console.error("Error verifying token:", error);
-    throw error;
+    throw new Error("Failed to verify token");
   }
 };

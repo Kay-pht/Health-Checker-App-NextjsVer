@@ -28,16 +28,18 @@ export const getToken = async (user: User) => {
     return token;
   } catch (error) {
     console.error("Error getting token:", error);
+    throw new Error("Failed to get token");
   }
 };
 
 //トークンを取得して、sessionStorageに保存する用の関数
 export const saveTokenInStorage = async (user: User) => {
-  const token = await getToken(user);
-  if (token) {
+  try {
+    const token = await getToken(user);
     sessionStorage.setItem("authToken", token);
-  } else {
-    throw new Error("User is not authenticated");
+  } catch (error) {
+    console.error("Error saving token in storage:", error);
+    throw new Error("Failed to save token in storage");
   }
 };
 
@@ -71,11 +73,12 @@ export const signUpWithEmailAndPassword = async (
     console.log("User signed up successfully with name!");
     return user;
   } catch (error) {
-    if (error instanceof Error) {
-      alert(`Error creating user: ${error.message}`);
-    } else {
-      alert("An unknown error occurred.");
-    }
+    console.error("Error creating user:", error);
+    alert(
+      `Error creating user: ${
+        error instanceof Error ? error.message : "An unknown error occurred."
+      }`
+    );
   }
 };
 
@@ -116,12 +119,13 @@ export const logInWithAnonymous = async () => {
 
     return user;
   } catch (error) {
-    if (error instanceof Error) {
-      alert(`Error logging in anonymously: ${error.message}`);
-    } else {
-      alert("An unknown error occurred.");
-    }
-    logOut();
+    console.error("Error logging in anonymously:", error);
+    alert(
+      `Error logging in anonymously: ${
+        error instanceof Error ? error.message : "An unknown error occurred."
+      }`
+    );
+    await logOut();
   }
 };
 // ログアウト用の関数
