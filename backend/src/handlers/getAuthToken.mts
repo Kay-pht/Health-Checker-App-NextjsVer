@@ -16,7 +16,7 @@ const getAuthToken = async (req: Request, res: Response) => {
       path: "/",
       maxAge: 3600000,
       sameSite: "none",
-      domain: ".vercel.app",
+      domain: ".healthchecker.app",
     });
 
     res
