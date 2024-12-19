@@ -28,7 +28,7 @@ const { port } = configEnv;
 
 app.use(
   cors({
-    origin: configEnv.frontendBaseUrl, // 修正箇所: 全てのオリジンを許可
+    origin: true, // 修正箇所: 全てのオリジンを許可
     credentials: true, // クッキーを含むリクエストを許可
   })
 );
