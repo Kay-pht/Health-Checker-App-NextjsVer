@@ -62,7 +62,7 @@ const QuestionBlockComp = ({
                         }
                         label={freq.value}
                         labelPlacement="bottom"
-                        className="block mb-2 text-sm text-gray-600 cursor-pointer font-bold"
+                        className="block mb-2 text-sm text-gray-600 cursor-pointer font-bold transition-transform transform hover:scale-105"
                         sx={{
                           "& .MuiFormControlLabel-label": {
                             fontSize: "1rem",

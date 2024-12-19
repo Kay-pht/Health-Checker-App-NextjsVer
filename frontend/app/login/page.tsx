@@ -13,7 +13,7 @@ import {
   logOut,
 } from "@/services/firebase";
 import TopBar from "@/components/TopBar";
-import LogInWithGoogleButton from "@/components/LogInWithGoogleButton";
+import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
 
 // ログインページ
 const LoginPage = () => {
@@ -89,7 +89,7 @@ const LoginPage = () => {
             <div className="flex flex-col  items-center">
               <button
                 type="submit"
-                className="w-full p-2 text-lg font-bold bg-blue-500 text-white rounded mt-2 hover:bg-blue-600 transition-colors"
+                className="w-full p-2 text-lg font-bold bg-blue-600 text-white rounded mt-2 hover:bg-blue-700 transition transform hover:scale-105"
               >
                 ログイン
               </button>
@@ -97,19 +97,19 @@ const LoginPage = () => {
               <button
                 type="button"
                 onClick={logInWithAnonymous}
-                className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition-colors"
+                className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition transform hover:scale-105"
               >
                 ゲストとしてログイン
               </button>
               <p className="mt-4">
                 新規登録は
-                <Link href="/register" className="text-blue-500">
+                <Link href="/register" className="text-blue-600 font-semibold">
                   こちら
                 </Link>
               </p>
               <p>
                 パスワードを忘れた方は
-                <Link href="/forget" className="text-blue-500">
+                <Link href="/forget" className="text-blue-600 font-semibold">
                   こちら
                 </Link>
               </p>

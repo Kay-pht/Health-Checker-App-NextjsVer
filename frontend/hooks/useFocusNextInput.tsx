@@ -17,7 +17,9 @@ const useFocusNextInput = ({
       firstUnansweredIndex !== -1 &&
       inputRefs.current[firstUnansweredIndex]
     ) {
-      inputRefs.current[firstUnansweredIndex]?.focus();
+      const element = inputRefs.current[firstUnansweredIndex];
+      element.focus();
+      element.scrollIntoView({ block: "center", behavior: "smooth" });
     }
     // ここのエラーは看過OKか?
     //inputRefsとuserAnswersは同じところを参照しているので、両方を含めないほうが良さそう

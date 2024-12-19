@@ -7,8 +7,9 @@ const NextPageButton = () => {
   const { pageUpHandler } = usePageHandler();
   return (
     <button
-      className="w-24 text-center bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition-transform transform hover:scale-105 ml-auto"
+      className="w-24 text-center bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 ml-auto"
       onClick={pageUpHandler}
+      aria-label="Next page"
     >
       <KeyboardDoubleArrowRightRoundedIcon />
     </button>

@@ -57,13 +57,13 @@ const ForgetPasswordPage = () => {
             <div className="flex flex-col items-center">
               <button
                 type="submit"
-                className="w-full p-2 text-lg font-bold bg-blue-500 text-white rounded mt-2 hover:bg-blue-600 transition-colors"
+                className="w-full p-2 text-lg font-bold bg-blue-600 text-white rounded mt-2 hover:bg-blue-700 transition transform hover:scale-105"
               >
                 送信
               </button>
               <p className="mt-4">
                 アカウントをお持ちでない場合は
-                <Link href="/register" className="text-blue-500">
+                <Link href="/register" className="text-blue-600 font-semibold">
                   新規登録
                 </Link>
               </p>

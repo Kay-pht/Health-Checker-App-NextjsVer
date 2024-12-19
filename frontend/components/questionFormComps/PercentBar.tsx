@@ -29,7 +29,8 @@ const PercentBar: React.FC<PercentBarProps> = ({ percent }) => {
           minWidth: "auto",
           minHeight: "auto",
           transition: "all",
-          color: "#787F8D",
+          color: "#50575F",
+          fontWeight: "600",
         }}
       >
         {percent}%

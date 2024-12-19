@@ -14,7 +14,7 @@ import { RegisterFormValues } from "@/interfaces/interfaces";
 import useFormValidation from "@/hooks/useFormValidation";
 import { registerValidationSchema } from "@/utils/validationSchema";
 import TopBar from "@/components/TopBar";
-import LogInWithGoogleButton from "@/components/LogInWithGoogleButton";
+import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
 
 const RegisterPage = () => {
   useCheckIsLoggedin("/questionnaire");
@@ -117,7 +117,7 @@ const RegisterPage = () => {
             <div className="flex flex-col items-center">
               <button
                 type="submit"
-                className="w-full p-2 text-lg font-bold bg-blue-500 text-white rounded mt-2 hover:bg-blue-600 transition-colors"
+                className="w-full p-2 text-lg font-bold bg-blue-600 text-white rounded mt-2 hover:bg-blue-700 transition transform hover:scale-105"
               >
                 新規登録
               </button>
@@ -125,13 +125,13 @@ const RegisterPage = () => {
               <button
                 type="button"
                 onClick={logInWithAnonymous}
-                className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition-colors"
+                className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition transform hover:scale-105"
               >
                 ゲストとしてログイン
               </button>
               <p className="mt-4">
                 アカウントを持っている方は
-                <Link href="/login" className="text-blue-500">
+                <Link href="/login" className="text-blue-600 font-semibold">
                   ログイン
                 </Link>
               </p>

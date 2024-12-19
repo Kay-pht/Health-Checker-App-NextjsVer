@@ -12,9 +12,13 @@ import { useFocusTopComp } from "../../hooks/useFocusPageTop";
 import usePageHandler from "../../hooks/usePageHandler";
 import { foodQueryPages } from "../../utils/queryData";
 import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
+import { CircularProgress } from "@mui/material";
+import { useState } from "react";
 
 // 質問フォームの親コンポーネント
 const QuestionFormPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   //ユーザーの回答を記録するロジック
   const { userAnswers, getAnswersInEachPage } = useGetUserAnswers();
 
@@ -33,12 +37,13 @@ const QuestionFormPage = () => {
       <TopBar />
       <div className="max-w-4xl mx-auto p-5 bg-gray-100 shadow-md">
         <form
-          onSubmit={(e) =>
+          onSubmit={(e) => {
+            setIsSubmitting(true);
             fetchAnswers({
               e,
               userAnswers,
-            })
-          }
+            }).finally(() => setIsSubmitting(false));
+          }}
         >
           <h3 className="text-xl text-gray-700 mb-5 font-semibold text-center">
             以下の食材をどのくらいの頻度で食べるか教えてください！
@@ -64,7 +69,8 @@ const QuestionFormPage = () => {
           <div className="flex justify-between items-center mt-5">
             {currentPageNum > 1 && (
               <button
-                className="w-24 text-center bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition-transform transform hover:scale-105"
+                className="w-24 text-center bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 aria-label=
+                'Previous page'"
                 onClick={pageDownHandler}
               >
                 <KeyboardDoubleArrowLeftRoundedIcon />
@@ -73,14 +79,25 @@ const QuestionFormPage = () => {
             {currentPageNum === 5 && (
               <button
                 className="w-24 text-center bg-green-500 text-white font-bold py-2 rounded hover:bg-green-600 transition-transform transform hover:scale-105"
+                aria-label="Finish"
                 type="submit"
               >
-                Finish <SendRoundedIcon fontSize="inherit" />
+                Finish
+                {isSubmitting ? (
+                  <CircularProgress
+                    color="inherit"
+                    size={15}
+                    className="text-center items-center"
+                  />
+                ) : (
+                  <SendRoundedIcon fontSize="inherit" />
+                )}
               </button>
             )}
             {currentPageNum !== 5 && (
               <button
-                className="w-24 text-center bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition-transform transform hover:scale-105 ml-auto"
+                className="w-24 text-center bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 ml-auto"
+                aria-label="Next page"
                 onClick={pageUpHandler}
               >
                 <KeyboardDoubleArrowRightRoundedIcon />
