@@ -13,7 +13,7 @@ const ResultPage = async () => {
 
   return (
     <div>
-      <UserIsLoggedinHandler path="/result" />
+      <UserIsLoggedinHandler />
       <FocusTopPageHandler />
       <TopBar />
       <div className="p-6 bg-gray-100 min-h-screen">
@@ -21,9 +21,9 @@ const ResultPage = async () => {
           {result ? (
             <div className="result">
               <div className="font-semibold">
-                <h4 className="text-2xl font-bold  text-gray-900 mb-4 ">
+                <h1 className="text-2xl font-bold  text-gray-900 mb-4 ">
                   診断結果
-                </h4>
+                </h1>
                 <p className="text-lg mb-2 text-gray-700">
                   不足栄養素 :{" "}
                   <span className="font-semibold text-red-500">
@@ -32,13 +32,13 @@ const ResultPage = async () => {
                 </p>
                 <p className="text-lg mb-2 text-gray-700">
                   推奨食材 :{" "}
-                  <span className="font-semibold text-green-500">
+                  <span className="font-semibold text-green-600">
                     {result.recommendedFoods.join(", ")}
                   </span>
                 </p>
                 <p className="text-lg text-gray-700">
                   スコア :{" "}
-                  <span className="font-semibold text-blue-500">
+                  <span className="font-semibold text-blue-600">
                     {result.score}
                   </span>
                 </p>

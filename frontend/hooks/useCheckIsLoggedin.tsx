@@ -39,7 +39,7 @@ export const useCheckIsLoggedin = (loginPath: string) => {
 };
 
 // 未ログイン時は/loginに遷移、ログイン時は遷移なし
-export const useUserIsLoggedin = (path: string) => {
+export const useUserIsLoggedin = () => {
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
 
@@ -48,7 +48,6 @@ export const useUserIsLoggedin = (path: string) => {
       await getToken(user);
       await saveTokenInStorage(user);
       await verifyToken();
-      router.push(path);
     } catch (error) {
       alert("Error verifying user, please log in again.");
       console.error("Error verifying user:", error);

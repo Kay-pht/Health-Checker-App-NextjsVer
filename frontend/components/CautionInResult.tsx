@@ -11,7 +11,7 @@ const CautionInResult = () => {
           <p className="font-bold mt-1">2. 診断結果の活用</p>
           <p>
             診断結果は、日常の食生活改善の
-            <span className="text-red-500 font-bold">あくまで参考程度</span>
+            <span className="text-red-600 font-bold">あくまで参考程度</span>
             にご利用ください。具体的な健康改善や治療を目的とする場合は、専門家の意見を求めることをお勧めします。
           </p>
           <p className="font-bold mt-1">3. プライバシーの保護</p>

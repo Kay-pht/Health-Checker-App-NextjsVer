@@ -2,8 +2,8 @@
 
 import { useUserIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 
-const UserIsLoggedinHandler = ({ path }: { path: string }) => {
-  useUserIsLoggedin(path);
+const UserIsLoggedinHandler = () => {
+  useUserIsLoggedin();
   return null;
 };
 

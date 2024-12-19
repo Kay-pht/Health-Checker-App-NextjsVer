@@ -33,7 +33,7 @@ const QuestionFormPage = () => {
 
   return (
     <div>
-      <UserIsLoggedinHandler path={"/questionnaire"} />
+      <UserIsLoggedinHandler />
       <TopBar />
       <div className="max-w-4xl mx-auto p-5 bg-gray-100 shadow-md">
         <form
