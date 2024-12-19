@@ -41,7 +41,7 @@ export const useCheckIsLoggedin = (loginPath: string) => {
 // 未ログイン時は/loginに遷移、ログイン時は遷移なし
 export const useUserIsLoggedin = (path: string) => {
   const router = useRouter();
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const verifyUser = async (user: User) => {
     try {
@@ -58,6 +58,7 @@ export const useUserIsLoggedin = (path: string) => {
   };
 
   useEffect(() => {
+    if (loading) return;
     if (!user) {
       router.push("/login");
     } else {
