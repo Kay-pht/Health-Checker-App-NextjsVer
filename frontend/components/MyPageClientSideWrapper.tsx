@@ -7,7 +7,7 @@ import UserIsLoggedinHandler from "./handlersComp/UserIsLoggedinHandler";
 const MyPageClientSideWrapper = () => {
   return (
     <>
-      <UserIsLoggedinHandler />
+      <UserIsLoggedinHandler path="/mypage" />
       <FocusTopPageHandler />
     </>
   );

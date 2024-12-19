@@ -13,7 +13,7 @@ const ResultPage = async () => {
 
   return (
     <div>
-      <UserIsLoggedinHandler />
+      <UserIsLoggedinHandler path="/result" />
       <FocusTopPageHandler />
       <TopBar />
       <div className="p-6 bg-gray-100 min-h-screen">
