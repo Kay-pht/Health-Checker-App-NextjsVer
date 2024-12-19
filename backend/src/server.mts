@@ -28,10 +28,11 @@ const { port } = configEnv;
 
 app.use(
   cors({
-    origin: true, // 修正箇所: 全てのオリジンを許可
+    origin: configEnv.frontendBaseUrl, // 修正箇所: 全てのオリジンを許可
     credentials: true, // クッキーを含むリクエストを許可
   })
 );
+
 app.use(express.json());
 
 // ルーティング
@@ -51,6 +52,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`Cors enabled for ${configEnv.frontendBaseUrl} origin.`);
+  console.log(`openAI API key: ${configEnv.openaiApiKey} is set.`);
 });
 
 export default app;
