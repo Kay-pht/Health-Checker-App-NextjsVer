@@ -31,7 +31,8 @@ const QuestionBlockComp = ({
             <h3 className="text-xl text-gray-600 mt-3 pb-4 ml-2 text-center">
               {index + currentPageNum * 5 - 4}.{query.value}
             </h3>
-            <div className="flex justify-center space-x-10 mt-5 mb-5">
+            <div className="flex justify-center mt-5 mb-5 md:space-x-10 sm:space-x-0">
+              {" "}
               {
                 // map関数で頻度ごとにラジオボタンを作成
                 frequencyArray.map((freq) => (
@@ -67,6 +68,9 @@ const QuestionBlockComp = ({
                           "& .MuiFormControlLabel-label": {
                             fontSize: "1rem",
                             fontWeight: "bold",
+                            "@media (max-width: 640px)": {
+                              fontSize: "0.8rem",
+                            },
                           },
                         }}
                       />

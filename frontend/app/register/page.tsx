@@ -29,7 +29,6 @@ const RegisterPage = () => {
   // firebaseに入力情報を新規登録する
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-      console.log(data);
       await signUpWithEmailAndPassword(data.email, data.password, data.name);
       await verifyToken();
       console.log(`Token verified successfully.`);

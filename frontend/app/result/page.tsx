@@ -26,19 +26,19 @@ const ResultPage = async () => {
                 </h1>
                 <p className="text-lg mb-2 text-gray-700">
                   不足栄養素 :{" "}
-                  <span className="font-semibold text-red-500">
+                  <span className="font-bold text-red-500">
                     {result.missingNutrients.join(", ")}
                   </span>
                 </p>
                 <p className="text-lg mb-2 text-gray-700">
                   推奨食材 :{" "}
-                  <span className="font-semibold text-green-600">
+                  <span className="font-bold text-green-500">
                     {result.recommendedFoods.join(", ")}
                   </span>
                 </p>
                 <p className="text-lg text-gray-700">
                   スコア :{" "}
-                  <span className="font-semibold text-blue-600">
+                  <span className="font-bold text-blue-600">
                     {result.score}
                   </span>
                 </p>
