@@ -43,6 +43,16 @@ export const useUserIsLoggedin = () => {
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
 
+  useEffect(() => {
+    if (loading) return;
+    if (!user) {
+      router.push("/login");
+    } else {
+      verifyUser(user);
+    }
+    //pathとrouterを依存配列から除外
+  }, [user]);
+
   const verifyUser = async (user: User) => {
     try {
       await getToken(user);
@@ -55,14 +65,4 @@ export const useUserIsLoggedin = () => {
       return;
     }
   };
-
-  useEffect(() => {
-    if (loading) return;
-    if (!user) {
-      router.push("/login");
-    } else {
-      verifyUser(user);
-    }
-    //pathとrouterを依存配列から除外
-  }, [user]);
 };
