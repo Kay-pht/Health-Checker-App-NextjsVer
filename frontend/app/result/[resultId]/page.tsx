@@ -9,7 +9,7 @@ import { fetchUserLatestResult } from "@/services/fetchFromBackend";
 
 // 診断結果ページ
 const ResultPage = async ({ params }: { params: { resultId: string } }) => {
-  const { resultId } = await params;
+  const { resultId } = params;
   const result = await fetchUserLatestResult(resultId);
 
   return (
