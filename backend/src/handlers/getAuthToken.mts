@@ -16,10 +16,7 @@ const getAuthToken = async (req: Request, res: Response) => {
       path: "/",
       maxAge: 3600000, // 1 hour
       sameSite: "none",
-      domain:
-        configEnv.NODE_ENV === "production"
-          ? configEnv.frontendDomain
-          : "localhost",
+      domain: ".healthchecker.app",
     });
 
     res

@@ -16,20 +16,14 @@ const app = express();
 const { port } = configEnv;
 
 //TODO:特定のオリジンからのリクエストのみを許可する
-// app.use(
-//   cors({
-//     origin:
-//       configEnv.NODE_ENV === "production"
-//         ? configEnv.frontendBaseUrl
-//         : "http://localhost:3000", // 許可するオリジンを指定
-//     credentials: true, // クッキーを含むリクエストを許可
-//   })
-// );
-
 app.use(
   cors({
-    origin: true, // 修正箇所: 全てのオリジンを許可
+    origin: true,
+    // configEnv.NODE_ENV === "production"
+    //   ? configEnv.frontendBaseUrl
+    //   : "http://localhost:3000", // 許可するオリジンを指定
     credentials: true, // クッキーを含むリクエストを許可
+    methods: ["GET", "POST"],
   })
 );
 
@@ -51,6 +45,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
+  console.log(`NODE_ENV: ${configEnv.NODE_ENV}`);
+  console.log(`FRONTEND_DOMAIN: ${configEnv.frontendDomain}`);
 });
 
 export default app;
