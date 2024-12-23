@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import type {
   answerByChatGPTType,
@@ -24,14 +25,18 @@ async function registerResult(
     createdAt: timestamp,
   };
   try {
-    await resultsCollection.insertOne(result);
+    const registeredData = await resultsCollection.insertOne(result);
+    if (!registeredData) {
+      throw new Error("Failed to save result");
+    }
+    return registeredData.insertedId;
   } catch (error) {
     console.error("Failed to register result", error);
     throw new Error("Failed to save result");
   }
 }
 
-// 指定ユーザーの全ての診断結果を全てDBから取得(マイページ用)
+// 指定ユーザーの全ての診断結果をDBから取得(マイページ用)
 async function getUserHistoryById(req: CustomAuthRequest) {
   try {
     const results = await resultsCollection
@@ -49,14 +54,12 @@ async function getUserHistoryById(req: CustomAuthRequest) {
     throw new Error("Failed to fetch results from DB");
   }
 }
-// 指定ユーザーの最新の診断結果を1件DBから取得(結果表示ページ用)
-async function getResultById(req: CustomAuthRequest) {
+// 指定ユーザーの最新の診断結果を1件DBから取得(/resultページ用)
+async function getResultById(resultId: string) {
   try {
-    const result = await resultsCollection.findOne(
-      { userId: req.userId },
-      { sort: { createdAt: -1 } }
-    );
-
+    const result = await resultsCollection.findOne({
+      _id: new ObjectId(resultId),
+    });
     if (!result) {
       throw new Error("Failed to fetch result from DB");
     }

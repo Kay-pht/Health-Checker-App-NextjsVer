@@ -38,7 +38,7 @@ app.use(express.json());
 // ルーティング
 app.post("/api/completion", firebaseAuthMiddleware, postChatCompletion);
 app.get("/api/auth", firebaseAuthMiddleware, getAuthToken);
-app.get("/api/result", firebaseAuthMiddleware, getResult);
+app.get("/api/result/:resultId", firebaseAuthMiddleware, getResult);
 app.get("/api/mypage", firebaseAuthMiddleware, getMyPage);
 app.get("/", (req: Request, res: Response) => {
   res.json("Hello, World! I'm running on Firebase Express Server.");
@@ -51,8 +51,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
-  console.log(`Cors enabled for ${configEnv.frontendBaseUrl} origin.`);
-  console.log(`openAI API key: ${configEnv.openaiApiKey} is set.`);
 });
 
 export default app;

@@ -1,15 +1,16 @@
 export const dynamic = "force-dynamic";
 
 import { Box, CircularProgress } from "@mui/material";
-import TopBar from "../../components/TopBar";
-import CautionInResult from "../../components/CautionInResult";
+import TopBar from "../../../components/TopBar";
+import CautionInResult from "../../../components/CautionInResult";
 import FocusTopPageHandler from "@/components/handlersComp/FocusTopPageHandler";
 import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
 import { fetchUserLatestResult } from "@/services/fetchFromBackend";
 
 // 診断結果ページ
-const ResultPage = async () => {
-  const result = await fetchUserLatestResult();
+const ResultPage = async ({ params }: { params: { resultId: string } }) => {
+  const { resultId } = await params;
+  const result = await fetchUserLatestResult(resultId);
 
   return (
     <div>

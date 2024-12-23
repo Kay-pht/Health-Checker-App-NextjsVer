@@ -10,6 +10,7 @@ const configEnv = {
   serviceAccountKey: process.env.SERVICE_ACCOUNT_KEY,
   NODE_ENV: process.env.NODE_ENV,
   frontendBaseUrl: process.env.FRONTEND_BASE_URL,
+  frontendDomain: process.env.FRONTEND_DOMAIN,
 };
 
 export default configEnv;

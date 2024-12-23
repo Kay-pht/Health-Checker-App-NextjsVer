@@ -29,20 +29,23 @@ export const fetchHistoryData = async (token: string) => {
 };
 
 // ResultPageでユーザーの最新の診断結果を一件取得する関数
-export const fetchResult = async (token: string) => {
+export const fetchResult = async (token: string, resultId: string) => {
   try {
     // トークンをヘッダーに載せてバックエンドに送付(検証用)
     // レスとしてこれまでの診断データ(from DB)を送ってもらう
-    const response = await fetch(`${configENV.baseUrl}/api/result`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer:${token}`,
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      cache: "no-cache",
-      next: { revalidate: 0 },
-    });
+    const response = await fetch(
+      `${configENV.baseUrl}/api/result/${resultId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer:${token}`,
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        cache: "no-cache",
+        next: { revalidate: 0 },
+      }
+    );
     if (!response.ok) {
       throw new Error("Failed to fetch data from the server");
     }

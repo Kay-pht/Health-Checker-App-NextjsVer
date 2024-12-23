@@ -15,9 +15,9 @@ const useAIAnswerFetcher = () => {
     const token = getStoredToken();
 
     // 回答を送信し、診断結果をレスとして受け取る
-    await postAnswersFunc({ token, submittedAnswer });
-
-    router.push("/result");
+    const response = await postAnswersFunc({ token, submittedAnswer });
+    const { resultId } = await response.json();
+    router.push(`/result/${resultId}`);
   };
   return fetchAnswer;
 };

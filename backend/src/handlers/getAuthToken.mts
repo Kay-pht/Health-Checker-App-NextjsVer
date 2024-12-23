@@ -12,11 +12,14 @@ const getAuthToken = async (req: Request, res: Response) => {
     // クッキーの設定
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: configEnv.NODE_ENV === "production",
+      secure: true,
       path: "/",
-      maxAge: 3600000,
+      maxAge: 3600000, // 1 hour
       sameSite: "none",
-      domain: ".healthchecker.app",
+      domain:
+        configEnv.NODE_ENV === "production"
+          ? configEnv.frontendDomain
+          : "localhost",
     });
 
     res

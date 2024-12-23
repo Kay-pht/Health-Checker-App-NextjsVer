@@ -16,10 +16,11 @@ const postChatCompletion = async (req: Request, res: Response) => {
     const responseFromAI = await getChatCompletion(orderedAnswers);
     // JavaScriptのオブジェクトに変換してフロントに返却
     const parsedResponse = parseResponseFromAI(responseFromAI);
-    res.json(parsedResponse);
+    // res.json(parsedResponse);
 
     // 診断結果をDBに登録
-    await registerResult(req, parsedResponse);
+    const registeredDataId = await registerResult(req, parsedResponse);
+    res.json({ resultId: registeredDataId });
   } catch (error) {
     res.status(500).json({ error: "Failed to generate chat completion" });
     console.error("Something broken", error);

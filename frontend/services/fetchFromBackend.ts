@@ -18,11 +18,11 @@ export const fetchUserHistoryData = async () => {
 };
 
 // ResultPage
-export const fetchUserLatestResult = async () => {
+export const fetchUserLatestResult = async (resultId: string) => {
   try {
     const token = await getTokenFromCookie();
 
-    const response = await fetchResult(token);
+    const response = await fetchResult(token, resultId);
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);
