@@ -30,7 +30,6 @@ const LoginPage = () => {
   const onSubmit = async (data: UserAuth) => {
     try {
       await logInWithEmailAndPassword(data.email, data.password);
-      // TODO:初回ログイン時の検証
       await verifyToken();
 
       console.log(`Token verified successfully.`);

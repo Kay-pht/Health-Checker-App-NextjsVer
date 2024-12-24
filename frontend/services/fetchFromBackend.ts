@@ -1,8 +1,6 @@
 import { cookies } from "next/headers";
 import { fetchHistoryData, fetchResult } from "./api";
 
-// import { getStoredToken } from "./firebase";
-
 // MyPage
 export const fetchUserHistoryData = async () => {
   try {

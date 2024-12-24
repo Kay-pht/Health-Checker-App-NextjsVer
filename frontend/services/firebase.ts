@@ -95,14 +95,18 @@ export const logInWithEmailAndPassword = async (
     );
 
     const user = userCredential.user;
-    saveTokenInStorage(user);
+    await saveTokenInStorage(user);
 
     console.log("User logged in successfully!");
     return user;
   } catch (error) {
     if (error instanceof Error) {
+      await logOut();
+
       alert(`Error creating user: ${error.message}`);
     } else {
+      await logOut();
+
       alert("An unknown error occurred.");
     }
     throw error;
@@ -120,12 +124,12 @@ export const logInWithAnonymous = async () => {
     return user;
   } catch (error) {
     console.error("Error logging in anonymously:", error);
+    await logOut();
     alert(
       `Error logging in anonymously: ${
         error instanceof Error ? error.message : "An unknown error occurred."
       }`
     );
-    await logOut();
   }
 };
 // ログアウト用の関数
