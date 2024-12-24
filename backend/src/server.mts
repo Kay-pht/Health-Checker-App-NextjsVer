@@ -4,16 +4,12 @@ import configEnv from "./configEnv.mjs";
 import { firebaseAuthMiddleware } from "./middlewares/firebaseAuthMiddleware.mjs";
 import postChatCompletion from "./handlers/postChatCompletion.mjs";
 import getMyPage from "./handlers/getMyPage.mjs";
-import env from "dotenv";
 import getAuthToken from "./handlers/getAuthToken.mjs";
 import getResult from "./handlers/getResult.mjs";
 import cors from "cors";
 
-// .envファイルの内容をprocess.envにロード
-env.config();
-
 const app = express();
-const { port } = configEnv;
+const { port } = configEnv || 5050;
 
 //TODO:特定のオリジンからのリクエストのみを許可する
 app.use(

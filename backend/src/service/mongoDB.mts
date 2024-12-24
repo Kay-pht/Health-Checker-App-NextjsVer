@@ -9,14 +9,15 @@ import type {
 //結果のDB登録(AIからの診断結果を返却するとき)
 async function registerResult(
   req: CustomAuthRequest,
-  answerByChatGPT: answerByChatGPTType
+  answerByChatGPT: answerByChatGPTType,
+  timestamp: Date = new Date()
 ) {
   //   const errors = validationResult(req);
   //   if (!errors.isEmpty()) {
   //     const errs = errors.array();
   //     return res.status(400).json({ errors: errs });
   //   }
-  const timestamp = new Date();
+
   const result: Result = {
     userId: req.userId,
     recommendedFoods: answerByChatGPT.recommendedFoods,
@@ -44,6 +45,7 @@ async function getUserHistoryById(req: CustomAuthRequest) {
       .sort({
         createdAt: -1,
       })
+      .limit(20)
       .toArray();
     if (results.length === 0) {
       return [];

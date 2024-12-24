@@ -9,8 +9,8 @@ import {
   signInAnonymously,
   User,
   sendPasswordResetEmail,
+  GoogleAuthProvider,
 } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth";
 import { firebaseConfig } from "../config";
 import { verifyToken } from "@/services/api";
 

@@ -37,7 +37,7 @@ describe("registerResult", () => {
   });
 
   it("should register result successfully", async () => {
-    await registerResult(req, result);
+    await registerResult(req, result, new Date());
     const insertedResult = await resultsCollection.findOne({
       userId: req.userId,
     });
