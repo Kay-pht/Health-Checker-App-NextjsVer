@@ -12,7 +12,7 @@ const LandingPage = () => {
       <StartButton />
       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 shadow-md rounded-lg transform transition-transform hover:scale-105">
-          <FaQuestionCircle className="text-4xl text-blue-500 mb-4" />
+          <FaQuestionCircle className="text-4xl text-blue-600 mb-4" />
           <h2 className="text-2xl font-bold mb-2 text-gray-800">Step 1</h2>
           <p className="text-gray-600">3分で質問に答える！</p>
         </div>
