@@ -32,26 +32,6 @@ export const getToken = async (user: User) => {
   }
 };
 
-//トークンを取得して、sessionStorageに保存する用の関数
-// export const saveTokenInStorage = async (user: User) => {
-//   try {
-//     const token = await getToken(user);
-//     sessionStorage.setItem("authToken", token);
-//   } catch (error) {
-//     console.error("Error saving token in storage:", error);
-//     throw new Error("Failed to save token in storage");
-//   }
-// };
-
-// sessionStorageからトークンを取得
-// export const getStoredToken = () => {
-//   const token = sessionStorage.getItem("authToken");
-//   if (!token) {
-//     throw new Error("User is not authenticated");
-//   }
-//   return token;
-// };
-
 // メアド&パスワードでアカウント新規作成する用の関数
 export const signUpWithEmailAndPassword = async (
   email: string,

@@ -1,10 +1,17 @@
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
+import { User } from "firebase/auth";
 import { fetchHistoryData, fetchResult } from "./api";
+import { auth, getToken } from "./firebase";
 
 // MyPage
-export const fetchUserHistoryData = async () => {
+export const fetchUserHistoryData = async (user: User) => {
   try {
-    const token = await getTokenFromCookie();
+    // const user = auth.currentUser;
+    // if (!user) {
+    //   console.error("User not found");
+    //   throw new Error("User not found");
+    // }
+    const token = await getToken(user);
 
     // 過去の診断データをバックエンドから受け取る
     const response = await fetchHistoryData(token);
@@ -29,14 +36,14 @@ export const fetchUserLatestResult = async (resultId: string) => {
 };
 
 // Cookieからトークンを取り出す関数
-export const getTokenFromCookie = async () => {
-  const cookieStore = await cookies();
+// export const getTokenFromCookie = async () => {
+//   const cookieStore = await cookies();
 
-  const token = cookieStore.get("authToken")?.value;
+//   const token = cookieStore.get("authToken")?.value;
 
-  if (!token) {
-    console.error("Authentication token not found in cookies");
-    throw new Error("Authentication token not found in cookies");
-  }
-  return token;
-};
+//   if (!token) {
+//     console.error("Authentication token not found in cookies");
+//     throw new Error("Authentication token not found in cookies");
+//   }
+//   return token;
+// };

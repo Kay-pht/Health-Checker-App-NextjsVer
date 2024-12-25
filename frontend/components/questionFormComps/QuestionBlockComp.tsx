@@ -50,6 +50,7 @@ const QuestionBlockComp = ({
                             checked={userAnswers[query.key] === freq.key}
                             onChange={getAnswersInEachPage}
                             inputRef={(el) => (inputRefs.current[index] = el)}
+                            required
                             sx={{
                               "& .MuiSvgIcon-root": {
                                 fontSize: 40,

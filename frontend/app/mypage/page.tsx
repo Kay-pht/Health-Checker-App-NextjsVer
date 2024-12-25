@@ -1,13 +1,41 @@
-export const dynamic = "force-dynamic";
+"use client";
+// export const dynamic = "force-dynamic";
 
+import { useState, useEffect } from "react";
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import { DBResultType } from "../../interfaces/interfaces";
 import { fetchUserHistoryData } from "@/services/fetchFromBackend";
 import ClientHandlersWrapper from "@/components/handlersComp/ClientHandlersWrapper";
+import { auth } from "@/services/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-const MyPage = async () => {
-  const data = await fetchUserHistoryData();
+const MyPage = () => {
+  // const data = await fetchUserHistoryData();
+  const [data, setData] = useState<DBResultType[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  // const [user] = useAuthState(auth);
+  // const user = auth.currentUser;
+  const [user, loading] = useAuthState(auth);
+
+  useEffect(() => {
+    if (loading) return;
+    const fetchData = async () => {
+      try {
+        if (!user) {
+          setIsLoading(false);
+          throw new Error("User not found");
+        }
+        const res = await fetchUserHistoryData(user);
+        setData(res);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [user, loading]);
 
   return (
     <ClientHandlersWrapper>
@@ -15,7 +43,7 @@ const MyPage = async () => {
         <TopBar />
         <div className="p-6 bg-gray-100 min-h-screen">
           <h1 className="text-2xl font-bold mb-4">これまでの診断結果</h1>
-          {!data && (
+          {isLoading && (
             <div>
               <Box sx={{ display: "flex" }}>
                 <CircularProgress />

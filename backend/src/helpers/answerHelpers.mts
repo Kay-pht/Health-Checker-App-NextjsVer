@@ -12,12 +12,12 @@ function isUserAnswerFormatType(value: unknown): value is userAnswerFormatType {
 }
 
 // userの回答順で格納されているリクエストを、質問番号順に並べ替える関数
-function orderAnswers(answers: unknown) {
+function orderAnswers(answers: Record<string, string>) {
   // TODO:add request validation here
 
-  if (!isUserAnswerFormatType(answers)) {
-    throw new Error("Answers must be an object with string values");
-  }
+  // if (!isUserAnswerFormatType(answers)) {
+  //   throw new Error("Answers must be an object with string values");
+  // }
   const orderedAnswers: userAnswerFormatType = {};
   for (let i = 1; i <= Object.keys(answers).length; i++) {
     const key = `q${i}`;

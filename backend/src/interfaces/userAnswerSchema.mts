@@ -1,14 +1,23 @@
-// import { z } from "zod";
+import { z } from "zod";
 
-// TODO: ユーザー回答のバリデーションルールを決める
-
-// export const userAnswerSchema = z
-//   .object({
-//     groupName: z.string().min(1, "グループ名は必須です"),
-//     expenseName: z.string().min(1, "支出名は必須です"),
-//     payer: z.string().min(1, "支払うメンバーは必須です"),
-//     amount: z.coerce.number().int().min(1, "金額は1円以上の整数です"),
-//   })
-//   .strict();
-
-// export type ExpenseSchema = z.infer<typeof userAnswerSchema>;
+export const requestBodySchema = z.object({
+  content: z
+    .record(
+      z
+        .string()
+        .regex(/^q\d+$/)
+        .min(2, "key must be at least 2 characters")
+        .max(3, "key must be less than 4 characters"),
+      z
+        .string()
+        .regex(/^f\d+$/)
+        .min(2, "key must be at least 2 characters")
+        .max(3, "key must be less than 4 characters")
+    )
+    .refine((obj) => Object.keys(obj).length >= 5, {
+      message: "The number of keys must be at least 5",
+    })
+    .refine((obj) => Object.keys(obj).length <= 25, {
+      message: "The number of keys must not exceed 25",
+    }),
+});
