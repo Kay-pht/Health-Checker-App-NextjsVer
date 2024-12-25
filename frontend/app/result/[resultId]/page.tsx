@@ -1,19 +1,47 @@
-export const dynamic = "force-dynamic";
+"use client";
 
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../../components/TopBar";
 import CautionInResult from "../../../components/CautionInResult";
 import { fetchUserLatestResult } from "@/services/fetchFromBackend";
 import ClientHandlersWrapper from "@/components/handlersComp/ClientHandlersWrapper";
+import { useEffect, useState } from "react";
+import { DBResultType } from "@/interfaces/interfaces";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/services/firebase";
+import { useParams } from "next/navigation";
 
 // 診断結果ページ
-const ResultPage = async ({
-  params,
-}: {
-  params: Promise<{ resultId: string }>;
-}) => {
-  const { resultId } = await params;
-  const result = await fetchUserLatestResult(resultId);
+const ResultPage = () => {
+  const params = useParams();
+  const { resultId } = params;
+  const [result, setResult] = useState<DBResultType | null>(null);
+  const [user, loading] = useAuthState(auth);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (loading) return;
+    const fetchData = async () => {
+      try {
+        if (!user) {
+          setIsLoading(false);
+          throw new Error("User not found");
+        }
+        if (!resultId || typeof resultId !== "string") {
+          setIsLoading(false);
+          throw new Error("Result not found");
+        }
+        const res = await fetchUserLatestResult(resultId, user);
+        setResult(res);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [user, loading, resultId]);
+  // const result = await fetchUserLatestResult(resultId, user);
 
   return (
     <ClientHandlersWrapper>
@@ -21,7 +49,15 @@ const ResultPage = async ({
         <TopBar />
         <div className="p-6 bg-gray-100 min-h-screen">
           <div className="p-6 max-w-lg mx-auto bg-white rounded-xl shadow-md space-y-4">
-            {result ? (
+            {isLoading && (
+              <div>
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress />
+                </Box>
+                <p className="text-lg text-gray-500">Loading...</p>
+              </div>
+            )}
+            {result && (
               <div className="result">
                 <div className="font-semibold">
                   <h1 className="text-2xl font-bold  text-gray-900 mb-4 ">
@@ -46,13 +82,6 @@ const ResultPage = async ({
                     </span>
                   </p>
                 </div>
-              </div>
-            ) : (
-              <div>
-                <Box sx={{ display: "flex" }}>
-                  <CircularProgress />
-                </Box>
-                <p className="text-lg text-gray-500">Loading...</p>
               </div>
             )}
             <CautionInResult />

@@ -1,7 +1,6 @@
-// import { cookies } from "next/headers";
 import { User } from "firebase/auth";
 import { fetchHistoryData, fetchResult } from "./api";
-import { auth, getToken } from "./firebase";
+import { getToken } from "./firebase";
 
 // MyPage
 export const fetchUserHistoryData = async (user: User) => {
@@ -23,9 +22,9 @@ export const fetchUserHistoryData = async (user: User) => {
 };
 
 // ResultPage
-export const fetchUserLatestResult = async (resultId: string) => {
+export const fetchUserLatestResult = async (resultId: string,user:User) => {
   try {
-    const token = await getTokenFromCookie();
+    const token = await getToken(user);
 
     const response = await fetchResult(token, resultId);
     return response;

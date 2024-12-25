@@ -14,8 +14,7 @@ const MyPage = () => {
   // const data = await fetchUserHistoryData();
   const [data, setData] = useState<DBResultType[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [user] = useAuthState(auth);
-  // const user = auth.currentUser;
+
   const [user, loading] = useAuthState(auth);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const MyPage = () => {
       }
     };
     fetchData();
-  }, [user, loading]);
+  }, [user]);
 
   return (
     <ClientHandlersWrapper>
