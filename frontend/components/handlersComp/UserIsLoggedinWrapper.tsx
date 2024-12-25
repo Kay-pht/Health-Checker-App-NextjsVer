@@ -2,9 +2,9 @@
 
 import { useUserIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 
-const UserIsLoggedinHandler = () => {
+const UserIsLoggedinHandler = ({ children }: { children: React.ReactNode }) => {
   useUserIsLoggedin();
-  return null;
+  return <>{children}</>;
 };
 
 export default UserIsLoggedinHandler;

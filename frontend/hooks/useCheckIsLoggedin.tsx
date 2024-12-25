@@ -45,7 +45,7 @@ export const useUserIsLoggedin = () => {
       verifyUser(user);
     }
     //pathとrouterを依存配列から除外
-  }, [user]);
+  }, [user, loading]);
 
   const verifyUser = async (user: User) => {
     try {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { usePathname } from "next/navigation"; // 色付き
+import { usePathname } from "next/navigation";
 
 // URLパス変更が発生しないコンポーネント変更時にスクロール位置をトップに戻すロジック
 export const useFocusTopComp = (someState: number) => {

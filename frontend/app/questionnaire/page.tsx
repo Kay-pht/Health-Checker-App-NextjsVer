@@ -11,7 +11,7 @@ import useGetUserAnswers from "../../hooks/useGetUserAnswers";
 import { useFocusTopComp } from "../../hooks/useFocusPageTop";
 import usePageHandler from "../../hooks/usePageHandler";
 import { foodQueryPages } from "../../utils/queryData";
-import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinHandler";
+import UserIsLoggedinHandler from "@/components/handlersComp/UserIsLoggedinWrapper";
 import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 
@@ -32,82 +32,83 @@ const QuestionFormPage = () => {
   const fetchAnswers = useAIAnswerFetcher();
 
   return (
-    <div>
-      <UserIsLoggedinHandler />
-      <TopBar />
-      <div className="max-w-4xl mx-auto p-5 bg-gray-100 shadow-md">
-        <form
-          onSubmit={(e) => {
-            setIsSubmitting(true);
-            fetchAnswers({
-              e,
-              userAnswers,
-            }).finally(() => setIsSubmitting(false));
-          }}
-        >
-          <h3 className="text-xl text-gray-700 mb-5 font-semibold text-center">
-            以下の食材をどのくらいの頻度で食べるか教えてください！
-          </h3>
-          {currentPageNum > 1 && (
-            <PercentBar percent={(currentPageNum - 1) * 20} />
-          )}
-          {
-            //map関数でページ分け
-            foodQueryPages.map(
-              (foodQueryPage, index) =>
-                currentPageNum === index + 1 && (
-                  <QuestionBlockComp
-                    key={index}
-                    foodQueryPage={[...foodQueryPage]}
-                    userAnswers={userAnswers}
-                    getAnswersInEachPage={getAnswersInEachPage}
-                    currentPageNum={currentPageNum}
-                  />
-                )
-            )
-          }
-          <div className="flex justify-between items-center mt-5">
+    <UserIsLoggedinHandler>
+      <div>
+        <TopBar />
+        <div className="max-w-4xl mx-auto p-5 bg-gray-100 shadow-md">
+          <form
+            onSubmit={(e) => {
+              setIsSubmitting(true);
+              fetchAnswers({
+                e,
+                userAnswers,
+              }).finally(() => setIsSubmitting(false));
+            }}
+          >
+            <h3 className="text-xl text-gray-700 mb-5 font-semibold text-center">
+              以下の食材をどのくらいの頻度で食べるか教えてください！
+            </h3>
             {currentPageNum > 1 && (
-              <button
-                className="w-24 text-center bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 aria-label=
+              <PercentBar percent={(currentPageNum - 1) * 20} />
+            )}
+            {
+              //map関数でページ分け
+              foodQueryPages.map(
+                (foodQueryPage, index) =>
+                  currentPageNum === index + 1 && (
+                    <QuestionBlockComp
+                      key={index}
+                      foodQueryPage={[...foodQueryPage]}
+                      userAnswers={userAnswers}
+                      getAnswersInEachPage={getAnswersInEachPage}
+                      currentPageNum={currentPageNum}
+                    />
+                  )
+              )
+            }
+            <div className="flex justify-between items-center mt-5">
+              {currentPageNum > 1 && (
+                <button
+                  className="w-24 text-center bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 aria-label=
                 'Previous page'"
-                onClick={pageDownHandler}
-              >
-                <KeyboardDoubleArrowLeftRoundedIcon />
-              </button>
-            )}
-            {currentPageNum === 5 && (
-              <button
-                className="w-24 text-center bg-green-500 text-white font-bold py-2 rounded hover:bg-green-600 transition-transform transform hover:scale-105"
-                aria-label="Finish"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Finish
-                {isSubmitting ? (
-                  <CircularProgress
-                    color="inherit"
-                    size={15}
-                    className="text-center items-center"
-                  />
-                ) : (
-                  <SendRoundedIcon fontSize="inherit" />
-                )}
-              </button>
-            )}
-            {currentPageNum !== 5 && (
-              <button
-                className="w-24 text-center bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 ml-auto"
-                aria-label="Next page"
-                onClick={pageUpHandler}
-              >
-                <KeyboardDoubleArrowRightRoundedIcon />
-              </button>
-            )}
-          </div>
-        </form>
+                  onClick={pageDownHandler}
+                >
+                  <KeyboardDoubleArrowLeftRoundedIcon />
+                </button>
+              )}
+              {currentPageNum === 5 && (
+                <button
+                  className="w-24 text-center bg-green-500 text-white font-bold py-2 rounded hover:bg-green-600 transition-transform transform hover:scale-105"
+                  aria-label="Finish"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Finish
+                  {isSubmitting ? (
+                    <CircularProgress
+                      color="inherit"
+                      size={15}
+                      className="text-center items-center"
+                    />
+                  ) : (
+                    <SendRoundedIcon fontSize="inherit" />
+                  )}
+                </button>
+              )}
+              {currentPageNum !== 5 && (
+                <button
+                  className="w-24 text-center bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700 transition-transform transform hover:scale-105 ml-auto"
+                  aria-label="Next page"
+                  onClick={pageUpHandler}
+                >
+                  <KeyboardDoubleArrowRightRoundedIcon />
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </UserIsLoggedinHandler>
   );
 };
 
