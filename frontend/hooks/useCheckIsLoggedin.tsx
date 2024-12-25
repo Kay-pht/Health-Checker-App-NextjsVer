@@ -23,6 +23,7 @@ export const useCheckIsLoggedin = (loginPath: string) => {
       router.push(loginPath);
     } catch (error) {
       alert("Error verifying user, please log in again.");
+      logOut();
 
       console.error("Error verifying user:", error);
       return;

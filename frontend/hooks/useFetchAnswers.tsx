@@ -1,9 +1,11 @@
+"use client";
+
 import { FetchAnswersFromAIType } from "../interfaces/interfaces";
-import { getStoredToken } from "../services/firebase";
+import { auth, getToken } from "../services/firebase";
 import { postAnswersFunc } from "../services/api";
 import { useRouter } from "next/navigation";
 
-//ユーザー回答をバックエンドに投げて、AIによる診断結果(レス)を表示するフック
+//ユーザー回答をバックエンドに投げて、AIによる診断結果のデータidを受け取るフック
 const useAIAnswerFetcher = () => {
   const router = useRouter();
 
@@ -11,10 +13,15 @@ const useAIAnswerFetcher = () => {
     e.preventDefault();
     const submittedAnswer = { content: userAnswers };
 
-    // セッションストレージからトークンを取得
-    const token = getStoredToken();
+    // firebaseからトークンを取得
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("User not authenticated");
+      throw new Error("User not authenticated");
+    }
+    const token = await getToken(user);
 
-    // 回答を送信し、診断結果をレスとして受け取る
+    // 回答を送信し、データidをレスとして受け取り、結果ページに遷移
     const response = await postAnswersFunc({ token, submittedAnswer });
     const { resultId } = await response.json();
     router.push(`/result/${resultId}`);

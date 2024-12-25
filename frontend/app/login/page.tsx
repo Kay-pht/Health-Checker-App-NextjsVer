@@ -30,6 +30,7 @@ const LoginPage = () => {
   const onSubmit = async (data: UserAuth) => {
     try {
       await logInWithEmailAndPassword(data.email, data.password);
+      // const token = await user.getIdToken();
       await verifyToken();
 
       console.log(`Token verified successfully.`);
