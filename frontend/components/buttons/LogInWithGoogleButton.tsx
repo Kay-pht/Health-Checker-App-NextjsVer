@@ -1,10 +1,5 @@
 import { signInWithPopup } from "firebase/auth";
-import {
-  auth,
-  logOut,
-  provider,
-  saveTokenInStorage,
-} from "../../services/firebase";
+import { auth, getToken, logOut, provider } from "../../services/firebase";
 import { registerProps } from "../../interfaces/interfaces";
 import { verifyToken } from "@/services/api";
 
@@ -13,8 +8,8 @@ const LogInWithGoogleButton = ({ register }: registerProps) => {
     try {
       const userCredential = await signInWithPopup(auth, provider);
       const { user } = userCredential;
-      await saveTokenInStorage(user);
-      await verifyToken();
+      const token = await getToken(user);
+      await verifyToken(token);
       console.log(`Token verified successfully.`);
     } catch (error) {
       if (error instanceof Error) {

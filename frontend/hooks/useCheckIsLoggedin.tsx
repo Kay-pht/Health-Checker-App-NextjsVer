@@ -1,10 +1,5 @@
 import { verifyToken } from "@/services/api";
-import {
-  auth,
-  getToken,
-  logOut,
-  saveTokenInStorage,
-} from "@/services/firebase";
+import { auth, getToken, logOut } from "@/services/firebase";
 import { User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -17,9 +12,8 @@ export const useCheckIsLoggedin = (loginPath: string) => {
 
   const verifyUser = async (user: User) => {
     try {
-      await getToken(user);
-      await saveTokenInStorage(user);
-      await verifyToken();
+      const token = await getToken(user);
+      await verifyToken(token);
       router.push(loginPath);
     } catch (error) {
       alert("Error verifying user, please log in again.");
@@ -55,9 +49,8 @@ export const useUserIsLoggedin = () => {
 
   const verifyUser = async (user: User) => {
     try {
-      await getToken(user);
-      await saveTokenInStorage(user);
-      await verifyToken();
+      const token = await getToken(user);
+      await verifyToken(token);
     } catch (error) {
       alert("Error verifying user, please log in again.");
       console.error("Error verifying user:", error);

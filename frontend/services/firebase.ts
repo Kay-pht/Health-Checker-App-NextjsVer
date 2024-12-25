@@ -33,24 +33,24 @@ export const getToken = async (user: User) => {
 };
 
 //トークンを取得して、sessionStorageに保存する用の関数
-export const saveTokenInStorage = async (user: User) => {
-  try {
-    const token = await getToken(user);
-    sessionStorage.setItem("authToken", token);
-  } catch (error) {
-    console.error("Error saving token in storage:", error);
-    throw new Error("Failed to save token in storage");
-  }
-};
+// export const saveTokenInStorage = async (user: User) => {
+//   try {
+//     const token = await getToken(user);
+//     sessionStorage.setItem("authToken", token);
+//   } catch (error) {
+//     console.error("Error saving token in storage:", error);
+//     throw new Error("Failed to save token in storage");
+//   }
+// };
 
 // sessionStorageからトークンを取得
-export const getStoredToken = () => {
-  const token = sessionStorage.getItem("authToken");
-  if (!token) {
-    throw new Error("User is not authenticated");
-  }
-  return token;
-};
+// export const getStoredToken = () => {
+//   const token = sessionStorage.getItem("authToken");
+//   if (!token) {
+//     throw new Error("User is not authenticated");
+//   }
+//   return token;
+// };
 
 // メアド&パスワードでアカウント新規作成する用の関数
 export const signUpWithEmailAndPassword = async (
@@ -68,10 +68,10 @@ export const signUpWithEmailAndPassword = async (
     await updateProfile(user, {
       displayName: name,
     });
-    await saveTokenInStorage(user);
     await sendEmailVerification(user);
+    const token = await getToken(user);
     console.log("User signed up successfully with name!");
-    return user;
+    return token;
   } catch (error) {
     console.error("Error creating user:", error);
     alert(
@@ -79,6 +79,7 @@ export const signUpWithEmailAndPassword = async (
         error instanceof Error ? error.message : "An unknown error occurred."
       }`
     );
+    throw error;
   }
 };
 
@@ -95,10 +96,10 @@ export const logInWithEmailAndPassword = async (
     );
 
     const user = userCredential.user;
-    await saveTokenInStorage(user);
+    const token = await getToken(user);
 
     console.log("User logged in successfully!");
-    return user;
+    return token;
   } catch (error) {
     if (error instanceof Error) {
       await logOut();
@@ -117,8 +118,8 @@ export const logInWithAnonymous = async () => {
   try {
     const userCredential = await signInAnonymously(auth);
     const user = userCredential.user;
-    await saveTokenInStorage(user);
-    await verifyToken();
+    const token = await getToken(user);
+    await verifyToken(token);
     console.log("Anonymous user logged in successfully!");
 
     return user;
@@ -130,6 +131,7 @@ export const logInWithAnonymous = async () => {
         error instanceof Error ? error.message : "An unknown error occurred."
       }`
     );
+    throw error;
   }
 };
 // ログアウト用の関数

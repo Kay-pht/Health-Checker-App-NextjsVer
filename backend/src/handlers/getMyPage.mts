@@ -5,7 +5,12 @@ import { getUserHistoryById } from "../service/mongoDB.mjs";
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
     // これまでの診断結果DBから取得してフロントに返却
-    const results = await getUserHistoryById(req);
+    const { userId } = req;
+    if (!userId || typeof userId !== "string") {
+      throw new Error("Invalid User ID");
+    }
+
+    const results = await getUserHistoryById(userId);
     res.status(200).json(results);
   } catch (error) {
     res.status(500).json({ error: "Failed to get results" });

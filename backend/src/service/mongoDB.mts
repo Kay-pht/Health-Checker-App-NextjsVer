@@ -38,10 +38,10 @@ async function registerResult(
 }
 
 // 指定ユーザーの全ての診断結果をDBから取得(マイページ用)
-async function getUserHistoryById(req: CustomAuthRequest) {
+async function getUserHistoryById(userId: string) {
   try {
     const results = await resultsCollection
-      .find({ userId: req.userId })
+      .find({ userId: userId })
       .sort({
         createdAt: -1,
       })

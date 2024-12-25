@@ -29,9 +29,8 @@ const LoginPage = () => {
   // 入力情報(メアド・パスワード)をfirebaseで確認
   const onSubmit = async (data: UserAuth) => {
     try {
-      await logInWithEmailAndPassword(data.email, data.password);
-      // const token = await user.getIdToken();
-      await verifyToken();
+      const token = await logInWithEmailAndPassword(data.email, data.password);
+      await verifyToken(token);
 
       console.log(`Token verified successfully.`);
     } catch (error) {
