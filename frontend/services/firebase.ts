@@ -79,6 +79,7 @@ export const signUpWithEmailAndPassword = async (
         error instanceof Error ? error.message : "An unknown error occurred."
       }`
     );
+    throw new Error("Failed to create user");
   }
 };
 
@@ -117,8 +118,8 @@ export const logInWithAnonymous = async () => {
   try {
     const userCredential = await signInAnonymously(auth);
     const user = userCredential.user;
-    await saveTokenInStorage(user);
-    await verifyToken();
+    const token = await getToken(user);
+    await verifyToken(token);
     console.log("Anonymous user logged in successfully!");
 
     return user;

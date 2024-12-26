@@ -6,6 +6,7 @@ import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 import { verifyToken } from "@/services/api";
 import {
+  getToken,
   logInWithAnonymous,
   logOut,
   signUpWithEmailAndPassword,
@@ -29,11 +30,12 @@ const RegisterPage = () => {
   // firebaseに入力情報を新規登録する
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-      const token = await signUpWithEmailAndPassword(
+      const user = await signUpWithEmailAndPassword(
         data.email,
         data.password,
         data.name
       );
+      const token = await getToken(user);
       await verifyToken(token);
       console.log(`Token verified successfully.`);
     } catch (error) {

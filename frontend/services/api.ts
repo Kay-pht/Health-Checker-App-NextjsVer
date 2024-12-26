@@ -1,4 +1,3 @@
-import { getStoredToken } from "@/services/firebase";
 import { SendAnswersType } from "../interfaces/interfaces";
 import { configENV } from "@/config";
 
@@ -83,10 +82,8 @@ export const postAnswersFunc = async ({
 };
 
 // 認証完了時にバックエンドに検証用にトークンを送付して、クッキーにトークンをセットする関数。トークンはヘッダーに添付し、ボディを空にするのでGETメソッドを採用
-export const verifyToken = async () => {
+export const verifyToken = async (token: string) => {
   try {
-    const token = getStoredToken();
-
     const response = await fetch(`${configENV.baseUrl}/api/auth`, {
       method: "GET",
       headers: {
