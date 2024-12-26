@@ -46,7 +46,6 @@ app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`NODE_ENV: ${configEnv.NODE_ENV}`);
   console.log(`FRONTEND_DOMAIN: ${configEnv.frontendDomain}`);
-  console.log(`PROMPT: ${configEnv.rolePrompt}`);
 });
 
 export default app;

@@ -8,7 +8,7 @@ import type {
 
 //結果のDB登録(AIからの診断結果を返却するとき)
 async function registerResult(
-  req: CustomAuthRequest,
+  userId: string,
   answerByChatGPT: answerByChatGPTType,
   timestamp: Date = new Date()
 ) {
@@ -19,7 +19,7 @@ async function registerResult(
   //   }
 
   const result: Result = {
-    userId: req.userId,
+    userId: userId,
     recommendedFoods: answerByChatGPT.recommendedFoods,
     missingNutrients: answerByChatGPT.missingNutrients,
     score: answerByChatGPT.score,

@@ -23,3 +23,10 @@ export const requestBodySchema = z.object({
       message: "The number of keys must be exactly 25",
     }),
 });
+
+// Schema for the response from the AI
+export const responseFromAISchema = z.object({
+  missingNutrients: z.array(z.string()),
+  recommendedFoods: z.array(z.string()),
+  score: z.number(),
+});
