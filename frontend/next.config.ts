@@ -9,6 +9,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: ["lh3.googleusercontent.com"], // 画像を許可するドメインを追加
+  },
 };
 
 export default nextConfig;

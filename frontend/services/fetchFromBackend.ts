@@ -14,6 +14,7 @@ export const fetchUserHistoryData = async (user: User) => {
 
     // 過去の診断データをバックエンドから受け取る
     const response = await fetchHistoryData(token);
+    // TODO:validate response with zod  
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -27,6 +28,7 @@ export const fetchUserLatestResult = async (resultId: string,user:User) => {
     const token = await getToken(user);
 
     const response = await fetchResult(token, resultId);
+    // TODO:validate response with zod
     return response;
   } catch (error) {
     console.error("Error fetching data:", error);

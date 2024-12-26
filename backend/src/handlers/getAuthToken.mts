@@ -22,9 +22,7 @@ const getAuthToken = async (req: Request, res: Response) => {
     //       : "localhost",
     // });
 
-    res
-      .status(200)
-      .json({ success: true, message: "Auth token set in cookie" });
+    res.status(200).json("validating token is successful");
   } catch (error) {
     console.error("Error in getAuthToken:", error);
     res.status(500).json({ success: false, message: "Internal server error" });

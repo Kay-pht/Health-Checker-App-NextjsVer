@@ -41,21 +41,20 @@ export const useUserIsLoggedin = () => {
     if (loading) return;
     if (!user) {
       router.push("/login");
-    } else {
-      verifyUser(user);
+      logOut();
     }
     //pathとrouterを依存配列から除外
   }, [user, loading]);
 
-  const verifyUser = async (user: User) => {
-    try {
-      const token = await getToken(user);
-      await verifyToken(token);
-    } catch (error) {
-      alert("Error verifying user, please log in again.");
-      console.error("Error verifying user:", error);
-      await logOut();
-      return;
-    }
-  };
+  // const verifyUser = async (user: User) => {
+  //   try {
+  //     const token = await getToken(user);
+  //     await verifyToken(token);
+  //   } catch (error) {
+  //     alert("Error verifying user, please log in again.");
+  //     console.error("Error verifying user:", error);
+  //     await logOut();
+  //     return;
+  //   }
+  // };
 };

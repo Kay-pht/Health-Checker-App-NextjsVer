@@ -17,8 +17,7 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
     const responseFromAI = await getChatCompletion(content);
 
     // JavaScriptオブジェクトに変換
-    // const parsedResponse = parseResponseFromAI(responseFromAI);
-    const parsedResponse = JSON.parse(responseFromAI); // 修正箇所
+    const parsedResponse = JSON.parse(responseFromAI);
 
     // check if the response from chatGPT is valid format
     const validatedResponse = responseFromAISchema.parse(parsedResponse);
@@ -27,7 +26,6 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
     if (!userId) {
       throw new Error("Failed to get user ID");
     }
-
     // register the result to MongoDB and get the result ID to return
     const registeredDataId = await registerResult(userId, validatedResponse);
 

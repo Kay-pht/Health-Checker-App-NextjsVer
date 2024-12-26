@@ -1,21 +1,21 @@
 import { signInWithPopup } from "firebase/auth";
-import { auth, getToken, logOut, provider } from "../../services/firebase";
+import { auth, logOut, provider } from "../../services/firebase";
 import { registerProps } from "../../interfaces/interfaces";
-import { verifyToken } from "@/services/api";
 
 const LogInWithGoogleButton = ({ register }: registerProps) => {
   const signInWithGoogle = async () => {
     try {
-      const userCredential = await signInWithPopup(auth, provider);
-      const { user } = userCredential;
-      const token = await getToken(user);
-      await verifyToken(token);
-      console.log(`Token verified successfully.`);
+      await signInWithPopup(auth, provider);
+      // const { user } = userCredential;
+      // const token = await getToken(user);
+      // await verifyToken(token);
+      console.log(`logged in with Google`);
     } catch (error) {
       if (error instanceof Error) {
         await logOut();
         alert(`Error logging in: ${error.message}`);
       } else {
+        await logOut();
         alert("An unknown error occurred.");
       }
     }

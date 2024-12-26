@@ -4,11 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
-import { verifyToken } from "@/services/api";
 import useFormValidation from "@/hooks/useFormValidation";
 import { loginValidationSchema, UserAuth } from "@/utils/validationSchema";
 import {
-  getToken,
   logInWithAnonymous,
   logInWithEmailAndPassword,
   logOut,
@@ -30,10 +28,10 @@ const LoginPage = () => {
   // 入力情報(メアド・パスワード)をfirebaseで確認
   const onSubmit = async (data: UserAuth) => {
     try {
-      const user = await logInWithEmailAndPassword(data.email, data.password);
-      const token = await getToken(user);
+      await logInWithEmailAndPassword(data.email, data.password);
+      // const token = await getToken(user);
 
-      await verifyToken(token);
+      // await verifyToken(token);
 
       console.log(`Token verified successfully.`);
     } catch (error) {

@@ -6,16 +6,21 @@ import { Avatar } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const TopBar = () => {
   const router = useRouter();
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
+  const [userName, setUserName] = useState<string | null>("");
+  const [userPhotoURL, setUserPhotoURL] = useState<string | null>("");
 
-  // const userNameRef = useRef<string | null | undefined>(user?.displayName);
-  // const userPhotoURLRef = useRef<string | null | undefined>(user?.photoURL);
-
-  const userName = user?.displayName;
-  const userPhotoURL = user?.photoURL;
+  useEffect(() => {
+    if (loading) return;
+    if (user) {
+      setUserName(user.displayName || "ゲスト");
+      setUserPhotoURL(user.photoURL || "");
+    }
+  }, [user, loading]);
 
   const handleLogout = async () => {
     await logOut();
@@ -41,11 +46,13 @@ const TopBar = () => {
                 src={userPhotoURL}
                 alt=""
                 className="w-6 h-6 rounded-full"
+                width={24}
+                height={24}
               />
             ) : (
               <Avatar variant="circular" className="w-6 h-6" />
             )}
-            <span className="text-white">{userName ? userName : "ゲスト"}</span>
+            <span className="text-white">{userName}</span>
           </Link>
           <button
             onClick={handleLogout}

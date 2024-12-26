@@ -11,6 +11,7 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
     }
 
     const results = await getUserHistoryById(userId);
+    // TODO: check if the data is valid with zod
     res.status(200).json(results);
   } catch (error) {
     res.status(500).json({ error: "Failed to get results" });

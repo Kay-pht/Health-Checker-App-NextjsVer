@@ -95,7 +95,7 @@ export const verifyToken = async (token: string) => {
     if (!response.ok) {
       throw new Error("Failed to verify token");
     }
-
+    console.log("Token verified successfully.");
     return response;
   } catch (error) {
     console.error("Error verifying token:", error);

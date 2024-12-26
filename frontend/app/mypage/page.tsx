@@ -34,7 +34,7 @@ const MyPage = () => {
       }
     };
     fetchData();
-  }, [user]);
+  }, [user, loading]);
 
   return (
     <ClientHandlersWrapper>
