@@ -11,6 +11,8 @@ const configEnv = {
   NODE_ENV: process.env.NODE_ENV,
   frontendBaseUrl: process.env.FRONTEND_BASE_URL,
   frontendDomain: process.env.FRONTEND_DOMAIN,
+  rolePrompt: process.env.ROLE_PROMPT,
+  taskPrompt: process.env.TASK_PROMPT,
 };
 
 export default configEnv;

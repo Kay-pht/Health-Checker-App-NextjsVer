@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import {
-  orderAnswers,
-  parseResponseFromAI,
-} from "../helpers/answerHelpers.mjs";
+import { parseResponseFromAI } from "../helpers/answerHelpers.mjs";
 import { registerResult } from "../service/mongoDB.mjs";
 import { getChatCompletion } from "../service/openAI.mjs";
 import { requestBodySchema } from "../interfaces/userAnswerSchema.mjs";
@@ -10,10 +7,11 @@ import { requestBodySchema } from "../interfaces/userAnswerSchema.mjs";
 const postChatCompletion = async (req: Request, res: Response) => {
   try {
     const { content } = requestBodySchema.parse(req.body);
+    console.log("content", content);
     // リクエストの型チェック&正しく並び替え
-    const orderedAnswers = orderAnswers(content);
+    // const orderedAnswers = orderAnswers(content);
     // ChatGPTにユーザーの回答を投げる。診断結果をレスとして受け取る
-    const responseFromAI = await getChatCompletion(orderedAnswers);
+    const responseFromAI = await getChatCompletion(content);
     // JavaScriptのオブジェクトに変換してフロントに返却
     const parsedResponse = parseResponseFromAI(responseFromAI);
     // res.json(parsedResponse);

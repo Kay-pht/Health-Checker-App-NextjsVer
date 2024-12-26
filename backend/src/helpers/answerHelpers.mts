@@ -1,31 +1,18 @@
 import type {
   answerByChatGPTType,
-  userAnswerFormatType,
+  // userAnswerFormatType,
 } from "../interfaces/interfaces.js";
 
-// ユーザー回答の型ガードを実装
-function isUserAnswerFormatType(value: unknown): value is userAnswerFormatType {
-  if (typeof value !== "object" || value === null) {
-    return false;
-  }
-  return true;
-}
-
 // userの回答順で格納されているリクエストを、質問番号順に並べ替える関数
-function orderAnswers(answers: Record<string, string>) {
-  // TODO:add request validation here
-
-  // if (!isUserAnswerFormatType(answers)) {
-  //   throw new Error("Answers must be an object with string values");
-  // }
-  const orderedAnswers: userAnswerFormatType = {};
-  for (let i = 1; i <= Object.keys(answers).length; i++) {
-    const key = `q${i}`;
-    const answer = answers[key];
-    orderedAnswers[key] = answer;
-  }
-  return orderedAnswers;
-}
+// function orderAnswers(answers: Record<string, string>) {
+//   const orderedAnswers: userAnswerFormatType = {};
+//   for (let i = 1; i <= Object.keys(answers).length; i++) {
+//     const key = `q${i}`;
+//     const answer = answers[key];
+//     orderedAnswers[key] = answer;
+//   }
+//   return orderedAnswers;
+// }
 
 //JavaScriptのオブジェクトに変換
 function parseResponseFromAI(response: string): answerByChatGPTType {
@@ -38,4 +25,4 @@ function parseResponseFromAI(response: string): answerByChatGPTType {
   }
 }
 
-export { orderAnswers, parseResponseFromAI, isUserAnswerFormatType };
+export { parseResponseFromAI };

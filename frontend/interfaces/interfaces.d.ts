@@ -34,7 +34,7 @@ export interface ResultProps {
 
 export interface QuestionCompProps {
   foodQueryPage: { key: string; value: string }[];
-  userAnswers: Record<string, null>;
+  userAnswers: Record<string>;
   getAnswersInEachPage: (e: React.ChangeEvent<HTMLInputElement>) => void;
   currentPageNum: number;
 }
@@ -50,7 +50,7 @@ export interface FocusNextInputType {
 
 export interface FetchAnswersFromAIType {
   e: React.FormEvent<HTMLFormElement>;
-  userAnswers: { [key: string]: string };
+  userAnswers: { [key: string]: string | null };
 }
 
 export interface ResultPageProps {
@@ -61,7 +61,7 @@ export interface SendAnswersType {
   token: string;
   submittedAnswer: {
     content: {
-      [key: string]: string;
+      [key: string]: string | null;
     };
   };
 }

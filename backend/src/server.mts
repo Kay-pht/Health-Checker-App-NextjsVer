@@ -7,6 +7,9 @@ import getMyPage from "./handlers/getMyPage.mjs";
 import getAuthToken from "./handlers/getAuthToken.mjs";
 import getResult from "./handlers/getResult.mjs";
 import cors from "cors";
+import env from "dotenv";
+
+env.config(); //.envファイルから環境変数を読み込む
 
 const app = express();
 const { port } = configEnv || 5050;
@@ -43,6 +46,7 @@ app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`NODE_ENV: ${configEnv.NODE_ENV}`);
   console.log(`FRONTEND_DOMAIN: ${configEnv.frontendDomain}`);
+  console.log(`PROMPT: ${configEnv.rolePrompt}`);
 });
 
 export default app;

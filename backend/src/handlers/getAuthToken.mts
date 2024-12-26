@@ -6,21 +6,21 @@ import configEnv from "../configEnv.mjs";
 const getAuthToken = async (req: Request, res: Response) => {
   try {
     // リクエストヘッダーからトークンを取得
-    const authHeader = req.headers.authorization;
-    const token = getTokenFromRequest(authHeader);
+    // const authHeader = req.headers.authorization;
+    // const token = getTokenFromRequest(authHeader);
 
     // クッキーの設定
-    res.cookie("authToken", token, {
-      httpOnly: true,
-      secure: true,
-      path: "/",
-      maxAge: 3600000, // 1 hour
-      sameSite: "none",
-      domain:
-        configEnv.NODE_ENV === "production"
-          ? configEnv.frontendDomain
-          : "localhost",
-    });
+    // res.cookie("authToken", token, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   path: "/",
+    //   maxAge: 3600000, // 1 hour
+    //   sameSite: "none",
+    //   domain:
+    //     configEnv.NODE_ENV === "production"
+    //       ? configEnv.frontendDomain
+    //       : "localhost",
+    // });
 
     res
       .status(200)
