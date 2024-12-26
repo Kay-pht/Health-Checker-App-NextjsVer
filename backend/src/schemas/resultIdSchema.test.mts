@@ -1,4 +1,4 @@
-import { objectResultIdSchema } from "./requestSchema.mjs";
+import { objectResultIdSchema } from "./resultIdSchema.mjs";
 
 describe("objectResultIdSchema", () => {
   it("should validate a correct MongoDB ObjectId", () => {

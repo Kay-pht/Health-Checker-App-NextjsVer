@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getResultById } from "../service/mongoDB.mjs";
-import { objectResultIdSchema } from "../interfaces/requestSchema.mjs";
+import { objectResultIdSchema } from "../schemas/resultIdSchema.mjs";
 
 const getResult = async (req: Request, res: Response) => {
   try {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 import useFormValidation from "@/hooks/useFormValidation";
-import { loginValidationSchema, UserAuth } from "@/utils/validationSchema";
+import { loginValidationSchema, UserAuth } from "@/schemas/authSchema";
 import {
   logInWithAnonymous,
   logInWithEmailAndPassword,

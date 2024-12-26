@@ -8,7 +8,7 @@ import TopBar from "../../components/TopBar";
 import useFormValidation from "../../hooks/useFormValidation";
 import { ForgetFormValues } from "../../interfaces/interfaces";
 import { submitPasswordResetEmail } from "../../services/firebase";
-import { forgetValidationSchema } from "../../utils/validationSchema";
+import { forgetValidationSchema } from "../../schemas/authSchema";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 
 const ForgetPasswordPage = () => {

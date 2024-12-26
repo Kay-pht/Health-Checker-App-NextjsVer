@@ -6,7 +6,7 @@ import CautionInResult from "../../../components/CautionInResult";
 import { fetchUserLatestResult } from "@/services/fetchFromBackend";
 import ClientHandlersWrapper from "@/components/handlersComp/ClientHandlersWrapper";
 import { useEffect, useState } from "react";
-import { DBResultType } from "@/interfaces/interfaces";
+import { ResultType } from "@/interfaces/interfaces";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/services/firebase";
 import { useParams } from "next/navigation";
@@ -15,7 +15,7 @@ import { useParams } from "next/navigation";
 const ResultPage = () => {
   const params = useParams();
   const { resultId } = params;
-  const [result, setResult] = useState<DBResultType | null>(null);
+  const [result, setResult] = useState<ResultType | null>(null);
   const [user, loading] = useAuthState(auth);
   const [isLoading, setIsLoading] = useState(true);
 

@@ -11,7 +11,7 @@ import {
 } from "@/services/firebase";
 import { RegisterFormValues } from "@/interfaces/interfaces";
 import useFormValidation from "@/hooks/useFormValidation";
-import { registerValidationSchema } from "@/utils/validationSchema";
+import { registerValidationSchema } from "@/schemas/authSchema";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
 
@@ -28,11 +28,7 @@ const RegisterPage = () => {
   // firebaseに入力情報を新規登録する
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-     await signUpWithEmailAndPassword(
-        data.email,
-        data.password,
-        data.name
-      );
+      await signUpWithEmailAndPassword(data.email, data.password, data.name);
       // const token = await getToken(user);
       // await verifyToken(token);
       // console.log(`Token verified successfully.`);

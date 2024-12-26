@@ -2,16 +2,15 @@ import { Request, Response } from "express";
 import { parseResponseFromAI } from "../helpers/answerHelpers.mjs";
 import { registerResult } from "../service/mongoDB.mjs";
 import { getChatCompletion } from "../service/openAI.mjs";
-import {
-  requestBodySchema,
-  responseFromAISchema,
-} from "../interfaces/userAnswerSchema.mjs";
+
 import { CustomAuthRequest } from "../interfaces/interfaces";
+import { userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
+import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 
 const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
   try {
     // check if the request body is valid
-    const { content } = requestBodySchema.parse(req.body);
+    const { content } = userAnswerSchema.parse(req.body);
 
     // ChatGPTにユーザーの回答を投げる。診断結果をレスとして受け取る
     const responseFromAI = await getChatCompletion(content);
@@ -20,7 +19,7 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
     const parsedResponse = JSON.parse(responseFromAI);
 
     // check if the response from chatGPT is valid format
-    const validatedResponse = responseFromAISchema.parse(parsedResponse);
+    const validatedResponse = analyzedResultSchema.parse(parsedResponse);
 
     const userId = req.userId;
     if (!userId) {

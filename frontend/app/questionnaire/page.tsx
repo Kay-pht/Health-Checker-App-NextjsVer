@@ -20,8 +20,6 @@ const QuestionFormPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   //ユーザーの回答を記録するロジック
-  // TODO:回答順序を修正するロジックを追加
-  // TODO:未回答の質問はデフォルトで"f1"を返すロジックを追加
   const { userAnswers, getAnswersInEachPage } = useGetUserAnswers();
 
   // ページ切り替え操作のロジック

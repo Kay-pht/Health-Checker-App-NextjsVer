@@ -4,7 +4,7 @@ import { z } from "zod";
 // The request body must be an object with 25 keys, each key must be a string
 // The key must be in the format of "q" followed by a number such as "q1", "q10", etc.
 // The value must be in the format of "f" followed by a number or null such as "f1", "f10",null, etc.
-export const requestBodySchema = z.object({
+export const userAnswerSchema = z.object({
   content: z
     .record(
       z
@@ -22,11 +22,4 @@ export const requestBodySchema = z.object({
     .refine((obj) => Object.keys(obj).length === 25, {
       message: "The number of keys must be exactly 25",
     }),
-});
-
-// Schema for the response from the AI
-export const responseFromAISchema = z.object({
-  missingNutrients: z.array(z.string()),
-  recommendedFoods: z.array(z.string()),
-  score: z.number(),
 });

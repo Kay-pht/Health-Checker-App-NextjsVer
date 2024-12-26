@@ -11,6 +11,9 @@ const useAIAnswerFetcher = () => {
 
   const fetchAnswer = async ({ e, userAnswers }: FetchAnswersFromAIType) => {
     e.preventDefault();
+
+    // TODO:validate user answers with zod
+
     const submittedAnswer = { content: userAnswers };
 
     // firebaseからトークンを取得
@@ -23,6 +26,9 @@ const useAIAnswerFetcher = () => {
 
     // 回答を送信し、データidをレスとして受け取り、結果ページに遷移
     const response = await postAnswersFunc({ token, submittedAnswer });
+
+    // TODO:validate response with zod
+
     const { resultId } = await response.json();
     router.push(`/result/${resultId}`);
   };
