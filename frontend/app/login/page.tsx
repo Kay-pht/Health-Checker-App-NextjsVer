@@ -29,10 +29,6 @@ const LoginPage = () => {
   const onSubmit = async (data: UserAuth) => {
     try {
       await logInWithEmailAndPassword(data.email, data.password);
-      // const token = await getToken(user);
-
-      // await verifyToken(token);
-
       console.log(`Token verified successfully.`);
     } catch (error) {
       if (error instanceof Error) {
@@ -53,54 +49,60 @@ const LoginPage = () => {
           <p className="text-sm text-center mt-1">
             ログインするとこれまでの診断結果がチェックできます
           </p>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-3 mt-3">
-              <TextField
-                type="email"
-                id="email"
-                label="Eメール"
-                {...register("email")}
-                className="w-full p-2 border border-gray-300 rounded mb-1"
-                autoFocus
-              />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col  items-center"
+          >
+            <div style={{ width: "90%" }}>
+              <div className="mb-3 mt-3">
+                <TextField
+                  type="email"
+                  id="email"
+                  label="Eメール"
+                  {...register("email")}
+                  className="w-full p-2 border border-gray-300 rounded mb-1"
+                  autoFocus
+                />
+                {errors.email && (
+                  <Alert severity="error" className="text-red-600 text-sm mb-1">
+                    {errors.email?.message as React.ReactNode}
+                  </Alert>
+                )}
+              </div>
 
-              {errors.email && (
-                <Alert severity="error" className="text-red-600 text-sm mb-1">
-                  {errors.email?.message as React.ReactNode}
-                </Alert>
-              )}
-            </div>
-
-            <div className="mb-3 mt-3">
-              <TextField
-                type="password"
-                id="password"
-                label="パスワード"
-                {...register("password")}
-                className="w-full p-2 border border-gray-300 rounded mb-1"
-                autoComplete="current-password"
-              />
-              {errors.password && (
-                <Alert severity="error" className="text-red-600 text-sm mb-1">
-                  {errors.password?.message as React.ReactNode}
-                </Alert>
-              )}
+              <div className="mb-3 mt-3">
+                <TextField
+                  type="password"
+                  id="password"
+                  label="パスワード"
+                  {...register("password")}
+                  className="w-full p-2 border border-gray-300 rounded mb-1"
+                  autoComplete="current-password"
+                />
+                {errors.password && (
+                  <Alert severity="error" className="text-red-600 text-sm mb-1">
+                    {errors.password?.message as React.ReactNode}
+                  </Alert>
+                )}
+              </div>
             </div>
             <div className="flex flex-col  items-center">
-              <button
-                type="submit"
-                className="w-full p-2 text-lg font-bold bg-blue-600 text-white rounded mt-2 hover:bg-blue-700 transition transform hover:scale-105"
-              >
-                ログイン
-              </button>
-              <LogInWithGoogleButton register={false} />
-              <button
-                type="button"
-                onClick={logInWithAnonymous}
-                className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition transform hover:scale-105"
-              >
-                ゲストとしてログイン
-              </button>
+              <div style={{ width: "65%" }}>
+                <button
+                  type="submit"
+                  className="w-full p-2 text-lg font-bold bg-blue-600 text-white rounded mt-2 hover:bg-blue-700 transition transform hover:scale-105"
+                >
+                  ログイン
+                </button>
+                <LogInWithGoogleButton register={false} />
+                <button
+                  type="button"
+                  onClick={logInWithAnonymous}
+                  className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition transform hover:scale-105"
+                >
+                  ゲストとしてログイン
+                </button>
+              </div>
               <p className="mt-4">
                 新規登録は
                 <Link href="/register" className="text-blue-600 font-semibold">
