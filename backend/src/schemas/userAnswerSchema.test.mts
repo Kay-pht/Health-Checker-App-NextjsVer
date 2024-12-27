@@ -4,27 +4,51 @@ describe("userAnswerSchema", () => {
   it("should validate correct input", () => {
     const validInput = {
       content: Object.fromEntries(
-        Array.from({ length: 25 }, (_, i) => [`q${i + 1}`, `f${i + 1}`])
+        Array.from({ length: 25 }, (_, i) => [`q${i + 1}`, "f1"])
       ),
     };
 
     expect(() => userAnswerSchema.parse(validInput)).not.toThrow();
   });
 
+  it("should be same as expectedOutput", () => {
+    const Input = {
+      content: Object.fromEntries(
+        Array.from({ length: 25 }, (_, i) => [`q${i + 1}`, null])
+      ),
+    };
+    const expectedOutput = {
+      content: Object.fromEntries(
+        Array.from({ length: 25 }, (_, i) => [`q${i + 1}`, "f1"])
+      ),
+    };
+    expect(userAnswerSchema.parse(Input)).toEqual(expectedOutput);
+  });
+
   it("should throw an error for invalid key format", () => {
     const invalidInput = {
-      content: {
-        question1: "f1",
-      },
+      content: Object.fromEntries(
+        Array.from({ length: 25 }, (_, i) => [`q${i + 1}`, "f10"])
+      ),
+    };
+
+    expect(() => userAnswerSchema.parse(invalidInput)).toThrow();
+  });
+
+  it("should throw an error for invalid key format which follows t instead of q", () => {
+    const invalidInput = {
+      content: Object.fromEntries(
+        Array.from({ length: 25 }, (_, i) => [`t${i + 1}`, "f1"])
+      ),
     };
     expect(() => userAnswerSchema.parse(invalidInput)).toThrow();
   });
 
   it("should throw an error for invalid value format", () => {
     const invalidInput = {
-      content: {
-        q1: "value1",
-      },
+      content: Object.fromEntries(
+        Array.from({ length: 25 }, (_, i) => [`q${i + 1}`, "t1"])
+      ),
     };
     expect(() => userAnswerSchema.parse(invalidInput)).toThrow();
   });
@@ -43,7 +67,7 @@ describe("userAnswerSchema", () => {
   it("should throw an error for too many keys", () => {
     const invalidInput = {
       content: Object.fromEntries(
-        Array.from({ length: 26 }, (_, i) => [`q${i + 1}`, `f${i + 1}`])
+        Array.from({ length: 26 }, (_, i) => [`q${i + 1}`, `f1`])
       ),
     };
     expect(() => userAnswerSchema.parse(invalidInput)).toThrow();

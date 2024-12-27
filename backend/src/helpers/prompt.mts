@@ -2,16 +2,16 @@ import { ChatCompletionMessageParam } from "openai/resources";
 import configEnv from "../configEnv.mjs";
 
 const prompt = (answers: {
-  [key: string]: string | null;
+  [key: string]: string;
 }): ChatCompletionMessageParam[] => {
   return [
     {
       role: "system",
-      content: configEnv.taskPrompt || "assistant",
+      content: configEnv.rolePrompt || "assistant",
     },
     {
       role: "user",
-      content: configEnv.rolePrompt || "hello",
+      content: configEnv.taskPrompt || "hello",
     },
 
     {

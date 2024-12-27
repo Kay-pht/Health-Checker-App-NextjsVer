@@ -10,7 +10,13 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["lh3.googleusercontent.com"], // 画像を許可するドメインを追加
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

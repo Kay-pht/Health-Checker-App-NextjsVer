@@ -16,7 +16,6 @@ const useAIAnswerFetcher = () => {
 
     const submittedAnswer = { content: userAnswer };
     const validatedUserAnswer = userAnswerSchema.parse(submittedAnswer);
-
     // firebaseからトークンを取得
     const user = auth.currentUser;
     if (!user) {

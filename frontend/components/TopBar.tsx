@@ -29,9 +29,13 @@ const TopBar = () => {
 
   return (
     <div className="bg-blue-600 p-2 flex items-center justify-between ">
-      <Link href={userName ? "/questionnaire" : "/"}>
-        <h2 className="text-white text-xl ml-3 font-extrabold">
-          FoodHealth.navi
+      <Link
+        href={userName ? "/questionnaire" : "/"}
+        className="flex justify-between ml-2"
+      >
+        <Image src="/images/logoWhite.png" alt="" width={28} height={18} />
+        <h2 className="text-white text-xl ml-1 font-extrabold">
+          HealthChecker.app
         </h2>
       </Link>
 

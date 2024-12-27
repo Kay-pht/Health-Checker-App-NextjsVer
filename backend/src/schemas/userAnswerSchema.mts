@@ -14,10 +14,11 @@ export const userAnswerSchema = z.object({
         .max(3, "key must be less than 4 characters"),
       z
         .string()
-        .regex(/^f\d+$/)
+        .regex(/^f\d$/)
         .min(2, "key must be at least 2 characters")
-        .max(3, "key must be less than 4 characters")
+        .max(2, "key must be less than 3 characters")
         .nullable()
+        .transform((val) => (val === null ? "f1" : val)) //transform null to f1
     )
     .refine((obj) => Object.keys(obj).length === 25, {
       message: "The number of keys must be exactly 25",

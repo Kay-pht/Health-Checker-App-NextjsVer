@@ -4,11 +4,11 @@
 
 - [x] validation check with zod
 - [x] test the schemas
-- [ ]
+- [x] improve prompt quality
 
 ## Priority: Medium
 
-- [ ]
+- [x] add logo
 
 ## Priority: Low
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI食生活診断テスト",
+  title: "AI食生活診断テスト | HealthChecker.app",
   description: "AIがあなたの食生活を診断します。",
 };
 
