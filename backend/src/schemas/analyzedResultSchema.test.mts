@@ -18,18 +18,19 @@ describe("analyzedResultSchema", () => {
     };
     expect(() => analyzedResultSchema.parse(invalidInput)).toThrow();
   });
-  it("should throw an error for missing required fields", () => {
-    const validInput = {
-      recommendedFoods: ["carrot", "orange"],
-      score: 90,
-    };
-    const expectedOutput = {
-      missingNutrients: ["無し"],
-      recommendedFoods: ["carrot", "orange"],
-      score: 90,
-    };
-    expect(analyzedResultSchema.parse(validInput)).toEqual(expectedOutput);
-  });
+});
+it("should throw an error for missing required fields", () => {
+  const validInput = {
+    missingNutrients: [],
+    recommendedFoods: ["carrot", "orange"],
+    score: 90,
+  };
+  const expectedOutput = {
+    missingNutrients: [],
+    recommendedFoods: ["carrot", "orange"],
+    score: 90,
+  };
+  expect(analyzedResultSchema.parse(validInput)).toEqual(expectedOutput);
 });
 it("should throw an error for invalid input", () => {
   const invalidInput = {

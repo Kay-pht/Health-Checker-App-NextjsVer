@@ -3,6 +3,7 @@ import { fetchHistoryData, fetchResult } from "./api";
 import { getToken } from "./firebase";
 import { resultIdSchema } from "@/schemas/resultIdSchema";
 import { analyzedResultSchema } from "@/schemas/analyzedResultSchema";
+import userHistoryDataListSchema from "@/schemas/userHistoryDataListSchema";
 
 // MyPage
 export const fetchUserHistoryData = async (user: User) => {
@@ -11,8 +12,9 @@ export const fetchUserHistoryData = async (user: User) => {
 
     // 過去の診断データをバックエンドから受け取る
     const response = await fetchHistoryData(token);
-    // TODO:validate response with zod
-    return response;
+    const validatedResponse = userHistoryDataListSchema.parse(response);
+
+    return validatedResponse;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;

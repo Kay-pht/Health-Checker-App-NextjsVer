@@ -58,7 +58,7 @@ export const fetchResult = async (token: string, resultId: string) => {
 // バックエンドにユーザーの回答を送付して、AIの診断結果をレスとして取得する関数
 export const postAnswersFunc = async ({
   token,
-  submittedAnswer,
+  validatedUserAnswer,
 }: SendAnswersType) => {
   // ヘッダーにトークンを付与。バックエンドでの検証用
   try {
@@ -69,7 +69,7 @@ export const postAnswersFunc = async ({
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(submittedAnswer),
+      body: JSON.stringify(validatedUserAnswer),
     });
     if (!response.ok) {
       throw new Error("Failed to fetch data from the server");

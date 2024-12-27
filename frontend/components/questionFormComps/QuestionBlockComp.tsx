@@ -8,14 +8,14 @@ import useFocusNextInput from "../../hooks/useFocusNextInput";
 
 const QuestionBlockComp = ({
   foodQueryPage,
-  userAnswers,
+  userAnswer,
   getAnswersInEachPage,
   currentPageNum,
 }: QuestionCompProps) => {
   const inputRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // 回答後、未回答の問題にフォーカスするロジック
-  useFocusNextInput({ userAnswers, inputRefs, foodQueryPage });
+  useFocusNextInput({ userAnswer, inputRefs, foodQueryPage });
 
   return (
     <div className="mb-5 ">
@@ -24,7 +24,7 @@ const QuestionBlockComp = ({
         foodQueryPage.map((query, index) => (
           <div
             className={`transition-opacity duration-300 font-semibold bg-white rounded-lg shadow-md p-4 mb-8 ${
-              userAnswers[query.key] ? "opacity-50" : "opacity-100"
+              userAnswer[query.key] ? "opacity-50" : "opacity-100"
             }`}
             key={query.key}
           >
@@ -47,7 +47,7 @@ const QuestionBlockComp = ({
                             id={`${query.key}_option${freq.key}`}
                             name={query.key}
                             value={freq.key}
-                            checked={userAnswers[query.key] === freq.key}
+                            checked={userAnswer[query.key] === freq.key}
                             onChange={getAnswersInEachPage}
                             inputRef={(el) => (inputRefs.current[index] = el)}
                             required

@@ -20,7 +20,7 @@ const QuestionFormPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   //ユーザーの回答を記録するロジック
-  const { userAnswers, getAnswersInEachPage } = useGetUserAnswers();
+  const { userAnswer, getAnswersInEachPage } = useGetUserAnswers();
 
   // ページ切り替え操作のロジック
   const { currentPageNum, pageUpHandler, pageDownHandler } = usePageHandler();
@@ -41,7 +41,7 @@ const QuestionFormPage = () => {
               setIsSubmitting(true);
               fetchAnswers({
                 e,
-                userAnswers,
+                userAnswer,
               }).finally(() => setIsSubmitting(false));
             }}
           >
@@ -59,7 +59,7 @@ const QuestionFormPage = () => {
                     <QuestionBlockComp
                       key={index}
                       foodQueryPage={[...foodQueryPage]}
-                      userAnswers={userAnswers}
+                      userAnswer={userAnswer}
                       getAnswersInEachPage={getAnswersInEachPage}
                       currentPageNum={currentPageNum}
                     />

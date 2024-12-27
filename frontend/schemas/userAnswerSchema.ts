@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-// Schema for the request body of the POST /completion endpoint
-// The request body must be an object with 25 keys, each key must be a string
+//already tested in backend
 // The key must be in the format of "q" followed by a number such as "q1", "q10", etc.
 // The value must be in the format of "f" followed by a number or null such as "f1", "f10",null, etc.
 export const userAnswerSchema = z.object({

@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getUserHistoryById } from "../service/mongoDB.mjs";
+import userHistoryDataListSchema from "../schemas/userHistoryDataListSchema.mjs";
 
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
@@ -11,8 +12,10 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
     }
 
     const results = await getUserHistoryById(userId);
-    // TODO: check if the data is valid with zod
-    res.status(200).json(results);
+    const validatedResults = userHistoryDataListSchema.parse(results);
+    console.log("validatedResults", validatedResults);
+
+    res.status(200).json(validatedResults);
   } catch (error) {
     res.status(500).json({ error: "Failed to get results" });
     console.error("Failed to get results", error);

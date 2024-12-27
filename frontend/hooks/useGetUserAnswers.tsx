@@ -6,7 +6,7 @@ interface UserInputType {
 
 // QuestionBlockComp内(ページ1~5)の回答をここでキャッチするフックス
 const useGetUserAnswers = () => {
-  const [userAnswers, setUserAnswers] = useState<UserInputType>(
+  const [userAnswer, setUserAnswers] = useState<UserInputType>(
     initializeAnswers()
   );
   //ユーザーの回答を記録するロジックを実装する
@@ -21,10 +21,10 @@ const useGetUserAnswers = () => {
     });
   };
   useEffect(() => {
-    console.log(userAnswers);
-  }, [userAnswers]);
+    console.log(userAnswer);
+  }, [userAnswer]);
 
-  return { userAnswers, getAnswersInEachPage };
+  return { userAnswer, getAnswersInEachPage };
 };
 
 // userの回答順で格納されている配列を、質問番号順に並べ替える関数
@@ -43,7 +43,7 @@ function orderAnswers(answers: UserInputType) {
 const initializeAnswers = (): UserInputType => {
   const initialAnswers: UserInputType = {};
   for (let i = 1; i <= 25; i++) {
-    initialAnswers[`q${i}`] = null; 
+    initialAnswers[`q${i}`] = null;
   }
   return initialAnswers;
 };
