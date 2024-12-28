@@ -34,7 +34,7 @@ const TopBar = () => {
         className="flex justify-between ml-2"
       >
         <Image src="/images/logoWhite.png" alt="" width={28} height={18} />
-        <h2 className="text-white text-xl ml-1 font-extrabold">
+        <h2 className="text-white md:text-xl text-base ml-1 font-extrabold">
           HealthChecker.app
         </h2>
       </Link>
