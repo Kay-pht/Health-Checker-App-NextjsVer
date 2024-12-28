@@ -9,5 +9,5 @@ export const firebaseConfig = {
 };
 
 export const configENV = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL,
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
 };

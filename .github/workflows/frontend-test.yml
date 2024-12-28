@@ -17,18 +17,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm install
         working-directory: frontend
+
+      - name: Set environment variables
+        run: echo "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" >> $GITHUB_ENV
+
       - name: Run lint
         run: npm run lint
         working-directory: frontend
+
       - name: Run type-check
         run: npm run type-check
         working-directory: frontend
+
       - name: Build
         run: npm run build
         working-directory: frontend
+
       - name: Run tests
         run: npm test
         working-directory: frontend
