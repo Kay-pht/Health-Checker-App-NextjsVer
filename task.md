@@ -6,7 +6,7 @@
 - [x] test the schemas
 - [x] improve prompt to get more accurate score and lacking nutrition
 - [ ] improve prompt to get more accurate recommended foods
-- [ ] continues integration with github actions
+- [ ] activate continues integration with github actions
 
 ## Priority: Medium
 

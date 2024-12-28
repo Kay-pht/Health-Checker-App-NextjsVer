@@ -1,4 +1,4 @@
-name: Backend Tests
+name: Backend CI
 
 on:
   push:
@@ -12,14 +12,26 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: "16"
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
-        run: npm install
+        run: npm i
         working-directory: backend
+
+      - name: Type Check
+        run: npm run type-check
+        working-directory: backend
+
+      - name: Lint Code
+        run: npm run lint
+        working-directory: backend
+
       - name: Run tests
         run: npm test
         working-directory: backend

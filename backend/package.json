@@ -7,7 +7,9 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build": "tsc",
     "start": "node dist/server.mjs",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/server.mjs\""
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/server.mjs\"",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",
