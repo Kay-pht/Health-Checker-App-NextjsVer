@@ -8,9 +8,6 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
     // これまでの診断結果DBから取得してフロントに返却
     const { userId } = req;
-    if (!userId || typeof userId !== "string") {
-      throw new Error("Invalid User ID");
-    }
 
     const results = await getUserHistoryById(userId, resultsCollection);
     const validatedResults = userHistoryDataListSchema.parse(results);

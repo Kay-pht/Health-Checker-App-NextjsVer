@@ -3,12 +3,15 @@ import { getResultById } from "../service/mongoDB.mjs";
 import { objectResultIdSchema } from "../schemas/resultIdSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
+import { CustomAuthRequest } from "../interfaces/interfaces";
 
-const getResult = async (req: Request, res: Response) => {
+const getResult = async (req: CustomAuthRequest, res: Response) => {
   try {
     // これまでの診断結果をDBから取得してフロントに返却
+    const { userId } = req;
+
     const resultId = objectResultIdSchema.parse(req.params.resultId);
-    const results = await getResultById(resultId, resultsCollection);
+    const results = await getResultById(resultId, userId, resultsCollection);
     const validatedResults = analyzedResultSchema.parse(results);
 
     res.status(200).json(validatedResults);

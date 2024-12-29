@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import "./helpers/connectDB.mjs";
 import configEnv from "./configEnv.mjs";
-import { firebaseAuthMiddleware } from "./middlewares/firebaseAuthMiddleware.mjs";
+import { verifyTokenMiddleware } from "./middlewares/verifyTokenMiddleware.mjs";
 import postChatCompletion from "./handlers/postChatCompletion.mjs";
 import getMyPage from "./handlers/getMyPage.mjs";
 import getAuthToken from "./handlers/getAuthToken.mjs";
@@ -29,10 +29,10 @@ app.use(
 app.use(express.json());
 
 // ルーティング
-app.post("/api/completion", firebaseAuthMiddleware, postChatCompletion);
-app.get("/api/auth", firebaseAuthMiddleware, getAuthToken);
-app.get("/api/result/:resultId", firebaseAuthMiddleware, getResult);
-app.get("/api/mypage", firebaseAuthMiddleware, getMyPage);
+app.post("/api/completion", verifyTokenMiddleware, postChatCompletion);
+app.get("/api/auth", verifyTokenMiddleware, getAuthToken);
+app.get("/api/result/:resultId", verifyTokenMiddleware, getResult);
+app.get("/api/mypage", verifyTokenMiddleware, getMyPage);
 app.get("/", (req: Request, res: Response) => {
   res.json("Hello, World! I'm running on Firebase Express Server.");
 });

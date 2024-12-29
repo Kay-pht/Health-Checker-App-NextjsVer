@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getTokenFromRequest } from "../middlewares/firebaseAuthMiddleware.mjs";
+import { getTokenFromRequest } from "../middlewares/verifyTokenMiddleware.mjs";
 import configEnv from "../configEnv.mjs";
 
 // ブラウザにCookieをセットする

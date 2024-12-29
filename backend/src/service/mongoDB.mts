@@ -8,12 +8,6 @@ async function registerResult(
   resultsCollection: Collection<Result>,
   timestamp: Date = new Date()
 ) {
-  //   const errors = validationResult(req);
-  //   if (!errors.isEmpty()) {
-  //     const errs = errors.array();
-  //     return res.status(400).json({ errors: errs });
-  //   }
-
   const result: Result = {
     userId: userId,
     recommendedFoods: answerByChatGPT.recommendedFoods,
@@ -23,13 +17,14 @@ async function registerResult(
   };
   try {
     const registeredData = await resultsCollection.insertOne(result);
-    if (!registeredData) {
-      throw new Error("Failed to save result");
-    }
     return registeredData.insertedId;
   } catch (error) {
     console.error("Failed to register result", error);
-    throw new Error("Failed to save result");
+    if (error instanceof Error) {
+      throw new Error(`Error registering result: ${error.message}`);
+    } else {
+      throw new Error("An unknown error occurred.");
+    }
   }
 }
 
@@ -51,13 +46,18 @@ async function getUserHistoryById(
     }
     return results;
   } catch (error) {
-    console.error("Failed to get results with user ID", error);
-    throw new Error("Failed to fetch results from DB");
+    console.error("Failed to fetch history", error);
+    if (error instanceof Error) {
+      throw new Error(`Error fetching history: ${error.message}`);
+    } else {
+      throw new Error("An unknown error occurred.");
+    }
   }
 }
 // 指定ユーザーの最新の診断結果を1件DBから取得(/resultページ用)
 async function getResultById(
   resultId: string,
+  userId: string,
   resultsCollection: Collection<Result>
 ) {
   try {
@@ -65,12 +65,19 @@ async function getResultById(
       _id: new ObjectId(resultId),
     });
     if (!result) {
-      throw new Error("Failed to fetch result from DB");
+      throw new Error(`No result found for id: ${resultId}`);
+    }
+    if (result.userId !== userId) {
+      throw new Error("Unauthorized access");
     }
     return result;
   } catch (error) {
-    console.error("Failed to get result with user ID", error);
-    throw new Error("Failed to fetch result from DB");
+    console.error("Failed to fetch a result", error);
+    if (error instanceof Error) {
+      throw new Error(`Error fetching a result: ${error.message}`);
+    } else {
+      throw new Error("An unknown error occurred.");
+    }
   }
 }
 

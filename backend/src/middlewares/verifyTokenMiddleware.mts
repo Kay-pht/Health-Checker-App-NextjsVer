@@ -7,7 +7,7 @@ import { initializeFirebaseAdmin } from "../service/firebase.mjs";
 initializeFirebaseAdmin();
 
 // クライアントから送られてきたトークンの検証
-export const firebaseAuthMiddleware = async (
+export const verifyTokenMiddleware = async (
   req: CustomAuthRequest,
   res: Response,
   next: NextFunction
