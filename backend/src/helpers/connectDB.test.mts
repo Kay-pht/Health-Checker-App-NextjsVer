@@ -18,6 +18,7 @@ describe("connectToDatabase", () => {
     await connectToDatabase();
     expect(resultsCollection.collectionName).toBe("results");
   });
+  // TODO: resolve the error
   it("should log an error if unable to connect to MongoDB", async () => {
     const invalidUri = "mongodb://invalid_uri";
     clientTest = new MongoClient(invalidUri);

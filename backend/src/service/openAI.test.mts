@@ -1,7 +1,4 @@
 import { jest } from "@jest/globals";
-import OpenAI from "openai";
-import configEnv from "../configEnv.mjs";
-import { ChatCompletion } from "openai/resources";
 
 const originalEnv = process.env;
 const orderedAnswers = {

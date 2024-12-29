@@ -5,8 +5,12 @@
 - [x] validation check with zod
 - [x] test the schemas
 - [x] improve prompt to get more accurate score and lacking nutrition
+- [x] activate continues integration with github actions
 - [ ] improve prompt to get more accurate recommended foods
-- [ ] activate continues integration with github actions
+- [ ] test Auth function
+  - [ ] verifying token logic in backend
+  - [ ] verifying token logic from front to back
+  - [ ] when jwt is expired
 
 ## Priority: Medium
 

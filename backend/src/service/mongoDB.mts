@@ -1,10 +1,6 @@
 import { ObjectId } from "mongodb";
 import { resultsCollection } from "../helpers/connectDB.mjs";
-import type {
-  answerByChatGPTType,
-  CustomAuthRequest,
-  Result,
-} from "../interfaces/interfaces.js";
+import type { answerByChatGPTType, Result } from "../interfaces/interfaces.js";
 
 //結果のDB登録(AIからの診断結果を返却するとき)
 async function registerResult(

@@ -1,5 +1,4 @@
-import { Request, Response } from "express";
-import { parseResponseFromAI } from "../helpers/answerHelpers.mjs";
+import { Response } from "express";
 import { registerResult } from "../service/mongoDB.mjs";
 import { getChatCompletion } from "../service/openAI.mjs";
 

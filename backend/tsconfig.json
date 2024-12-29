@@ -10,7 +10,10 @@
     "resolveJsonModule": true,
     "types": ["jest"],
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"],
+    "noUnusedLocals": true, // 未使用のローカル変数に対してエラーを出す
+    "noUnusedParameters": true, // 未使用の関数パラメータに対してエラーを出す
+    "noImplicitAny": true
   },
   "include": ["src"]
 }
