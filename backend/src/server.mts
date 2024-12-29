@@ -1,13 +1,13 @@
 import express, { NextFunction, Request, Response } from "express";
 import "./helpers/connectDB.mjs";
 import configEnv from "./configEnv.mjs";
-import { verifyTokenMiddleware } from "./middlewares/verifyTokenMiddleware.mjs";
 import postChatCompletion from "./handlers/postChatCompletion.mjs";
 import getMyPage from "./handlers/getMyPage.mjs";
 import getAuthToken from "./handlers/getAuthToken.mjs";
 import getResult from "./handlers/getResult.mjs";
 import cors from "cors";
 import env from "dotenv";
+import { verifyTokenMiddleware } from "./middlewares/verifyTokenMiddleware.mjs";
 
 env.config(); //.envファイルから環境変数を読み込む
 

@@ -28,6 +28,35 @@ async function registerResult(
   }
 }
 
+// 指定ユーザーの最新の診断結果を1件DBから取得(/resultページ用)
+async function getResultById(
+  resultId: string,
+  userId: string,
+  resultsCollection: Collection<Result>
+) {
+  try {
+    const result = await resultsCollection.findOne({
+      _id: new ObjectId(resultId),
+    });
+    if (!result) {
+      throw new Error(`No result found for id: ${resultId}`);
+    }
+    if (result.userId !== userId) {
+      throw new Error(
+        `Unauthorized access to result: ${resultId} for user ${userId}  (expected: ${result.userId})`
+      );
+    }
+    return result;
+  } catch (error) {
+    console.error("Failed to fetch a result", error);
+    if (error instanceof Error) {
+      throw new Error(`Error fetching a result: ${error.message}`);
+    } else {
+      throw new Error("An unknown error occurred.");
+    }
+  }
+}
+
 // 指定ユーザーの全ての診断結果をDBから取得(マイページ用)
 async function getUserHistoryById(
   userId: string,
@@ -49,32 +78,6 @@ async function getUserHistoryById(
     console.error("Failed to fetch history", error);
     if (error instanceof Error) {
       throw new Error(`Error fetching history: ${error.message}`);
-    } else {
-      throw new Error("An unknown error occurred.");
-    }
-  }
-}
-// 指定ユーザーの最新の診断結果を1件DBから取得(/resultページ用)
-async function getResultById(
-  resultId: string,
-  userId: string,
-  resultsCollection: Collection<Result>
-) {
-  try {
-    const result = await resultsCollection.findOne({
-      _id: new ObjectId(resultId),
-    });
-    if (!result) {
-      throw new Error(`No result found for id: ${resultId}`);
-    }
-    if (result.userId !== userId) {
-      throw new Error("Unauthorized access");
-    }
-    return result;
-  } catch (error) {
-    console.error("Failed to fetch a result", error);
-    if (error instanceof Error) {
-      throw new Error(`Error fetching a result: ${error.message}`);
     } else {
       throw new Error("An unknown error occurred.");
     }

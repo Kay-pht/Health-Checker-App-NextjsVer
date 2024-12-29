@@ -4,7 +4,7 @@ export interface CustomAuthRequest extends Request {
   headers: {
     authorization?: string;
   };
-  userId: string;
+  userId?: string;
 }
 
 export interface answerByChatGPTType {

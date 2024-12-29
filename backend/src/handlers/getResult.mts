@@ -9,7 +9,9 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
   try {
     // これまでの診断結果をDBから取得してフロントに返却
     const { userId } = req;
-
+    if (!userId) {
+      throw new Error("User ID is required");
+    }
     const resultId = objectResultIdSchema.parse(req.params.resultId);
     const results = await getResultById(resultId, userId, resultsCollection);
     const validatedResults = analyzedResultSchema.parse(results);

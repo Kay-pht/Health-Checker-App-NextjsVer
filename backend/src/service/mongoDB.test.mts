@@ -75,13 +75,14 @@ describe("getResultById", () => {
   let resultsCollection: jest.Mocked<Collection<Result>>;
   const result = {
     _id: new ObjectId("676ceee230c23fc89672b337"),
-    userId: "testUser",
+    userId: "validUserId",
     recommendedFoods: ["testFood1", "testFood2"],
     missingNutrients: ["testNutrient1", "testNutrient2"],
     score: 90,
     createdAt: expect.any(Date),
   };
   const resultId = "676ceee230c23fc89672b337";
+  let userId: string;
 
   beforeEach(() => {
     resultsCollection = {
@@ -102,10 +103,11 @@ describe("getResultById", () => {
     const findOneSpy = jest
       .spyOn(resultsCollection, "findOne")
       .mockRejectedValueOnce(new Error("Test error"));
+    userId = "validUserId";
 
-    await expect(getResultById(resultId, resultsCollection)).rejects.toThrow(
-      "Error fetching a result: Test error"
-    );
+    await expect(
+      getResultById(resultId, userId, resultsCollection)
+    ).rejects.toThrow("Error fetching a result: Test error");
     expect(findOneSpy).toHaveBeenCalledWith({ _id: new ObjectId(resultId) });
   });
 
@@ -113,9 +115,26 @@ describe("getResultById", () => {
     const findOneSpy = jest
       .spyOn(resultsCollection, "findOne")
       .mockResolvedValueOnce(null);
+    userId = "validUserId";
 
-    await expect(getResultById(resultId, resultsCollection)).rejects.toThrow(
+    await expect(
+      getResultById(resultId, userId, resultsCollection)
+    ).rejects.toThrow(
       `Error fetching a result: No result found for id: ${resultId}`
+    );
+    expect(findOneSpy).toHaveBeenCalledWith({ _id: new ObjectId(resultId) });
+  });
+
+  it("should throw error when userId is not match", async () => {
+    const findOneSpy = jest
+      .spyOn(resultsCollection, "findOne")
+      .mockResolvedValueOnce(result);
+    userId = "invalidUserId";
+
+    await expect(
+      getResultById(resultId, userId, resultsCollection)
+    ).rejects.toThrow(
+      `Error fetching a result: Unauthorized access to result: ${resultId} for user ${userId}  (expected: ${result.userId})`
     );
     expect(findOneSpy).toHaveBeenCalledWith({ _id: new ObjectId(resultId) });
   });
@@ -124,8 +143,13 @@ describe("getResultById", () => {
     const findOneSpy = jest
       .spyOn(resultsCollection, "findOne")
       .mockResolvedValueOnce(result);
+    userId = "validUserId";
 
-    const fetchedResult = await getResultById(resultId, resultsCollection);
+    const fetchedResult = await getResultById(
+      resultId,
+      userId,
+      resultsCollection
+    );
     expect(fetchedResult).toEqual(result);
     expect(findOneSpy).toHaveBeenCalledWith({ _id: new ObjectId(resultId) });
   });

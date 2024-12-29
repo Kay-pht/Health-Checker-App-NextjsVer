@@ -8,10 +8,11 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
     // これまでの診断結果DBから取得してフロントに返却
     const { userId } = req;
-
+    if (!userId) {
+      throw new Error("User ID is required");
+    }
     const results = await getUserHistoryById(userId, resultsCollection);
     const validatedResults = userHistoryDataListSchema.parse(results);
-
     res.status(200).json(validatedResults);
   } catch (error) {
     res.status(500).json({ error: "Failed to get results" });
