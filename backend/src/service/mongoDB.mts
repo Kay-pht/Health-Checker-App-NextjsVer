@@ -1,11 +1,11 @@
-import { ObjectId } from "mongodb";
-import { resultsCollection } from "../helpers/connectDB.mjs";
+import { Collection, ObjectId } from "mongodb";
 import type { answerByChatGPTType, Result } from "../interfaces/interfaces.js";
 
 //結果のDB登録(AIからの診断結果を返却するとき)
 async function registerResult(
   userId: string,
   answerByChatGPT: answerByChatGPTType,
+  resultsCollection: Collection<Result>,
   timestamp: Date = new Date()
 ) {
   //   const errors = validationResult(req);
@@ -34,7 +34,10 @@ async function registerResult(
 }
 
 // 指定ユーザーの全ての診断結果をDBから取得(マイページ用)
-async function getUserHistoryById(userId: string) {
+async function getUserHistoryById(
+  userId: string,
+  resultsCollection: Collection<Result>
+) {
   try {
     const results = await resultsCollection
       .find({ userId: userId })
@@ -53,7 +56,10 @@ async function getUserHistoryById(userId: string) {
   }
 }
 // 指定ユーザーの最新の診断結果を1件DBから取得(/resultページ用)
-async function getResultById(resultId: string) {
+async function getResultById(
+  resultId: string,
+  resultsCollection: Collection<Result>
+) {
   try {
     const result = await resultsCollection.findOne({
       _id: new ObjectId(resultId),

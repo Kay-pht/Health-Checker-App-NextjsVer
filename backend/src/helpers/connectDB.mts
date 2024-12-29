@@ -1,6 +1,7 @@
 import configEnv from "../configEnv.mjs";
 import { MongoClient } from "mongodb";
 import { Collection } from "mongodb";
+import { Result } from "../interfaces/interfaces.d";
 
 const { mongoUri } = configEnv;
 
@@ -9,7 +10,7 @@ if (!mongoUri) {
 }
 // MongoDBの公式SDKを使用してDB接続する
 const client = new MongoClient(mongoUri);
-let resultsCollection: Collection;
+let resultsCollection: Collection<Result>;
 
 async function connectToDatabase() {
   try {

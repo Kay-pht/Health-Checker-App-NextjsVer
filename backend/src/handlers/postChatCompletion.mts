@@ -5,6 +5,7 @@ import { getChatCompletion } from "../service/openAI.mjs";
 import { CustomAuthRequest } from "../interfaces/interfaces";
 import { userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
+import { resultsCollection } from "../helpers/connectDB.mjs";
 
 const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
   try {
@@ -25,7 +26,11 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
       throw new Error("Failed to get user ID");
     }
     // register the result to MongoDB and get the result ID to return
-    const registeredDataId = await registerResult(userId, validatedResponse);
+    const registeredDataId = await registerResult(
+      userId,
+      validatedResponse,
+      resultsCollection
+    );
 
     res.json({ resultId: registeredDataId });
   } catch (error) {

@@ -2,6 +2,7 @@ import { Response } from "express";
 import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getUserHistoryById } from "../service/mongoDB.mjs";
 import userHistoryDataListSchema from "../schemas/userHistoryDataListSchema.mjs";
+import { resultsCollection } from "../helpers/connectDB.mjs";
 
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
@@ -11,9 +12,8 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
       throw new Error("Invalid User ID");
     }
 
-    const results = await getUserHistoryById(userId);
+    const results = await getUserHistoryById(userId, resultsCollection);
     const validatedResults = userHistoryDataListSchema.parse(results);
-    console.log("validatedResults", validatedResults);
 
     res.status(200).json(validatedResults);
   } catch (error) {
