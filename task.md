@@ -7,15 +7,17 @@
 - [x] improve prompt to get more accurate score and lacking nutrition
 - [x] activate continues integration with github actions
 - [ ] improve prompt to get more accurate recommended foods
-- [ ] test Auth function
-  - [ ] verifying token logic in backend
-  - [ ] verifying token logic from front to back
-  - [ ] when jwt is expired
+- [ ] test initializing Auth function
+- [ ] test verifying token process
+- [ ] test connecting DB
+- [x] test DB CRUD control
+- [ ] test openAI API
+- [x] validate all Env keys with zod in configEnv.mts
 
 ## Priority: Medium
 
 - [x] add logo on top bar
-- [ ] check who is trying to get resultData and if the user isn't invalid, return null
+- [x] check who is trying to get resultData and if the user isn't invalid, return null
 
 ## Priority: Low
 

@@ -1,10 +1,6 @@
 import { Response, NextFunction } from "express";
 import admin from "firebase-admin";
 import type { CustomAuthRequest } from "../interfaces/interfaces.js";
-import { initializeFirebaseAdmin } from "../service/firebase.mjs";
-
-//firebase SDKの初期化
-initializeFirebaseAdmin();
 
 // クライアントから送られてきたトークンの検証
 export const verifyTokenMiddleware = async (
@@ -27,7 +23,7 @@ export const verifyTokenMiddleware = async (
   }
 };
 
-// アプリケーションロジックの分離
+// リクエストヘッダーからトークンを取り出す関数
 export function getTokenFromRequest(authHeader: string | undefined): string {
   if (!authHeader) {
     console.error("No authorization header found");

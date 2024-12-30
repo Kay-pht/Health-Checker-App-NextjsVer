@@ -14,7 +14,7 @@ describe("connectToDatabase", () => {
   });
 
   it("should connect to MongoDB successfully", async () => {
-    clientTest = new MongoClient(mongoUri || "");
+    clientTest = new MongoClient(mongoUri);
     await connectToDatabase();
     expect(resultsCollection.collectionName).toBe("results");
   });

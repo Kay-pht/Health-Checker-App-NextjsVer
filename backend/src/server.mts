@@ -1,20 +1,21 @@
 import express, { NextFunction, Request, Response } from "express";
 import "./helpers/connectDB.mjs";
-import configEnv from "./configEnv.mjs";
 import postChatCompletion from "./handlers/postChatCompletion.mjs";
 import getMyPage from "./handlers/getMyPage.mjs";
 import getAuthToken from "./handlers/getAuthToken.mjs";
 import getResult from "./handlers/getResult.mjs";
 import cors from "cors";
-import env from "dotenv";
 import { verifyTokenMiddleware } from "./middlewares/verifyTokenMiddleware.mjs";
-
-env.config(); //.envファイルから環境変数を読み込む
+import OpenAI from "openai";
+import { CustomAuthRequest } from "./interfaces/interfaces";
+import { initializeFirebaseAdmin } from "./service/firebase.mjs";
+import configEnv from "./configEnv.mjs";
 
 const app = express();
+
 const { port } = configEnv || 5050;
 
-//TODO:特定のオリジンからのリクエストのみを許可する
+//TODO:allow CORS to be configured properly
 app.use(
   cors({
     origin: true,
@@ -28,8 +29,21 @@ app.use(
 
 app.use(express.json());
 
-// ルーティング
-app.post("/api/completion", verifyTokenMiddleware, postChatCompletion);
+const openai = new OpenAI({
+  apiKey: configEnv.openaiApiKey,
+});
+const { serviceAccountKey } = configEnv;
+
+// initializing firebase SDK
+initializeFirebaseAdmin(serviceAccountKey);
+
+// routes
+app.post(
+  "/api/completion",
+  verifyTokenMiddleware,
+  (req: Request, res: Response) =>
+    postChatCompletion(req as CustomAuthRequest, res, openai)
+);
 app.get("/api/auth", verifyTokenMiddleware, getAuthToken);
 app.get("/api/result/:resultId", verifyTokenMiddleware, getResult);
 app.get("/api/mypage", verifyTokenMiddleware, getMyPage);

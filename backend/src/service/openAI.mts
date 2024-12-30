@@ -1,13 +1,11 @@
 import OpenAI from "openai";
 import prompt from "../helpers/prompt.mjs";
-import configEnv from "../configEnv.mjs";
-
-const openai = new OpenAI({
-  apiKey: configEnv.openaiApiKey,
-});
 
 // データアクセス(ChatGPTとの連携)部分の実装
-async function getChatCompletion(orderedAnswers: { [key: string]: string }) {
+async function getChatCompletion(
+  openai: OpenAI,
+  orderedAnswers: { [key: string]: string }
+) {
   try {
     // OpenAIのChatGPTに回答を送付して、返答をレスとして受け取る
     const completion = await openai.chat.completions.create({
@@ -16,12 +14,11 @@ async function getChatCompletion(orderedAnswers: { [key: string]: string }) {
       messages: prompt(orderedAnswers),
     });
     const responseFromAI = completion.choices[0].message.content;
-    if (responseFromAI) {
-      return responseFromAI;
-    } else {
-      console.error("Invalid response from OpenAI");
-      throw new Error("Invalid response format from OpenAI");
+    if (!responseFromAI) {
+      console.error("No response from OpenAI");
+      throw new Error("No response from OpenAI");
     }
+    return responseFromAI;
   } catch (error) {
     console.error("Can't connect to OpenAI", error);
     if (error instanceof Error) {
