@@ -1,44 +1,52 @@
 import { jest } from "@jest/globals";
 import admin from "firebase-admin";
+import { initializeFirebaseAdmin } from "./firebase.mjs";
+// import decodeAccountKey, * as utils from "../helpers/utils.mjs"; // これをコメントアウト
 
-// 環境変数を差し替えてテストするために、環境変数を設定してから関数をインポートする必要があるので、動的インポートを採用
+jest.mock("firebase-admin", () => ({
+  initializeApp: jest.fn(),
+  credential: {
+    cert: jest.fn(),
+  },
+}));
+
+// utils.mjs モジュール全体をモック化
+jest.mock("../helpers/utils.mjs", () => ({
+  __esModule: true, // ES Modules として扱う
+  default: jest.fn(), // default export をモック関数として設定
+}));
+
+// モック化したモジュールをインポート
+import decodeAccountKey from "../helpers/utils.mjs";
+
 describe("initializeFirebaseAdmin", () => {
   beforeEach(() => {
-    // 環境変数のキャッシュをクリア
-    jest.resetModules();
-
-    // jest.spyOn(process, "exit").mockImplementation((code) => {
-    //   throw new Error(`process.exit: ${code}`);
-    // }); // process.exitをモック
+    jest.clearAllMocks();
   });
 
-  // it("should log an error if the service account key is not provided", async () => {
-  //   process.env.SERVICE_ACCOUNT_KEY = "";
-  //   const { initializeFirebaseAdmin } = await import("./firebase.mjs");
-  //   await expect(initializeFirebaseAdmin()).rejects.toThrow("process.exit: 1");
-  // });
+  it("should initialize FirebaseAdmin with correct credentials", async () => {
+    // console.log("test start");
 
-  // it("should log an error if the service account key is invalid", async () => {
-  //   process.env.SERVICE_ACCOUNT_KEY = "invalid_service_account_key";
-  //   const { initializeFirebaseAdmin } = await import("./firebase.mjs");
-  //   await expect(initializeFirebaseAdmin()).rejects.toThrow("process.exit: 1");
-  // });
+    // // モック関数の振る舞いを設定
+    // (
+    //   decodeAccountKey as jest.MockedFunction<typeof decodeAccountKey>
+    // ).mockResolvedValueOnce({
+    //   projectId: "mocked-project-id",
+    //   clientEmail: "mocked-client-email",
+    //   privateKey: "mocked-private-key",
+    // });
 
-  // it("should initialize Firebase Admin successfully", async () => {
-  //   process.env = originalEnv;
-  //   const consoleLogSpy = jest
-  //     .spyOn(console, "log")
-  //     .mockImplementation(() => {});
+    // console.log("decodeAccountKey:", decodeAccountKey);
 
-  //   const { initializeFirebaseAdmin } = await import("./firebase.mjs");
-  //   await initializeFirebaseAdmin();
-  //   expect(consoleLogSpy).toHaveBeenCalledWith(
-  //     "Firebase Admin initialized successfully."
-  //   );
-  //   consoleLogSpy.mockRestore();
+    // await initializeFirebaseAdmin("mocked-service-account-key");
 
-  // const mockedInitializeApp = jest.mocked(
-  //   admin.initializeApp as jest.MockedFunction<typeof admin.initializeApp> // 修正: admin.initializeApp を使用
-  // );
-  // expect(admin.initializeApp).toHaveBeenCalled(); // モック関数が呼ばれたことを確認
+    // expect(decodeAccountKey).toHaveBeenCalledWith("mocked-service-account-key");
+    // expect(admin.initializeApp).toHaveBeenCalledWith({
+    //   credential: admin.credential.cert({
+    //     projectId: "mocked-project-id",
+    //     clientEmail: "mocked-client-email",
+    //     privateKey: "mocked-private-key",
+    //   }),
+    // });
+  });
 });

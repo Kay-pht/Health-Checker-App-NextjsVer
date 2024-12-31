@@ -38,3 +38,5 @@ export const userAnswerSchema = z.object({
       }
     ),
 });
+
+export type UserAnswer = z.infer<typeof userAnswerSchema>;

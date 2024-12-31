@@ -5,6 +5,8 @@ import prompt from "../helpers/prompt.mjs";
 async function getChatCompletion(
   openai: OpenAI,
   orderedAnswers: { [key: string]: string }
+  // TODO:テスト簡略化のために一時的に上記を採用
+  // orderedAnswers: UserAnswer["content"]
 ) {
   try {
     // OpenAIのChatGPTに回答を送付して、返答をレスとして受け取る

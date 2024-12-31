@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import envSchema from "./schemas/envSchema.mjs";
+import envSchema, { envSchemaType } from "./schemas/envSchema.mjs";
 import { z } from "zod";
 
 // Load environment variables from .env file
@@ -17,9 +17,7 @@ const rawConfigEnv = {
   taskPrompt: process.env.TASK_PROMPT,
 };
 
-const getVerifiedEnv = (
-  config: typeof rawConfigEnv
-): z.infer<typeof envSchema> => {
+const getVerifiedEnv = (config: typeof rawConfigEnv): envSchemaType => {
   try {
     return envSchema.parse(config);
   } catch (error) {

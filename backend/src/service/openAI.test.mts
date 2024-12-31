@@ -1,37 +1,114 @@
 import { jest } from "@jest/globals";
 import { getChatCompletion } from "./openAI.mjs";
 import OpenAI from "openai";
+import prompt from "../helpers/prompt.mjs";
+import { ChatCompletionCreateParamsNonStreaming } from "openai/resources";
 
-const originalEnv = process.env;
+// モックをファイルの先頭に移動
+jest.mock("openai");
+jest.mock("../helpers/prompt.mjs", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 const orderedAnswers = {
   question1: "Answer1",
   question2: "Answer2",
   question3: "Answer3",
 };
 
-// 環境変数を差し替えてテストするために、環境変数を設定してから関数をインポートする必要があるので、動的インポートを採用
-describe("getChatCompletion with invalid API key", () => {
+// const openAi = jest.mock("openai", () => ({
+//   OpenAI: jest.fn().mockImplementation(() => {
+//     return {
+//       chat: {
+//         completions: {
+//           create: jest.fn(),
+//         },
+//       },
+//     };
+//   }),
+// }));
+
+describe("getChatCompletion", () => {
   beforeEach(() => {
-    // 環境変数のキャッシュをクリア
-    jest.resetModules();
+    jest.clearAllMocks();
+  });
 
-    process.env = {
-      ...originalEnv,
+  it("should return the response from OpenAI when the request is successful", async () => {
+    const mockResponse: OpenAI.Chat.Completions.ChatCompletion = {
+      choices: [
+        {
+          message: {
+            content: "Test response from OpenAI",
+            role: "assistant",
+            refusal: "",
+          },
+          finish_reason: "stop",
+          index: 0,
+          logprobs: null,
+        },
+      ],
+      id: "chatcmpl-123",
+      object: "chat.completion",
+      created: 1677652288,
+      model: "gpt-3.5-turbo-0613",
+      usage: {
+        prompt_tokens: 9,
+        completion_tokens: 12,
+        total_tokens: 21,
+      },
     };
-  });
+    // const openAi = new OpenAI();
+    // (openAi.chat.completions.create as jest.Mock).mockResolvedValueOnce(
+    //   mockResponse
+    // );
+    // (prompt as jest.MockedFunction<typeof prompt>).mockReturnValue(
+    //   "mocked prompt" as any
+    // );
 
-  afterEach(() => {
-    process.env = originalEnv; // テスト後に環境変数を元に戻す
-    jest.resetModules();
-    jest.restoreAllMocks();
-  });
+    const mockMessages: ChatCompletionCreateParamsNonStreaming["messages"] = [
+      { role: "system", content: "You are a helpful assistant." },
+      { role: "user", content: "mocked prompt" },
+    ];
 
-  // it("should throw an error due to the invalid key", async () => {
-  //   process.env.OPENAI_API_KEY = "invalid_key";
-  //   await expect(
-  //     getChatCompletion(openai as OpenAI, orderedAnswers)
-  //   ).rejects.toThrow(
-  //     "Failed to connect to OpenAI: 401 Incorrect API key provided: invalid_key. You can find your API key at https://platform.openai.com/account/api-keys."
+    const mockCreate = jest
+      .fn<() => Promise<OpenAI.Chat.Completions.ChatCompletion>>()
+      .mockResolvedValue(mockResponse);
+
+    const mockOpenAI = {
+      chat: {
+        completions: {
+          create: mockCreate,
+        },
+      },
+    };
+
+    // OpenAI コンストラクタ関数をモック化
+    jest.mock("openai", () => ({
+      __esModule: true, // ESモジュールとして扱うために必要
+      default: jest.fn().mockImplementation(() => mockOpenAI),
+    }));
+
+    // prompt 関数をモック化
+    jest.mock("../helpers/prompt.mjs", () => ({
+      __esModule: true,
+      default: jest.fn().mockReturnValue(mockMessages),
+    }));
+
+    const response = await getChatCompletion(new OpenAI(), orderedAnswers);
+    expect(response).toEqual("Test response from OpenAI");
+    expect(OpenAI.prototype.chat.completions.create).toHaveBeenCalledWith({
+      model: "gpt-4o-mini",
+      temperature: 0,
+      messages: prompt(orderedAnswers),
+    });
+  });
+  // it("should throw an error due to the chatGPT problem", async () => {
+  //   const createSpy = jest
+  //     .spyOn(OpenAI.prototype.chat.completions, "create")
+  //     .mockRejectedValueOnce(new Error("Test error"));
+  //   await expect(getChatCompletion(openAi, orderedAnswers)).rejects.toThrow(
+  //     "Test error"
   //   );
   // });
 });

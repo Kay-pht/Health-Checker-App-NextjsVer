@@ -13,3 +13,5 @@ const envSchema = z.object({
 });
 
 export default envSchema;
+
+export type envSchemaType = z.infer<typeof envSchema>;

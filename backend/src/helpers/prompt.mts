@@ -1,9 +1,12 @@
 import { ChatCompletionMessageParam } from "openai/resources";
 import configEnv from "../configEnv.mjs";
 
-const prompt = (answers: {
-  [key: string]: string;
-}): ChatCompletionMessageParam[] => {
+const prompt = (
+  answers: {
+    [key: string]: string;
+  }
+  // orderedAnswers: { [key: string]: string }
+): ChatCompletionMessageParam[] => {
   return [
     {
       role: "system",

@@ -33,7 +33,13 @@ const QuestionFormPage = () => {
 
   return (
     <UserIsLoggedinHandler>
-      <div>
+      <div
+        className={`transition-all duration-300 ${
+          isSubmitting ? "opacity-70 grayscale" : ""
+        }`}
+      >
+        {" "}
+        {/* Tailwind classes */}
         <TopBar />
         <div className="max-w-4xl mx-auto p-5 bg-gray-100 shadow-md">
           <form
