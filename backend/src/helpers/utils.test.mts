@@ -17,11 +17,12 @@ describe("decodeBase64", () => {
   });
 });
 
-const mockExit = jest.spyOn(process, "exit").mockImplementation(() => {
-  throw new Error("process.exit called"); // toThrowでキャッチできるようにエラーを投げる
-});
-
 describe("getVerifiedEnv", () => {
+  beforeEach(() => {
+    jest.spyOn(process, "exit").mockImplementation(() => {
+      throw new Error("process.exit called");
+    });
+  });
   afterEach(() => {
     jest.clearAllMocks();
   });
