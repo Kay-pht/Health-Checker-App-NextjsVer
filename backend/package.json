@@ -4,7 +4,7 @@
   "main": "dist/server.mjs",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "NODE_ENV=development node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build": "tsc",
     "start": "node dist/server.mjs",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/server.mjs\"",
