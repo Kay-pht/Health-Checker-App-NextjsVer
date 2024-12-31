@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
-import envSchema, { envSchemaType } from "./schemas/envSchema.mjs";
-import { z } from "zod";
+import { getVerifiedEnv } from "./helpers/utils.mjs";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -15,19 +14,6 @@ const rawConfigEnv = {
   frontendDomain: process.env.FRONTEND_DOMAIN,
   rolePrompt: process.env.ROLE_PROMPT,
   taskPrompt: process.env.TASK_PROMPT,
-};
-
-const getVerifiedEnv = (config: typeof rawConfigEnv): envSchemaType => {
-  try {
-    return envSchema.parse(config);
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.error("Invalid environment variables:", error.errors);
-    } else {
-      console.error("Unexpected error:", error);
-    }
-    process.exit(1);
-  }
 };
 
 const configEnv = getVerifiedEnv(rawConfigEnv);
