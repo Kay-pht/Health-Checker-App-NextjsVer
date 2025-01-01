@@ -7,6 +7,8 @@ import { userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import OpenAI from "openai";
+import { z } from "zod";
+import userIdSchema from "../schemas/userIdSchema.mjs";
 
 const postChatCompletion = async (
   req: CustomAuthRequest,
@@ -19,18 +21,12 @@ const postChatCompletion = async (
 
     // ChatGPTにユーザーの回答を投げる。診断結果をレスとして受け取る
     const responseFromAI = await getChatCompletion(openai, content);
-
-    // JavaScriptオブジェクトに変換
     const parsedResponse = JSON.parse(responseFromAI);
 
     // check if the response from chatGPT is valid format
     const validatedResponse = analyzedResultSchema.parse(parsedResponse);
+    const userId = userIdSchema.parse(req.userId);
 
-    const userId = req.userId;
-    if (!userId) {
-      throw new Error("Failed to get user ID");
-    }
-    // register the result to MongoDB and get the result ID to return
     const registeredDataId = await registerResult(
       userId,
       validatedResponse,
