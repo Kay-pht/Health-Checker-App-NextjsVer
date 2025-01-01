@@ -45,9 +45,9 @@ describe("verifyTokenMiddleware for error cases", () => {
   });
 });
 
-jest.mock("firebase-admin", () => ({
-  auth: jest.fn(),
-}));
+// jest.mock("firebase-admin", () => ({
+//   auth: jest.fn(),
+// }));
 
 // TODO: success test case
 // jest.mock("firebase-admin", () => {
