@@ -35,3 +35,12 @@ jobs:
       - name: Run tests
         run: npm test
         working-directory: backend
+        env:
+          NODE_ENV: "development"
+          taskPrompt: ${{ secrets.TASK_PROMPT }}
+          openaiApiKey: ${{ secrets.OPENAI_API_KEY }}
+          mongoUri: ${{ secrets.MONGO_URI }}
+          serviceAccountKey: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          frontendBaseUrl: ${{ secrets.FRONTEND_BASE_URL }}
+          frontendDomain: ${{ secrets.FRONTEND_DOMAIN }}
+          rolePrompt: ${{ secrets.ROLE_PROMPT }}
