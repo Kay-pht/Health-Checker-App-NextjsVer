@@ -23,7 +23,11 @@ export const getVerifiedEnv = (config: {}): envSchemaType => {
     return envSchema.parse(config);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error("Invalid environment variables:", error.errors);
+      console.error("Invalid environment variables:");
+      // error.errors を一つずつ出力する
+      error.errors.forEach((err) => {
+        console.error(err);
+      });
     } else {
       console.error("Unexpected error:", error);
     }
