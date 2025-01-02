@@ -15,11 +15,11 @@ async function connectToDatabase() {
     const db = client.db("food_health_check");
     resultsCollection = db.collection("results");
     console.log("Connected to MongoDB");
+    return client;
   } catch (error) {
     console.error("Failed to connect to MongoDB", error);
     process.exit(1);
   }
 }
 
-connectToDatabase();
 export { resultsCollection, connectToDatabase };

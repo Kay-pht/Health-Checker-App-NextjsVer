@@ -6,6 +6,9 @@ const { mongoUri } = configEnv;
 
 describe("connectToDatabase", () => {
   let clientTest: MongoClient;
+  beforeEach(() => {
+    clientTest = new MongoClient(mongoUri); // 各テストケースの前に新しいクライアントを作成
+  });
 
   afterEach(async () => {
     if (clientTest) {
@@ -14,8 +17,7 @@ describe("connectToDatabase", () => {
   });
 
   it("should connect to MongoDB successfully", async () => {
-    clientTest = new MongoClient(mongoUri);
-    await connectToDatabase();
+    clientTest = await connectToDatabase();
     expect(resultsCollection.collectionName).toBe("results");
   });
   // TODO: resolve the error
