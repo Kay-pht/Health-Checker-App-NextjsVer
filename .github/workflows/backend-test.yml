@@ -37,10 +37,10 @@ jobs:
         working-directory: backend
         env:
           NODE_ENV: "development"
-          taskPrompt: ${{ secrets.TASK_PROMPT }}
-          openaiApiKey: ${{ secrets.OPENAI_API_KEY }}
-          mongoUri: ${{ secrets.MONGO_URI }}
-          serviceAccountKey: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-          frontendBaseUrl: ${{ secrets.FRONTEND_BASE_URL }}
-          frontendDomain: ${{ secrets.FRONTEND_DOMAIN }}
-          rolePrompt: ${{ secrets.ROLE_PROMPT }}
+          TASK_PROMPT: ${{ secrets.TASK_PROMPT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          FRONTEND_BASE_URL: ${{ secrets.FRONTEND_BASE_URL }}
+          FRONTEND_DOMAIN: ${{ secrets.FRONTEND_DOMAIN }}
+          ROLE_PROMPT: ${{ secrets.ROLE_PROMPT }}

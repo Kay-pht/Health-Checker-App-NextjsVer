@@ -5,6 +5,7 @@ import decodeAccountKey from "../helpers/utils.mjs";
 export const initializeFirebaseAdmin = async (serviceAccountKey: string) => {
   try {
     // エンコードされたキーをbase64形式でデコード。その後、JSON形式でキーを読み出す
+    //
     const serviceAccount = decodeAccountKey(serviceAccountKey);
 
     admin.initializeApp({
