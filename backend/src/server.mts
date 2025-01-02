@@ -10,6 +10,7 @@ import { CustomAuthRequest } from "./interfaces/interfaces";
 import { initializeFirebaseAdmin } from "./service/firebase.mjs";
 import configEnv from "./configEnv.mjs";
 import { connectToDatabase } from "./helpers/connectDB.mjs";
+import decodeAccountKey from "./helpers/utils.mjs";
 
 const app = express();
 
@@ -31,7 +32,7 @@ const openai = new OpenAI({
   apiKey: configEnv.openaiApiKey,
 });
 
-initializeFirebaseAdmin(configEnv.serviceAccountKey); // initializing firebase SDK
+initializeFirebaseAdmin(configEnv.serviceAccountKey, decodeAccountKey); // initializing firebase SDK
 
 connectToDatabase(); // connecting to MongoDB
 

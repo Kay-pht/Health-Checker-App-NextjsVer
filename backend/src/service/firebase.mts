@@ -1,11 +1,12 @@
 import admin from "firebase-admin";
-import decodeAccountKey from "../helpers/utils.mjs";
 
 //firebase SDKの初期化
-export const initializeFirebaseAdmin = async (serviceAccountKey: string) => {
+export const initializeFirebaseAdmin = (
+  serviceAccountKey: string,
+  decodeAccountKey: (serviceAccountKey: string) => {}
+) => {
   try {
     // エンコードされたキーをbase64形式でデコード。その後、JSON形式でキーを読み出す
-    //
     const serviceAccount = decodeAccountKey(serviceAccountKey);
 
     admin.initializeApp({

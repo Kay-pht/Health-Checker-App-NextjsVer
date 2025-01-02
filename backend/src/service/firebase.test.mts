@@ -1,52 +1,53 @@
 import { jest } from "@jest/globals";
 import admin from "firebase-admin";
 import { initializeFirebaseAdmin } from "./firebase.mjs";
-// import decodeAccountKey, * as utils from "../helpers/utils.mjs"; // これをコメントアウト
+import utils from "../helpers/utils.mjs"; // デフォルトインポート
 
-jest.mock("firebase-admin", () => ({
-  initializeApp: jest.fn(),
-  credential: {
-    cert: jest.fn(),
-  },
+// 'firebase-admin'モジュールのモック設定を修正
+jest
+  .spyOn(admin, "initializeApp")
+  .mockImplementation((options?: admin.AppOptions, name?: string) => {
+    return {
+      name: name || "[DEFAULT]",
+      options: options || {},
+      // テストに必要な App オブジェクトのメソッドのみをモック化
+    } as unknown as admin.app.App; // admin.app.App 型にキャスト
+  });
+jest.spyOn(admin.credential, "cert").mockImplementation(() => ({
+  projectId: "mocked-project-id",
+  clientEmail: "mocked-client-email",
+  privateKey: "mocked-private-key",
+  getAccessToken: () =>
+    Promise.resolve({
+      access_token: "mocked-access-token",
+      expires_in: 3600,
+    }), // getAccessToken メソッドのモックを追加
 }));
-
-// utils.mjs モジュール全体をモック化
-jest.mock("../helpers/utils.mjs", () => ({
-  __esModule: true, // ES Modules として扱う
-  default: jest.fn(), // default export をモック関数として設定
-}));
-
-// モック化したモジュールをインポート
-import decodeAccountKey from "../helpers/utils.mjs";
 
 describe("initializeFirebaseAdmin", () => {
+  const mockDecodeAccountKey = jest.fn(() => ({
+    projectId: "mocked-project-id",
+    clientEmail: "mocked-client-email",
+    privateKey: "mocked-private-key",
+  }));
   beforeEach(() => {
-    jest.clearAllMocks();
+    (admin.initializeApp as jest.Mock).mockClear();
+    (admin.credential.cert as jest.Mock).mockClear();
+    mockDecodeAccountKey.mockClear();
   });
 
   it("should initialize FirebaseAdmin with correct credentials", async () => {
-    // console.log("test start");
+    const serviceAccountKey = "mocked-service-account-key";
 
-    // // モック関数の振る舞いを設定
-    // (
-    //   decodeAccountKey as jest.MockedFunction<typeof decodeAccountKey>
-    // ).mockResolvedValueOnce({
-    //   projectId: "mocked-project-id",
-    //   clientEmail: "mocked-client-email",
-    //   privateKey: "mocked-private-key",
-    // });
+    initializeFirebaseAdmin(serviceAccountKey, mockDecodeAccountKey);
+    expect(mockDecodeAccountKey).toHaveBeenCalledWith(serviceAccountKey);
 
-    // console.log("decodeAccountKey:", decodeAccountKey);
-
-    // await initializeFirebaseAdmin("mocked-service-account-key");
-
-    // expect(decodeAccountKey).toHaveBeenCalledWith("mocked-service-account-key");
-    // expect(admin.initializeApp).toHaveBeenCalledWith({
-    //   credential: admin.credential.cert({
-    //     projectId: "mocked-project-id",
-    //     clientEmail: "mocked-client-email",
-    //     privateKey: "mocked-private-key",
-    //   }),
-    // });
+    expect(admin.initializeApp).toHaveBeenCalledWith({
+      credential: expect.objectContaining({
+        projectId: "mocked-project-id",
+        clientEmail: "mocked-client-email",
+        privateKey: "mocked-private-key",
+      }),
+    });
   });
 });
