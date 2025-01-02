@@ -13,7 +13,9 @@
     "typeRoots": ["./node_modules/@types"],
     // "noUnusedLocals": true, // 未使用のローカル変数に対してエラーを出す
     // "noUnusedParameters": true, // 未使用の関数パラメータに対してエラーを出す
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "strictNullChecks": true, // 追加: 厳密な null チェックを有効にする
+    "noEmit": true // 追加: コンパイルエラーがある場合にファイルを生成しないようにする
   },
   "include": ["src"]
 }

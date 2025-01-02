@@ -12,7 +12,6 @@ export const fetchHistoryData = async (token: string) => {
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
-      credentials: "include",
       cache: "no-cache",
       next: { revalidate: 0 },
     });
@@ -40,7 +39,6 @@ export const fetchResult = async (token: string, resultId: string) => {
           Authorization: `Bearer:${token}`,
           "Content-Type": "application/json",
         },
-        credentials: "include",
         cache: "no-cache",
         next: { revalidate: 0 },
       }
@@ -68,7 +66,6 @@ export const postAnswersFunc = async ({
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
-      credentials: "include",
       body: JSON.stringify(validatedUserAnswer),
     });
     if (!response.ok) {
@@ -90,7 +87,6 @@ export const verifyToken = async (token: string) => {
         Authorization: `Bearer:${token}`,
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
     if (!response.ok) {
       throw new Error("Failed to verify token");

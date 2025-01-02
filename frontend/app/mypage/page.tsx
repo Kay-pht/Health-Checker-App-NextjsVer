@@ -28,7 +28,11 @@ const MyPage = () => {
         const res = await fetchUserHistoryData(user);
         setData(res);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if (error instanceof Error) {
+          alert(`Error fetching data: ${error.message}`);
+        } else {
+          alert("An unknown error occurred.");
+        }
       } finally {
         setIsLoading(false);
       }
