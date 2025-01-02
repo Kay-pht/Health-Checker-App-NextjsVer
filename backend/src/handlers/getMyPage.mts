@@ -2,8 +2,8 @@ import { Response } from "express";
 import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getUserHistoryById } from "../service/mongoDB.mjs";
 import userHistoryDataListSchema from "../schemas/userHistoryDataListSchema.mjs";
-import { resultsCollection } from "../helpers/connectDB.mjs";
 import userIdSchema from "../schemas/userIdSchema.mjs";
+import { resultsCollection } from "../helpers/connectDB.mjs";
 
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
