@@ -7,7 +7,6 @@ const decodeAccountKey = (serviceAccountKey: string) => {
     const decodedKey = Buffer.from(serviceAccountKey, "base64").toString(
       "utf-8"
     );
-
     return JSON.parse(decodedKey);
   } catch (error) {
     console.error("Failed to decode Firebase service account key", error);
