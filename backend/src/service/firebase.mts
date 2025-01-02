@@ -13,6 +13,6 @@ export const initializeFirebaseAdmin = async (serviceAccountKey: string) => {
     console.log("Firebase Admin initialized successfully.");
   } catch (error) {
     console.error("Failed to initialize Firebase SDK", error);
-    // process.exit(1);
+    process.exit(1);
   }
 };
