@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const envSchema = z.object({
   openaiApiKey: z.string(),
-  port: z.number(),
+  port: z.coerce.number(), // 変更点: number型に強制変換
   mongoUri: z.string(),
   serviceAccountKey: z.string(),
   NODE_ENV: z.enum(["development", "production"]),

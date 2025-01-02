@@ -41,7 +41,6 @@ const ResultPage = () => {
     };
     fetchData();
   }, [user, loading, resultId]);
-  // const result = await fetchUserLatestResult(resultId, user);
 
   return (
     <ClientHandlersWrapper>
