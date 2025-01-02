@@ -1,5 +1,4 @@
 import express, { NextFunction, Request, Response } from "express";
-import "./helpers/connectDB.mjs";
 import postChatCompletion from "./handlers/postChatCompletion.mjs";
 import getMyPage from "./handlers/getMyPage.mjs";
 import getAuthToken from "./handlers/getAuthToken.mjs";
@@ -10,6 +9,7 @@ import OpenAI from "openai";
 import { CustomAuthRequest } from "./interfaces/interfaces";
 import { initializeFirebaseAdmin } from "./service/firebase.mjs";
 import configEnv from "./configEnv.mjs";
+import { connectToDatabase } from "./helpers/connectDB.mjs";
 
 const app = express();
 
@@ -20,9 +20,7 @@ app.use(
   cors({
     origin: true,
     // configEnv.NODE_ENV === "production"
-    //   ? configEnv.frontendBaseUrl
     //   : "http://localhost:3000", // 許可するオリジンを指定
-    credentials: true, // クッキーを含むリクエストを許可
     methods: ["GET", "POST"],
   })
 );
@@ -32,10 +30,10 @@ app.use(express.json());
 const openai = new OpenAI({
   apiKey: configEnv.openaiApiKey,
 });
-const { serviceAccountKey } = configEnv;
 
-// initializing firebase SDK
-initializeFirebaseAdmin(serviceAccountKey);
+initializeFirebaseAdmin(configEnv.serviceAccountKey); // initializing firebase SDK
+
+connectToDatabase(); // connecting to MongoDB
 
 // routes
 app.post(
