@@ -19,6 +19,7 @@ export default decodeAccountKey;
 // Validate environment variables and if they are not correct, exit the process
 export const getVerifiedEnv = (config: {}): envSchemaType => {
   try {
+    //
     return envSchema.parse(config);
   } catch (error) {
     if (error instanceof z.ZodError) {
