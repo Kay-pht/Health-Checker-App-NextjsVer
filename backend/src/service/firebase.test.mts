@@ -1,8 +1,6 @@
 import { jest } from "@jest/globals";
 import admin from "firebase-admin";
 import { initializeFirebaseAdmin } from "./firebase.mjs";
-import utils from "../helpers/utils.mjs"; // デフォルトインポート
-import { mock } from "node:test";
 
 // 'firebase-admin'モジュールのモック設定を修正
 jest
@@ -22,7 +20,7 @@ jest.spyOn(admin.credential, "cert").mockImplementation(() => ({
     Promise.resolve({
       access_token: "mocked-access-token",
       expires_in: 3600,
-    }), // getAccessToken メソッドのモックを追加
+    }),
 }));
 
 describe("initializeFirebaseAdmin", () => {
