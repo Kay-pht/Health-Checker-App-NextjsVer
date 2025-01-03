@@ -1,6 +1,5 @@
 import envSchema from "./envSchema.mjs";
 
-// TODO:write test for envSchema
 describe("envSchema", () => {
   it("should validate correct input", () => {
     const validInput = {

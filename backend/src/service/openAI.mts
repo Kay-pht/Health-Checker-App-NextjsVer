@@ -1,19 +1,23 @@
 import OpenAI from "openai";
-import prompt from "../helpers/prompt.mjs";
+import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
+import { prompt } from "../helpers/utils.mjs";
+import configEnv from "../configEnv.mjs";
 
 // データアクセス(ChatGPTとの連携)部分の実装
 async function getChatCompletion(
   openai: OpenAI,
-  orderedAnswers: { [key: string]: string }
-  // TODO:テスト簡略化のために一時的に上記を採用
-  // orderedAnswers: UserAnswer["content"]
+  orderedAnswers: UserAnswer["content"]
 ) {
   try {
     // OpenAIのChatGPTに回答を送付して、返答をレスとして受け取る
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       temperature: 0,
-      messages: prompt(orderedAnswers),
+      messages: prompt(
+        orderedAnswers,
+        configEnv.rolePrompt,
+        configEnv.taskPrompt
+      ),
     });
     const responseFromAI = completion.choices[0].message.content;
     if (!responseFromAI) {

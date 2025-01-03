@@ -1,5 +1,6 @@
 import decodeAccountKey from "./utils.mjs";
 import { getVerifiedEnv } from "./utils.mjs";
+import { prompt } from "./utils.mjs";
 import { jest } from "@jest/globals";
 
 describe("decodeBase64", () => {
@@ -25,6 +26,10 @@ describe("getVerifiedEnv", () => {
   });
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 
   it("should validate correct input", () => {
@@ -56,5 +61,33 @@ describe("getVerifiedEnv", () => {
     expect(() => getVerifiedEnv(invalidInput)).toThrow("process.exit called");
 
     expect(process.exit).toHaveBeenCalledWith(1);
+  });
+});
+
+describe("prompt", () => {
+  it("returns an array of chat completion messages", () => {
+    const userAnswer = { q1: "answer1", q2: "answer2" };
+    const rolePrompt = "assistant";
+    const taskPrompt = "hello";
+    expect(prompt(userAnswer, rolePrompt, taskPrompt)).toEqual([
+      {
+        role: "system",
+        content: rolePrompt,
+      },
+      {
+        role: "user",
+        content: taskPrompt,
+      },
+
+      {
+        role: "system",
+        content: "指示に従い,フォーマットに沿ってすべての項目に回答します。",
+      },
+
+      {
+        role: "user",
+        content: JSON.stringify(userAnswer),
+      },
+    ]);
   });
 });

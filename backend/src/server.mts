@@ -19,12 +19,22 @@ const { port } = configEnv || 5050;
 //TODO:allow CORS to be configured properly
 app.use(
   cors({
-    origin: true,
-    // configEnv.NODE_ENV === "production"
-    //   : "http://localhost:3000", // 許可するオリジンを指定
+    origin:
+      configEnv.NODE_ENV === "production"
+        ? "https://www.healthchecker.app"
+        : "http://localhost:3000",
     methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin || "No Origin Header";
+//   const referer = req.headers.referer || "No Referer Header";
+//   console.log(`CORS Request Origin: ${origin}, Referer: ${referer}`);
+//   console.log("Request Headers:", req.headers);
+//   next();
+// });
 
 app.use(express.json());
 
@@ -59,6 +69,13 @@ app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`NODE_ENV: ${configEnv.NODE_ENV}`);
   console.log(`FRONTEND_DOMAIN: ${configEnv.frontendDomain}`);
+  console.log(
+    `cors origin: ${
+      configEnv.NODE_ENV === "production"
+        ? configEnv.frontendBaseUrl
+        : "http://localhost:3000"
+    }`
+  );
 });
 
 export default app;

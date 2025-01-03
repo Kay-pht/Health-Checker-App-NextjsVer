@@ -1,5 +1,7 @@
 import { z } from "zod";
 import envSchema, { envSchemaType } from "../schemas/envSchema.mjs";
+import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
+import { ChatCompletionMessageParam } from "openai/resources";
 
 //TODO: specify the type of the decoded service account key
 // decode firebase service account key as JSON
@@ -8,7 +10,6 @@ const decodeAccountKey = (serviceAccountKey: string): {} => {
     const decodedKey = Buffer.from(serviceAccountKey, "base64").toString(
       "utf-8"
     );
-    console.log("🚀 ~ decodedKey:", decodedKey);
 
     return JSON.parse(decodedKey);
   } catch (error) {
@@ -37,4 +38,32 @@ export const getVerifiedEnv = (config: {}): envSchemaType => {
 
     process.exit(1);
   }
+};
+
+export const prompt = (
+  answers: UserAnswer["content"],
+  rolePrompt: string,
+  taskPrompt: string
+  // orderedAnswers: { [key: string]: string }
+): ChatCompletionMessageParam[] => {
+  return [
+    {
+      role: "system",
+      content: rolePrompt || "assistant",
+    },
+    {
+      role: "user",
+      content: taskPrompt || "hello",
+    },
+
+    {
+      role: "system",
+      content: "指示に従い,フォーマットに沿ってすべての項目に回答します。",
+    },
+
+    {
+      role: "user",
+      content: JSON.stringify(answers),
+    },
+  ];
 };
