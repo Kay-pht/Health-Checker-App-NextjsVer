@@ -67,3 +67,16 @@ export const prompt = (
     },
   ];
 };
+
+// リクエストヘッダーからトークンを取り出す関数
+export function getTokenFromRequestHeader(
+  authHeader: string | undefined
+): string {
+  if (!authHeader) {
+    console.error("No authorization header found");
+    throw new Error("No authorization header found");
+  } else {
+    const idToken = authHeader.split(":")[1];
+    return idToken;
+  }
+}

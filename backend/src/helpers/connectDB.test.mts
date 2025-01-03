@@ -1,40 +1,68 @@
-import { MongoClient } from "mongodb";
-import { connectToDatabase, resultsCollection } from "./connectDB.mjs";
-import configEnv from "../configEnv.mjs";
+import { Collection, MongoClient } from "mongodb";
+import { connectToDatabase } from "./connectDB.mjs";
+import { jest } from "@jest/globals";
 
-const { mongoUri } = configEnv;
+jest.mock("mongodb");
+
+// configEnv モジュールをモック
+jest.mock("../configEnv.mjs", () => ({
+  default: {
+    mongoUri: "mongodb://mock-uri",
+  },
+}));
 
 describe("connectToDatabase", () => {
-  let clientTest: MongoClient;
-  beforeEach(() => {
-    clientTest = new MongoClient(mongoUri); // 各テストケースの前に新しいクライアントを作成
+  jest.spyOn(process, "exit").mockImplementation(() => {
+    throw new Error("Process Exit ");
   });
+});
+beforeEach(() => {
+  jest.clearAllMocks(); // 各テストケースの前にモックをクリア
+});
 
-  afterEach(async () => {
-    if (clientTest) {
-      await clientTest.close();
-    }
-  });
+it("should connect to MongoDB successfully", async () => {
+  const mockCollection: Partial<Collection> = {
+    // Collection メソッドのモックを必要に応じて追加
+  };
+  const mockDb = {
+    collection: jest.fn().mockReturnValue(mockCollection),
+  };
+  const mockClient = {
+    db: jest.fn().mockReturnValue(mockDb),
+    connect: jest.fn(),
+    close: jest.fn(),
+  };
+  // MongoClient の connect メソッドをモック化
+  jest
+    .spyOn(MongoClient.prototype, "connect")
+    .mockImplementation(() => Promise.resolve(mockClient as any));
 
-  it("should connect to MongoDB successfully", async () => {
-    // clientTest = await connectToDatabase();
-    // expect(resultsCollection.collectionName).toBe("results");
-  });
-  // TODO: resolve the error
-  // it("should log an error if unable to connect to MongoDB", async () => {
-  //   const invalidUri = "mongodb://invalid_uri";
-  //   clientTest = new MongoClient(invalidUri);
+  // connectToDatabase を実行
+  const result = await connectToDatabase();
 
-  //   try {
-  //     await clientTest.connect();
-  //   } catch (error) {
-  //     const err = error as Error;
-  //     expect(err).toBeDefined();
-  //     expect(err.message).toContain("failed to connect");
-  //   } finally {
-  //     if (clientTest) {
-  //       await clientTest.close();
-  //     }
-  //   }
+  expect(MongoClient.prototype.connect).toHaveBeenCalled();
+  // TODO:implement the following test
+  // expect(mockClient.db).toHaveBeenCalledWith("food_health_check");
+  // expect(mockDb.collection).toHaveBeenCalledWith("results");
+  // expect(result).toEqual({
+  //   client: mockClient,
+  //   resultsCollection: mockCollection,
   // });
+});
+
+it("should throw an error if unable to connect to MongoDB", async () => {
+  // MongoClient の connect メソッドをモック化
+  jest
+    .spyOn(MongoClient.prototype, "connect")
+    .mockImplementation(() =>
+      Promise.reject(new Error("Failed to connect to MongoDB"))
+    );
+
+  // connectToDatabase を実行
+  try {
+    await connectToDatabase();
+  } catch {
+    expect(MongoClient.prototype.connect).toHaveBeenCalled();
+    expect(process.exit).toHaveBeenCalledWith(1);
+  }
 });

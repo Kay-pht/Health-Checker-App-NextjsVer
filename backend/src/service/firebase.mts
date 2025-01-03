@@ -6,7 +6,7 @@ export const initializeFirebaseAdmin = (
   decodeAccountKey: (serviceAccountKey: string) => {}
 ) => {
   try {
-    // エンコードされたキーをbase64形式でデコード。その後、JSON形式でキーを読み出す
+    //TODO: テスト用に関数を引数から渡す設計にしたが検討余地アリ
     const serviceAccount = decodeAccountKey(serviceAccountKey);
 
     admin.initializeApp({

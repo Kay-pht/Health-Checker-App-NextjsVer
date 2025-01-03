@@ -78,12 +78,10 @@ describe("prompt", () => {
         role: "user",
         content: taskPrompt,
       },
-
       {
         role: "system",
         content: "指示に従い,フォーマットに沿ってすべての項目に回答します。",
       },
-
       {
         role: "user",
         content: JSON.stringify(userAnswer),
