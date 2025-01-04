@@ -16,6 +16,8 @@ const app = express();
 
 const { port } = configEnv || 5050;
 
+app.use(express.json());
+
 //TODO:allow CORS to be configured properly
 app.use(
   cors({
@@ -28,23 +30,14 @@ app.use(
   })
 );
 
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin || "No Origin Header";
-//   const referer = req.headers.referer || "No Referer Header";
-//   console.log(`CORS Request Origin: ${origin}, Referer: ${referer}`);
-//   console.log("Request Headers:", req.headers);
-//   next();
-// });
-
-app.use(express.json());
-
-const openai = new OpenAI({
-  apiKey: configEnv.openaiApiKey,
-});
 
 initializeFirebaseAdmin(configEnv.serviceAccountKey, decodeAccountKey); // initializing firebase SDK
 
 connectToDatabase(); // connecting to MongoDB
+
+const openai = new OpenAI({
+  apiKey: configEnv.openaiApiKey,
+});
 
 // routes
 app.post(
@@ -57,7 +50,7 @@ app.get("/api/auth", verifyTokenMiddleware, getAuthToken);
 app.get("/api/result/:resultId", verifyTokenMiddleware, getResult);
 app.get("/api/mypage", verifyTokenMiddleware, getMyPage);
 app.get("/", (req: Request, res: Response) => {
-  res.json("Hello, World! I'm running on Firebase Express Server.");
+  res.json("Hello, World! I'm running on Express Server.");
 });
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -68,14 +61,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 app.listen(Number(port), () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`NODE_ENV: ${configEnv.NODE_ENV}`);
-  console.log(`FRONTEND_DOMAIN: ${configEnv.frontendDomain}`);
-  console.log(
-    `cors origin: ${
-      configEnv.NODE_ENV === "production"
-        ? configEnv.frontendBaseUrl
-        : "http://localhost:3000"
-    }`
-  );
 });
 
 export default app;

@@ -9,7 +9,6 @@ import { loginValidationSchema, UserAuth } from "@/schemas/authSchema";
 import {
   logInWithAnonymous,
   logInWithEmailAndPassword,
-  logOut,
 } from "@/services/firebase";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
@@ -36,7 +35,6 @@ const LoginPage = () => {
       } else {
         alert("An unknown error occurred.");
       }
-      await logOut();
     }
   };
 

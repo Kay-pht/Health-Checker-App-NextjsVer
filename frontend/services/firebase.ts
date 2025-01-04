@@ -77,6 +77,7 @@ export const signUpWithEmailAndPassword = async (
         error instanceof Error ? error.message : "An unknown error occurred."
       }`
     );
+    await logOut();
     throw new Error("Failed to create user");
   }
 };
