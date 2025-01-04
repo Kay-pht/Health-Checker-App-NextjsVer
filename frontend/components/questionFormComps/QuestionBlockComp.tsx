@@ -31,7 +31,7 @@ const QuestionBlockComp = ({
             <h3 className="text-xl text-gray-600 mt-3 pb-4 ml-2 text-center">
               {index + currentPageNum * 5 - 4}.{query.value}
             </h3>
-            <div className="flex justify-center mt-5 mb-5 md:space-x-10 sm:space-x-0 sm:text-xs">
+            <div className="flex justify-center mt-5 mb-5 min-w-fit md:space-x-10 sm:space-x-0 sm:text-xs">
               {" "}
               {
                 // map関数で頻度ごとにラジオボタンを作成
@@ -70,6 +70,7 @@ const QuestionBlockComp = ({
 
                             "@media (max-width: 640px)": {
                               fontSize: "0.8rem",
+                              whiteSpace: "nowrap",
                             },
                             display: "flex",
                             flexDirection: "column",
