@@ -31,7 +31,7 @@ const QuestionBlockComp = ({
             <h3 className="text-xl text-gray-600 mt-3 pb-4 ml-2 text-center">
               {index + currentPageNum * 5 - 4}.{query.value}
             </h3>
-            <div className="flex justify-center mt-5 mb-5 md:space-x-10 sm:space-x-0">
+            <div className="flex justify-center mt-5 mb-5 md:space-x-10 sm:space-x-0 sm:text-xs">
               {" "}
               {
                 // map関数で頻度ごとにラジオボタンを作成
@@ -40,7 +40,7 @@ const QuestionBlockComp = ({
                     className="max-w-lg "
                     key={`${query.key}_option${freq.key}`}
                   >
-                    <div className="flex flex-col items-center text-sm">
+                    <div className=" flex flex-col items-center text-sm text-center">
                       <FormControlLabel
                         control={
                           <Radio
@@ -50,28 +50,29 @@ const QuestionBlockComp = ({
                             checked={userAnswer[query.key] === freq.key}
                             onChange={getAnswersInEachPage}
                             inputRef={(el) => (inputRefs.current[index] = el)}
-                            required
+                            className="w-10 h-10 items-center "
+                            // TODO:ボタンごとのカラーとサイズを変更
                             sx={{
                               "& .MuiSvgIcon-root": {
-                                fontSize: 40,
+                                fontSize: freq.size,
+                                color: freq.color,
                               },
-                              // color: blue[50],
-                              // "&.Mui-checked": {
-                              //   color: blue[200],
-                              // },
                             }}
                           />
                         }
-                        label={freq.value}
+                        label={freq.value} // spanタグで囲む
                         labelPlacement="bottom"
                         className="block mb-2 text-sm text-gray-600 cursor-pointer font-bold transition-transform transform hover:scale-105"
                         sx={{
                           "& .MuiFormControlLabel-label": {
                             fontSize: "1rem",
                             fontWeight: "bold",
+
                             "@media (max-width: 640px)": {
                               fontSize: "0.8rem",
                             },
+                            display: "flex",
+                            flexDirection: "column",
                           },
                         }}
                       />

@@ -1,8 +1,8 @@
 export const frequencyArray = [
-  { key: "f1", value: "週0～1日" },
-  { key: "f2", value: "週2～3日" },
-  { key: "f3", value: "週4～5日" },
-  { key: "f4", value: "ほぼ毎日" },
+  { key: "f1", value: "週0～1日", size: 30, color: "#9B9FAA" },
+  { key: "f2", value: "週2～3日", size: 35, color: "#77A1EE" },
+  { key: "f3", value: "週4～5日", size: 40, color: "#4E84E4" },
+  { key: "f4", value: "ほぼ毎日", size: 45, color: "#2563EB" },
 ] as const;
 
 const queryArray_page1 = [
