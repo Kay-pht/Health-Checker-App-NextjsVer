@@ -1,12 +1,12 @@
-# Health Checker App - AI 食生活診断アプリ
+# HealthChecker.app - AI 食生活診断アプリ
 
-[![デプロイ先](https://www.healthchecker.app/images/top/logo.png)](https://www.healthchecker.app/)
+[HealthChecker.app](https://www.healthchecker.app/)
 
 AI があなたの食生活を分析し、最適な栄養素と食品を提案するアプリ「AI 食生活診断テスト」です。
 
 ## デモ
 
-![デモ動画](https://github.com/Kay-pht/Health-Checker-App-NextjsVer/blob/main/pf_1080gif.gif)
+![デモ動画](https://github.com/Kay-pht/Health-Checker-App-NextjsVer/blob/main/frontend/public/images/README_pf_intro.gif)
 
 ## 概要
 
