@@ -1,6 +1,6 @@
 # 🤖[AI 食生活診断アプリ](https://www.healthchecker.app/) - HealthChecker.app
 
-AI があなたの食生活を分析し、最適な栄養素と食品を提案するアプリ「AI 食生活診断テスト」です。
+AI があなたの食生活を分析し、最適な栄養素と食品を提案するアプリ「[AI 食生活診断アプリ](https://www.healthchecker.app/)」です。
 
 ## 👀 デモ
 

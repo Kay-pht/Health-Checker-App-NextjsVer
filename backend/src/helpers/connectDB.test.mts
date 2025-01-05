@@ -35,6 +35,7 @@ it("should connect to MongoDB successfully", async () => {
   // MongoClient の connect メソッドをモック化
   jest
     .spyOn(MongoClient.prototype, "connect")
+    // TODO:modify any type
     .mockImplementation(() => Promise.resolve(mockClient as any));
 
   // connectToDatabase を実行

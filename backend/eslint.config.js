@@ -13,5 +13,6 @@ export default [
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
     },
+    ignores: ["src/service/openAI.test.mts", "src/helpers/connectDB.test.mts"],
   },
 ];

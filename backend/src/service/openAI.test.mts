@@ -2,6 +2,7 @@ import { jest } from "@jest/globals";
 import { getChatCompletion } from "./openAI.mjs";
 
 describe("getChatCompletion", () => {
+  // TODO:modify any type
   let openai: any;
 
   const orderedAnswers = { question1: "answer1" };

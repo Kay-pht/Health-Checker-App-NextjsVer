@@ -28,9 +28,9 @@ jobs:
         run: npm run type-check
         working-directory: backend
 
-      # - name: Lint Code
-      #   run: npm run lint
-      #   working-directory: backend
+      - name: Lint Code
+        run: npm run lint
+        working-directory: backend
 
       - name: Run tests
         run: npm test
