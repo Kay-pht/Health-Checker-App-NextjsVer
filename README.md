@@ -1,4 +1,4 @@
-# [AI 食生活診断アプリ](https://www.healthchecker.app/) - HealthChecker.app
+# 🤖[AI 食生活診断アプリ](https://www.healthchecker.app/) - HealthChecker.app
 
 AI があなたの食生活を分析し、最適な栄養素と食品を提案するアプリ「AI 食生活診断テスト」です。
 
@@ -28,22 +28,22 @@ AI が回答を分析し、不足している栄養素とそれを補うため�
 - **フロントエンド**
 
 - **Next.js (v15, App Router)**: React フレームワーク
-  - **TypeScript**: 静的型付け言語
-  - **Tailwind CSS**: CSS フレームワーク
-  - **Material UI**: UI コンポーネントライブラリ
-  - **zod**: スキーマバリデーションライブラリ
-  - **Vercel**: デプロイプラットフォーム
-  - **Cloudflare**: プロキシ、CDN
+    - **TypeScript**: 静的型付け言語
+    - **Tailwind CSS**: CSS フレームワーク
+    - **Material UI**: UI コンポーネントライブラリ
+    - **zod**: スキーマバリデーションライブラリ
+    - **Vercel**: デプロイプラットフォーム
+    - **Cloudflare**: プロキシ、CDN
 
 - **バックエンド**
 
 - **Node.js**: JavaScript ランタイム
-  - **Express**: Web アプリケーションフレームワーク
-  - **TypeScript**: 静的型付け言語
-  - **zod**: スキーマバリデーションライブラリ
-  - **Docker**: コンテナ化プラットフォーム
-  - **AWS App Runner**: デプロイプラットフォーム
-  - **ECR**: コンテナレジストリ
+    - **Express**: Web アプリケーションフレームワーク
+    - **TypeScript**: 静的型付け言語
+    - **zod**: スキーマバリデーションライブラリ
+    - **Docker**: コンテナ化プラットフォーム
+    - **AWS App Runner**: デプロイプラットフォーム
+    - **ECR**: コンテナレジストリ
 
 - **データベース**
 
@@ -56,7 +56,7 @@ AI が回答を分析し、不足している栄養素とそれを補うため�
 - **バージョン管理**
 
 - **Git**: バージョン管理システム
-  - **GitHub**: ホスティングサービス
+    - **GitHub**: ホスティングサービス
 
 - **テスト**
 
@@ -65,7 +65,7 @@ AI が回答を分析し、不足している栄養素とそれを補うため�
 - **CI/CD**
 
 - **GitHub Actions**: CI/CD パイプライン
-  - **Vercel (デフォルト)**: CD
+    - **Vercel (デフォルト)**: CD
 
 - **外部 API**
     - **OpenAI**: API (Gemini への移行を検討中)
