@@ -7,7 +7,6 @@ import { userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import OpenAI from "openai";
-import { z } from "zod";
 import userIdSchema from "../schemas/userIdSchema.mjs";
 
 const postChatCompletion = async (

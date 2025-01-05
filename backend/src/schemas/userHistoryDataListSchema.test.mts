@@ -2,7 +2,7 @@ import userHistoryDataListSchema from "./userHistoryDataListSchema.mjs";
 
 describe("userHistoryDataListSchema", () => {
   it("should validate a correct input", () => {
-    const validInput = Array.from({ length: 20 }, (_, i) => ({
+    const validInput = Array.from({ length: 20 }, () => ({
       recommendedFoods: ["food1", "food2"],
       missingNutrients: ["nutrient1", "nutrient2"],
       score: 100,
@@ -92,7 +92,7 @@ describe("userHistoryDataListSchema", () => {
   });
 
   it("should throw an error for too many objects", () => {
-    const invalidInput = Array.from({ length: 21 }, (_, i) => ({
+    const invalidInput = Array.from({ length: 21 }, () => ({
       recommendedFoods: ["food1", "food2"],
       missingNutrients: ["nutrient1", "nutrient2"],
       score: 100,

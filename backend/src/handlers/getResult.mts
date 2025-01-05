@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { getResultById } from "../service/mongoDB.mjs";
 import { objectResultIdSchema } from "../schemas/resultIdSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";

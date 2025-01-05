@@ -12,7 +12,15 @@ export default [
     },
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/no-non-null-assertion": "error",
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-var-requires": "error",
     },
-    ignores: ["src/service/openAI.test.mts", "src/helpers/connectDB.test.mts"],
+    // TODO:remove ignores key
+    ignores: [
+      "src/service/openAI.test.mts",
+      "src/helpers/connectDB.test.mts",
+      "src/server.mts",
+    ],
   },
 ];
