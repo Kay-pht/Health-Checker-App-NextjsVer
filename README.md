@@ -1,52 +1,91 @@
-# Health Checker by AI
+# Health Checker App - AI 食生活診断アプリ
 
-AI を活用した食生活診断アプリケーション
+[![デプロイ先](https://www.healthchecker.app/images/top/logo.png)](https://www.healthchecker.app/)
 
----
+AI があなたの食生活を分析し、最適な栄養素と食品を提案するアプリ「AI 食生活診断テスト」です。
 
-## プロジェクト概要
+## デモ
 
-このアプリは、食生活を手軽に見直し、健康をサポートするウェブアプリケーションです。主な特徴は以下の通りです。
+![デモ動画](https://github.com/Kay-pht/Health-Checker-App-NextjsVer/blob/main/pf_1080gif.gif)
 
-- 食材ごとの摂取頻度を入力するだけで、栄養素の不足を診断します。
-- 個々のユーザーに合わせた食品提案を提供し、健康改善を支援します。
-- 簡潔で使いやすい UI と高速な通信を採用し、快適なユーザー体験を目指します。
+## 概要
 
-### 主な目的
+ユーザーは、表示された 4 択の質問にいくつか回答するだけで、自身の食生活を診断できます。
+AI が回答を分析し、不足している栄養素とそれを補うための最適な食品を提案します。
 
-栄養学に詳しくないユーザーでも、自分の食生活について簡単にフィードバックを得られる仕組みを提供します。
+## 特徴
 
----
+- **4 択の質問に答えるだけ**：各食品の摂取頻度を 4 択から選ぶだけのシンプルな UI。
+- **AI による栄養診断**：栄養学の専門知識がなくても、AI が自動で分析・提案。
+- **食生活スコア**: 食生活を点数化し、可視化。
+- **ログイン機能**：ユーザー登録(任意)をすることで、過去の診断結果を一覧で確認可能（登録なしでも利用可能）。
 
-## 使用技術
+## 動作環境
 
-### バックエンド
+- **ブラウザ**: Chrome, Firefox, Safari, Edge (各最新版を推奨)
+- **OS**: Windows, macOS, Linux (各最新版を推奨)
 
-- デプロイ先: AWS App Runner
-- 開発環境: Node.js, TypeScript
-- データベース: MongoDB
-- テスト: Jest
-- コンテナ化: Docker
-- API: OpenAI API
+## 使用技術・ライブラリ・フレームワーク
 
-### フロントエンド
+- **フロントエンド**
 
-- デプロイ先: Vercel
-- 開発環境: TypeScript, Next.js (App Router)
-- 認証機能: Firebase Auth
-- スタイリング: TailwindCSS, Material UI
+  - **Next.js (v15, App Router)**: React フレームワーク
+  - **TypeScript**: 静的型付け言語
+  - **Tailwind CSS**: CSS フレームワーク
+  - **Material UI**: UI コンポーネントライブラリ
+  - **zod**: スキーマバリデーションライブラリ
+  - **Vercel**: デプロイプラットフォーム
+  - **Cloudflare**: プロキシ、CDN
 
-### その他
+- **バックエンド**
 
-- バージョン管理: GitHub
-- プロキシ: Cloudflare (カスタムドメイン対応)
+  - **Node.js**: JavaScript ランタイム
+  - **Express**: Web アプリケーションフレームワーク
+  - **TypeScript**: 静的型付け言語
+  - **zod**: スキーマバリデーションライブラリ
+  - **Docker**: コンテナ化プラットフォーム
+  - **AWS App Runner**: デプロイプラットフォーム
+  - **ECR**: コンテナレジストリ
 
----
+- **データベース**
 
-### 工夫した点
+  - **MongoDB**: NoSQL データベース
 
-1. トークンと Cookie の設計: Firebase Auth と HTTP-only Cookie を組み合わせた安全な認証。
-2. デプロイ: Vercel と AWS App Runner を使用し、スケーラブルな環境を構築。
-3. 動的データ取得: サーバーサイドレンダリング(SSR)を活用。
-4. Cloudflare を利用して、異なるドメイン間の Cookie の受け渡しを可能に。
-5. Jest を使用してユニットテストを実施。
+- **認証**
+
+  - **Firebase Auth**: 認証サービス
+
+- **バージョン管理**
+
+  - **Git**: バージョン管理システム
+  - **GitHub**: ホスティングサービス
+
+- **テスト**
+
+  - **Jest**: テストフレームワーク
+
+- **CI/CD**
+
+  - **GitHub Actions**: CI/CD パイプライン
+  - **Vercel (デフォルト)**: CD
+
+- **外部 API**
+  - **OpenAI**: API (Gemini への移行を検討中)
+
+## 使用方法・使い方
+
+1.  [HealthChecker.app](https://www.healthchecker.app/) にアクセスします。
+2.  4 択の質問に回答していきます(約 3 分)。
+3.  回答が完了すると、AI が食生活を分析し、結果を表示します。
+4.  ユーザー登録(任意)をすることで、過去の診断結果を保存できます。
+
+## 開発者情報
+
+- X: [@wannabean_eng](https://twitter.com/wannabean_eng)
+
+## 今後の予定・TODO
+
+- DI コンテナの導入
+- フロントエンドのテスト拡充 (React Testing Library など)
+- セッションクッキーの導入による SSR の実現
+- 他分野の AI 診断アプリへの応用
