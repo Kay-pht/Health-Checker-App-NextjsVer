@@ -1,4 +1,4 @@
-# HealthChecker.app - AI 食生活診断アプリ
+# [AI 食生活診断アプリ](https://www.healthchecker.app/) - HealthChecker.app
 
 [HealthChecker.app](https://www.healthchecker.app/)
 
