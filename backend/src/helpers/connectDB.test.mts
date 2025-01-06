@@ -36,10 +36,11 @@ it("should connect to MongoDB successfully", async () => {
   jest
     .spyOn(MongoClient.prototype, "connect")
     // TODO:modify any type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .mockImplementation(() => Promise.resolve(mockClient as any));
 
   // connectToDatabase を実行
-  const result = await connectToDatabase();
+  await connectToDatabase();
 
   expect(MongoClient.prototype.connect).toHaveBeenCalled();
   // TODO:implement the following test

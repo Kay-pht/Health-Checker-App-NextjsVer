@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 // ブラウザにCookieをセットする
-const getAuthToken = async (req: Request, res: Response) => {
+const getAuthToken = async (_req: Request, res: Response) => {
   try {
     res.status(200).json("validating token is successful");
   } catch (error) {

@@ -13,14 +13,11 @@ export default [
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
-      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ], //"_"を付けている意図的に未使用な引数にはエラーを吐かないように上書き
       "@typescript-eslint/no-var-requires": "error",
     },
-    // TODO:remove ignores key
-    ignores: [
-      "src/service/openAI.test.mts",
-      "src/helpers/connectDB.test.mts",
-      "src/server.mts",
-    ],
   },
 ];

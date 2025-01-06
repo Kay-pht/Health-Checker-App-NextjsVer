@@ -3,6 +3,7 @@ import { getChatCompletion } from "./openAI.mjs";
 
 describe("getChatCompletion", () => {
   // TODO:modify any type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let openai: any;
 
   const orderedAnswers = { question1: "answer1" };

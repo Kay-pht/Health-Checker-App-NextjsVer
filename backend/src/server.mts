@@ -30,7 +30,6 @@ app.use(
   })
 );
 
-
 initializeFirebaseAdmin(configEnv.serviceAccountKey, decodeAccountKey); // initializing firebase SDK
 
 connectToDatabase(); // connecting to MongoDB
@@ -49,11 +48,11 @@ app.post(
 app.get("/api/auth", verifyTokenMiddleware, getAuthToken);
 app.get("/api/result/:resultId", verifyTokenMiddleware, getResult);
 app.get("/api/mypage", verifyTokenMiddleware, getMyPage);
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (_req: Request, res: Response) => {
   res.json("Hello, World! I'm running on Express Server.");
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
