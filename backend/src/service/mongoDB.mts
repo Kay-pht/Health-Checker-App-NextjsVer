@@ -61,7 +61,7 @@ async function getResultById(
 async function getUserHistoryById(
   userId: string,
   resultsCollection: Collection<Result>
-) {
+): Promise<Result[]> {
   try {
     const results = await resultsCollection
       .find({ userId: userId })
