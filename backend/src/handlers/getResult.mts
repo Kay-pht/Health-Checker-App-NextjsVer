@@ -6,6 +6,7 @@ import { resultsCollection } from "../helpers/connectDB.mjs";
 import { CustomAuthRequest, Result } from "../interfaces/interfaces";
 import userIdSchema from "../schemas/userIdSchema.mjs";
 
+// TODO:identify error status code
 const getResult = async (req: CustomAuthRequest, res: Response) => {
   try {
     // これまでの診断結果をDBから取得してフロントに返却
