@@ -9,6 +9,7 @@ import { resultsCollection } from "../helpers/connectDB.mjs";
 import OpenAI from "openai";
 import userIdSchema from "../schemas/userIdSchema.mjs";
 
+// TODO:identify error status code
 const postChatCompletion = async (
   req: CustomAuthRequest,
   res: Response,

@@ -20,11 +20,14 @@ async function registerResult(
     return registeredData.insertedId;
   } catch (error) {
     console.error("Failed to register result", error);
-    if (error instanceof Error) {
-      throw new Error(`Error registering result: ${error.message}`);
-    } else {
-      throw new Error("An unknown error occurred.");
-    }
+    throw error;
+    // if (error instanceof MongoError) {
+    //   throw error;
+    // } else if (error instanceof Error) {
+    //   throw new Error(`Error fetching history: ${error.message}`);
+    // } else {
+    //   throw new Error("An unknown error occurred.");
+    // }
   }
 }
 
@@ -49,11 +52,14 @@ async function getResultById(
     return result;
   } catch (error) {
     console.error("Failed to fetch a result", error);
-    if (error instanceof Error) {
-      throw new Error(`Error fetching a result: ${error.message}`);
-    } else {
-      throw new Error("An unknown error occurred.");
-    }
+    throw error;
+    // if (error instanceof MongoError) {
+    //   throw error;
+    // } else if (error instanceof Error) {
+    //   throw new Error(`Error fetching result: ${error.message}`);
+    // } else {
+    //   throw new Error("An unknown error occurred.");
+    // }
   }
 }
 
@@ -71,16 +77,19 @@ async function getUserHistoryById(
       .limit(20)
       .toArray();
     if (results.length === 0) {
+      // ユーザーがまだ診断していない場合は空の配列を返す
       return [];
     }
     return results;
   } catch (error) {
     console.error("Failed to fetch history", error);
-    if (error instanceof Error) {
-      throw new Error(`Error fetching history: ${error.message}`);
-    } else {
-      throw new Error("An unknown error occurred.");
-    }
+    throw error;
+
+    // if (error instanceof Error) {
+    //   throw new Error(`Error fetching history: ${error.message}`);
+    // } else {
+    //   throw new Error("An unknown error occurred.");
+    // }
   }
 }
 

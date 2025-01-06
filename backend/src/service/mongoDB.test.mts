@@ -49,7 +49,7 @@ describe("registerResult", () => {
 
     await expect(
       registerResult(userId, answerByChatGPT, resultsCollection)
-    ).rejects.toThrow("Error registering result: Test error");
+    ).rejects.toThrow("Test error");
     expect(insertOneSpy).toHaveBeenCalledWith(result);
   });
 
@@ -107,7 +107,7 @@ describe("getResultById", () => {
 
     await expect(
       getResultById(resultId, userId, resultsCollection)
-    ).rejects.toThrow("Error fetching a result: Test error");
+    ).rejects.toThrow("Test error");
     expect(findOneSpy).toHaveBeenCalledWith({ _id: new ObjectId(resultId) });
   });
 
@@ -119,9 +119,7 @@ describe("getResultById", () => {
 
     await expect(
       getResultById(resultId, userId, resultsCollection)
-    ).rejects.toThrow(
-      `Error fetching a result: No result found for id: ${resultId}`
-    );
+    ).rejects.toThrow(`No result found for id: ${resultId}`);
     expect(findOneSpy).toHaveBeenCalledWith({ _id: new ObjectId(resultId) });
   });
 
@@ -134,7 +132,7 @@ describe("getResultById", () => {
     await expect(
       getResultById(resultId, userId, resultsCollection)
     ).rejects.toThrow(
-      `Error fetching a result: Unauthorized access to result: ${resultId} for user ${userId}  (expected: ${result.userId})`
+      `Unauthorized access to result: ${resultId} for user ${userId}  (expected: ${result.userId})`
     );
     expect(findOneSpy).toHaveBeenCalledWith({ _id: new ObjectId(resultId) });
   });
@@ -186,7 +184,7 @@ describe("getUserHistoryById", () => {
       });
 
     await expect(getUserHistoryById(userId, resultsCollection)).rejects.toThrow(
-      "Error fetching history: Test error"
+      "Test error"
     );
     expect(findSpy).toHaveBeenCalledWith({ userId: userId });
   });
