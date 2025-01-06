@@ -5,7 +5,10 @@ import { resultsCollection } from "../helpers/connectDB.mjs";
 import { Result } from "../interfaces/interfaces.d";
 import { MongoError } from "mongodb";
 import { validateHistoryDataList, validateUserId } from "../helpers/utils.mjs";
-import { DbDataError, userIdError } from "../errors/customErrors.mjs";
+import {
+  DbDataSchemaError,
+  UserIdSchemaError,
+} from "../errors/customErrors.mjs";
 
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
@@ -18,11 +21,11 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
 
     res.status(200).json(validatedResults);
   } catch (error) {
-    if (error instanceof DbDataError) {
+    if (error instanceof DbDataSchemaError) {
       res
         .status(500)
         .json({ error: "Database Data Error", details: error.message });
-    } else if (error instanceof userIdError) {
+    } else if (error instanceof UserIdSchemaError) {
       // userIdがSchemaにマッチしない場合は401を返す
       res.status(401).json({ error: "Unauthorized", details: error.message });
     } else if (error instanceof MongoError) {

@@ -12,23 +12,44 @@ export class UnauthorizedAccessError extends Error {
   }
 }
 
-export class DbDataError extends Error {
+export class DbDataSchemaError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "DbDataError";
   }
 }
 
-export class userIdError extends Error {
+export class UserIdSchemaError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "userIdError";
   }
 }
 
-export class resultIdError extends Error {
+export class ResultIdSchemeError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "resultIdError";
+  }
+}
+
+export class UserAnswerSchemaError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "userAnswerError";
+  }
+}
+
+export class ResponseNotFoundError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ResponseNotFoundError";
+  }
+}
+
+export class ResultSchemaError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ResponseNotFoundError";
   }
 }

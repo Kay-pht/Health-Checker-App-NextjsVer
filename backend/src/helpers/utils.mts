@@ -1,13 +1,15 @@
 import { z, ZodError } from "zod";
 import envSchema, { envSchemaType } from "../schemas/envSchema.mjs";
-import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
+import { UserAnswer, userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
 import { ChatCompletionMessageParam } from "openai/resources";
 import userHistoryDataListSchema from "../schemas/userHistoryDataListSchema.mjs";
-import { Result } from "../interfaces/interfaces";
+import { answerByChatGPTType, Result } from "../interfaces/interfaces";
 import {
-  DbDataError,
-  resultIdError,
-  userIdError,
+  DbDataSchemaError,
+  ResultIdSchemeError,
+  ResultSchemaError,
+  UserAnswerSchemaError,
+  UserIdSchemaError,
 } from "../errors/customErrors.mjs";
 import userIdSchema from "../schemas/userIdSchema.mjs";
 import { objectResultIdSchema } from "../schemas/resultIdSchema.mjs";
@@ -92,7 +94,7 @@ export const validateHistoryDataList = (results: Result[]) => {
   } catch (error) {
     console.error("Failed to validate history data", error);
     if (error instanceof ZodError) {
-      throw new DbDataError("The data is not in the correct format");
+      throw new DbDataSchemaError("The data is not in the correct format");
     } else {
       throw error;
     }
@@ -105,7 +107,7 @@ export const validateUserId = (userId: string | undefined) => {
   } catch (error) {
     console.error("Failed to validate userId", error);
     if (error instanceof ZodError) {
-      throw new userIdError("Invalid userId");
+      throw new UserIdSchemaError("Invalid userId");
     } else {
       throw error;
     }
@@ -118,19 +120,48 @@ export const validateResultId = (resultId: string) => {
   } catch (error) {
     console.error("Failed to validate resultId", error);
     if (error instanceof ZodError) {
-      throw new resultIdError("Invalid resultId");
+      throw new ResultIdSchemeError("Invalid resultId");
     } else {
       throw error;
     }
   }
 };
-export const validateAnalyzedResult = (result: Result) => {
+
+export const validateAnalyzedData = (result: Result) => {
   try {
     return analyzedResultSchema.parse(result);
   } catch (error) {
     console.error("Failed to validate result", error);
     if (error instanceof ZodError) {
-      throw new DbDataError("The data is not in the correct format");
+      throw new DbDataSchemaError("The data is not in the correct format");
+    } else {
+      throw error;
+    }
+  }
+};
+
+export const validateUserAnswer = (userAnswer: Record<string, string>) => {
+  try {
+    return userAnswerSchema.parse(userAnswer);
+  } catch (error) {
+    console.error("Failed to validate userAnswer", error);
+    if (error instanceof ZodError) {
+      throw new UserAnswerSchemaError(
+        "The answer is not in the correct format"
+      );
+    } else {
+      throw error;
+    }
+  }
+};
+
+export const validateAnalyzedResult = (result: answerByChatGPTType) => {
+  try {
+    return analyzedResultSchema.parse(result);
+  } catch (error) {
+    console.error("Failed to validate result", error);
+    if (error instanceof ZodError) {
+      throw new ResultSchemaError("The data is not in the correct format");
     } else {
       throw error;
     }

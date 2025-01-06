@@ -51,7 +51,6 @@ const QuestionBlockComp = ({
                             onChange={getAnswersInEachPage}
                             inputRef={(el) => (inputRefs.current[index] = el)}
                             className="w-10 h-10 items-center "
-                            // TODO:ボタンごとのカラーとサイズを変更
                             sx={{
                               "& .MuiSvgIcon-root": {
                                 fontSize: freq.size,

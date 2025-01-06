@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
 import { prompt } from "../helpers/utils.mjs";
 import configEnv from "../configEnv.mjs";
+import { ResponseNotFoundError } from "../errors/customErrors.mjs";
 
 // データアクセス(ChatGPTとの連携)部分の実装
 async function getChatCompletion(
@@ -22,16 +23,12 @@ async function getChatCompletion(
     const responseFromAI = completion.choices[0].message.content;
     if (!responseFromAI) {
       console.error("No response from OpenAI");
-      throw new Error("No response from OpenAI");
+      throw new ResponseNotFoundError("No response from OpenAI");
     }
     return responseFromAI;
   } catch (error) {
     console.error("Can't connect to OpenAI", error);
-    if (error instanceof Error) {
-      throw new Error("Failed to connect to OpenAI: " + error.message);
-    } else {
-      throw new Error("Failed to connect to OpenAI: An unknown error occurred");
-    }
+throw error
   }
 }
 

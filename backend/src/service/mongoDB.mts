@@ -25,13 +25,6 @@ async function registerResult(
   } catch (error) {
     console.error("Failed to register result", error);
     throw error;
-    // if (error instanceof MongoError) {
-    //   throw error;
-    // } else if (error instanceof Error) {
-    //   throw new Error(`Error fetching history: ${error.message}`);
-    // } else {
-    //   throw new Error("An unknown error occurred.");
-    // }
   }
 }
 
@@ -57,13 +50,6 @@ async function getResultById(
   } catch (error) {
     console.error("Failed to fetch a result", error);
     throw error;
-    // if (error instanceof MongoError) {
-    //   throw error;
-    // } else if (error instanceof Error) {
-    //   throw new Error(`Error fetching result: ${error.message}`);
-    // } else {
-    //   throw new Error("An unknown error occurred.");
-    // }
   }
 }
 
@@ -88,12 +74,6 @@ async function getUserHistoryById(
   } catch (error) {
     console.error("Failed to fetch history", error);
     throw error;
-
-    // if (error instanceof Error) {
-    //   throw new Error(`Error fetching history: ${error.message}`);
-    // } else {
-    //   throw new Error("An unknown error occurred.");
-    // }
   }
 }
 

@@ -3,20 +3,19 @@ import { getResultById } from "../service/mongoDB.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import { CustomAuthRequest, Result } from "../interfaces/interfaces";
 import {
-  validateAnalyzedResult,
+  validateAnalyzedData,
   validateResultId,
   validateUserId,
 } from "../helpers/utils.mjs";
 import {
-  DbDataError,
-  resultIdError,
+  DbDataSchemaError,
+  ResultIdSchemeError,
   ResultNotFoundError,
   UnauthorizedAccessError,
-  userIdError,
+  UserIdSchemaError,
 } from "../errors/customErrors.mjs";
 import { MongoError } from "mongodb";
 
-// TODO:identify error status code
 const getResult = async (req: CustomAuthRequest, res: Response) => {
   try {
     // これまでの診断結果をDBから取得してフロントに返却
@@ -27,14 +26,14 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
       userId,
       resultsCollection
     )) as Result;
-    const validatedResult = validateAnalyzedResult(result);
+    const validatedResult = validateAnalyzedData(result);
 
     res.status(200).json(validatedResult);
   } catch (error) {
     console.error("Failed to get results", error);
-    if (error instanceof userIdError) {
+    if (error instanceof UserIdSchemaError) {
       res.status(401).json({ error: "Unauthorized", details: error.message });
-    } else if (error instanceof resultIdError) {
+    } else if (error instanceof ResultIdSchemeError) {
       res.status(400).json({ error: "Bad Request", details: error.message });
     } else if (error instanceof MongoError) {
       res.status(500).json({ error: "Database Error", details: error.message });
@@ -42,17 +41,15 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
       res.status(404).json({ error: "Not Found", details: error.message });
     } else if (error instanceof UnauthorizedAccessError) {
       res.status(403).json({ error: "Forbidden", details: error.message });
-    } else if (error instanceof DbDataError) {
+    } else if (error instanceof DbDataSchemaError) {
       res
         .status(500)
         .json({ error: "Database Data Error", details: error.message });
     } else {
-      res
-        .status(500)
-        .json({
-          error: "Internal Server Error",
-          details: "An unexpected error occurred",
-        });
+      res.status(500).json({
+        error: "Internal Server Error",
+        details: "An unexpected error occurred",
+      });
     }
   }
 };

@@ -3,28 +3,34 @@ import { registerResult } from "../service/mongoDB.mjs";
 import { getChatCompletion } from "../service/openAI.mjs";
 
 import { CustomAuthRequest } from "../interfaces/interfaces";
-import { userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
-import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import OpenAI from "openai";
-import { validateUserId } from "../helpers/utils.mjs";
+import {
+  validateAnalyzedResult,
+  validateUserAnswer,
+  validateUserId,
+} from "../helpers/utils.mjs";
+import {
+  DbDataSchemaError,
+  UserAnswerSchemaError,
+  UserIdSchemaError,
+} from "../errors/customErrors.mjs";
+import { MongoError } from "mongodb";
 
-// TODO:identify error status code
 const postChatCompletion = async (
   req: CustomAuthRequest,
   res: Response,
   openai: OpenAI
 ) => {
   try {
-    // check if the request body is valid
-    const { content } = userAnswerSchema.parse(req.body);
+    const { content } = validateUserAnswer(req.body);
 
     // ChatGPTにユーザーの回答を投げる。診断結果をレスとして受け取る
     const responseFromAI = await getChatCompletion(openai, content);
     const parsedResponse = JSON.parse(responseFromAI);
 
     // check if the response from chatGPT is valid format
-    const validatedResponse = analyzedResultSchema.parse(parsedResponse);
+    const validatedResponse = validateAnalyzedResult(parsedResponse);
     const userId = validateUserId(req.userId);
 
     const registeredDataId = await registerResult(
@@ -35,7 +41,29 @@ const postChatCompletion = async (
 
     res.json({ resultId: registeredDataId });
   } catch (error) {
-    res.status(500).json({ error: "Failed to generate chat completion" });
+    if (error instanceof UserAnswerSchemaError) {
+      res.status(400).json({ error: "Bad Request", details: error.message });
+    } else if (error instanceof DbDataSchemaError) {
+      res
+        .status(500)
+        .json({ error: "Database Data Error", details: error.message });
+    } else if (error instanceof UserIdSchemaError) {
+      res.status(401).json({ error: "Unauthorized", details: error.message });
+    } else if (error instanceof MongoError) {
+      res.status(500).json({ error: "Database Error", details: error.message });
+    } else if (error instanceof OpenAI.APIError) {
+      res.status(500).json({ error: error.name, details: error.message });
+    } else if (error instanceof Error) {
+      res.status(500).json({
+        error: "Internal Server Error",
+        details: error.message,
+      });
+    } else {
+      res.status(500).json({
+        error: "Internal Server Error",
+        details: "An unexpected error occurred",
+      });
+    }
     console.error("Something broken", error);
   }
 };

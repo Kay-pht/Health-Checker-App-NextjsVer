@@ -43,7 +43,7 @@ describe("getChatCompletion", () => {
     });
 
     await expect(getChatCompletion(openai, orderedAnswers)).rejects.toThrow(
-      "Failed to connect to OpenAI: No response from OpenAI"
+      "No response from OpenAI"
     );
   });
 
@@ -53,7 +53,7 @@ describe("getChatCompletion", () => {
     );
 
     await expect(getChatCompletion(openai, orderedAnswers)).rejects.toThrow(
-      "Failed to connect to OpenAI: AI request failed"
+      "AI request failed"
     );
   });
 });
