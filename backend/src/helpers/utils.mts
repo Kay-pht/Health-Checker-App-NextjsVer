@@ -4,7 +4,14 @@ import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
 import { ChatCompletionMessageParam } from "openai/resources";
 import userHistoryDataListSchema from "../schemas/userHistoryDataListSchema.mjs";
 import { Result } from "../interfaces/interfaces";
-import { DbDataError } from "../errors/customErrors.mjs";
+import {
+  DbDataError,
+  resultIdError,
+  userIdError,
+} from "../errors/customErrors.mjs";
+import userIdSchema from "../schemas/userIdSchema.mjs";
+import { objectResultIdSchema } from "../schemas/resultIdSchema.mjs";
+import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 
 //TODO: specify the type of the decoded service account key
 // decode firebase service account key as JSON
@@ -26,19 +33,14 @@ export default decodeAccountKey;
 // Validate environment variables and if they are not correct, exit the process
 export const getVerifiedEnv = (config: {}): envSchemaType => {
   try {
-    //
     return envSchema.parse(config);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error("Invalid environment variables:");
+      console.error("Invalid environment variables: error.errors");
       // error.errors を一つずつ出力する
-      error.errors.forEach((err) => {
-        console.error(err);
-      });
     } else {
       console.error("Unexpected error:", error);
     }
-
     process.exit(1);
   }
 };
@@ -89,6 +91,44 @@ export const validateHistoryDataList = (results: Result[]) => {
     return userHistoryDataListSchema.parse(results);
   } catch (error) {
     console.error("Failed to validate history data", error);
+    if (error instanceof ZodError) {
+      throw new DbDataError("The data is not in the correct format");
+    } else {
+      throw error;
+    }
+  }
+};
+
+export const validateUserId = (userId: string | undefined) => {
+  try {
+    return userIdSchema.parse(userId);
+  } catch (error) {
+    console.error("Failed to validate userId", error);
+    if (error instanceof ZodError) {
+      throw new userIdError("Invalid userId");
+    } else {
+      throw error;
+    }
+  }
+};
+
+export const validateResultId = (resultId: string) => {
+  try {
+    return objectResultIdSchema.parse(resultId);
+  } catch (error) {
+    console.error("Failed to validate resultId", error);
+    if (error instanceof ZodError) {
+      throw new resultIdError("Invalid resultId");
+    } else {
+      throw error;
+    }
+  }
+};
+export const validateAnalyzedResult = (result: Result) => {
+  try {
+    return analyzedResultSchema.parse(result);
+  } catch (error) {
+    console.error("Failed to validate result", error);
     if (error instanceof ZodError) {
       throw new DbDataError("The data is not in the correct format");
     } else {

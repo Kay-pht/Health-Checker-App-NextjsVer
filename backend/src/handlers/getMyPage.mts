@@ -1,18 +1,15 @@
 import { Response } from "express";
 import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getUserHistoryById } from "../service/mongoDB.mjs";
-import userIdSchema from "../schemas/userIdSchema.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import { Result } from "../interfaces/interfaces.d";
-import { ZodError } from "zod";
 import { MongoError } from "mongodb";
-import { validateHistoryDataList } from "../helpers/utils.mjs";
-import { DbDataError } from "../errors/customErrors.mjs";
+import { validateHistoryDataList, validateUserId } from "../helpers/utils.mjs";
+import { DbDataError, userIdError } from "../errors/customErrors.mjs";
 
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
-    const userId = userIdSchema.parse(req.userId);
-
+    const userId = validateUserId(req.userId);
     const results = (await getUserHistoryById(
       userId,
       resultsCollection
@@ -22,14 +19,19 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
     res.status(200).json(validatedResults);
   } catch (error) {
     if (error instanceof DbDataError) {
-      res.status(500).json({ error: error.message });
-    } else if (error instanceof ZodError) {
+      res
+        .status(500)
+        .json({ error: "Database Data Error", details: error.message });
+    } else if (error instanceof userIdError) {
       // userIdがSchemaにマッチしない場合は401を返す
-      res.status(401).json({ error: "Unauthorized", details: error.errors });
+      res.status(401).json({ error: "Unauthorized", details: error.message });
     } else if (error instanceof MongoError) {
-      res.status(500).json({ error: "Failed to fetch results" });
+      res.status(500).json({ error: "Database Error", details: error.message });
     } else {
-      res.status(500).json({ error: "An unexpected error occurred" });
+      res.status(500).json({
+        error: "Internal Server Error",
+        details: "An unexpected error occurred",
+      });
     }
     console.error("Failed to get results", error);
   }

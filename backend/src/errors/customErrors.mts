@@ -18,3 +18,17 @@ export class DbDataError extends Error {
     this.name = "DbDataError";
   }
 }
+
+export class userIdError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "userIdError";
+  }
+}
+
+export class resultIdError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "resultIdError";
+  }
+}

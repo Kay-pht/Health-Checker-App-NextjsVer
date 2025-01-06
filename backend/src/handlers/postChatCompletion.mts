@@ -7,7 +7,7 @@ import { userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import OpenAI from "openai";
-import userIdSchema from "../schemas/userIdSchema.mjs";
+import { validateUserId } from "../helpers/utils.mjs";
 
 // TODO:identify error status code
 const postChatCompletion = async (
@@ -25,7 +25,7 @@ const postChatCompletion = async (
 
     // check if the response from chatGPT is valid format
     const validatedResponse = analyzedResultSchema.parse(parsedResponse);
-    const userId = userIdSchema.parse(req.userId);
+    const userId = validateUserId(req.userId);
 
     const registeredDataId = await registerResult(
       userId,
