@@ -1,7 +1,10 @@
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import envSchema, { envSchemaType } from "../schemas/envSchema.mjs";
 import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
 import { ChatCompletionMessageParam } from "openai/resources";
+import userHistoryDataListSchema from "../schemas/userHistoryDataListSchema.mjs";
+import { Result } from "../interfaces/interfaces";
+import { DbDataError } from "../errors/customErrors.mjs";
 
 //TODO: specify the type of the decoded service account key
 // decode firebase service account key as JSON
@@ -80,3 +83,16 @@ export function getTokenFromRequestHeader(
     return idToken;
   }
 }
+
+export const validateHistoryDataList = (results: Result[]) => {
+  try {
+    return userHistoryDataListSchema.parse(results);
+  } catch (error) {
+    console.error("Failed to validate history data", error);
+    if (error instanceof ZodError) {
+      throw new DbDataError("The data is not in the correct format");
+    } else {
+      throw error;
+    }
+  }
+};

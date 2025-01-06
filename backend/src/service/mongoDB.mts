@@ -1,5 +1,9 @@
 import { Collection, ObjectId } from "mongodb";
 import type { answerByChatGPTType, Result } from "../interfaces/interfaces.js";
+import {
+  ResultNotFoundError,
+  UnauthorizedAccessError,
+} from "../errors/customErrors.mjs";
 
 //結果のDB登録(AIからの診断結果を返却するとき)
 async function registerResult(
@@ -42,10 +46,10 @@ async function getResultById(
       _id: new ObjectId(resultId),
     });
     if (!result) {
-      throw new Error(`No result found for id: ${resultId}`);
+      throw new ResultNotFoundError(`No result found for id: ${resultId}`);
     }
     if (result.userId !== userId) {
-      throw new Error(
+      throw new UnauthorizedAccessError(
         `Unauthorized access to result: ${resultId} for user ${userId}  (expected: ${result.userId})`
       );
     }

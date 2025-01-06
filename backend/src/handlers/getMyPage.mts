@@ -1,12 +1,13 @@
 import { Response } from "express";
 import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getUserHistoryById } from "../service/mongoDB.mjs";
-import userHistoryDataListSchema from "../schemas/userHistoryDataListSchema.mjs";
 import userIdSchema from "../schemas/userIdSchema.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import { Result } from "../interfaces/interfaces.d";
 import { ZodError } from "zod";
 import { MongoError } from "mongodb";
+import { validateHistoryDataList } from "../helpers/utils.mjs";
+import { DbDataError } from "../errors/customErrors.mjs";
 
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
@@ -16,10 +17,13 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
       userId,
       resultsCollection
     )) as Result[];
-    const validatedResults = userHistoryDataListSchema.parse(results);
+    const validatedResults = validateHistoryDataList(results);
+
     res.status(200).json(validatedResults);
   } catch (error) {
-    if (error instanceof ZodError) {
+    if (error instanceof DbDataError) {
+      res.status(500).json({ error: error.message });
+    } else if (error instanceof ZodError) {
       // userIdがSchemaにマッチしない場合は401を返す
       res.status(401).json({ error: "Unauthorized", details: error.errors });
     } else if (error instanceof MongoError) {
