@@ -7,14 +7,7 @@ import {
   validateResultId,
   validateUserId,
 } from "../helpers/utils.mjs";
-import {
-  DbDataSchemaError,
-  ResultIdSchemeError,
-  ResultNotFoundError,
-  UnauthorizedAccessError,
-  UserIdSchemaError,
-} from "../errors/customErrors.mjs";
-import { MongoError } from "mongodb";
+import handleErrors from "../helpers/handleErrors.mjs";
 
 const getResult = async (req: CustomAuthRequest, res: Response) => {
   try {
@@ -30,27 +23,28 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
 
     res.status(200).json(validatedResult);
   } catch (error) {
+    handleErrors(res, error);
     console.error("Failed to get results", error);
-    if (error instanceof UserIdSchemaError) {
-      res.status(401).json({ error: "Unauthorized", details: error.message });
-    } else if (error instanceof ResultIdSchemeError) {
-      res.status(400).json({ error: "Bad Request", details: error.message });
-    } else if (error instanceof MongoError) {
-      res.status(500).json({ error: "Database Error", details: error.message });
-    } else if (error instanceof ResultNotFoundError) {
-      res.status(404).json({ error: "Not Found", details: error.message });
-    } else if (error instanceof UnauthorizedAccessError) {
-      res.status(403).json({ error: "Forbidden", details: error.message });
-    } else if (error instanceof DbDataSchemaError) {
-      res
-        .status(500)
-        .json({ error: "Database Data Error", details: error.message });
-    } else {
-      res.status(500).json({
-        error: "Internal Server Error",
-        details: "An unexpected error occurred",
-      });
-    }
+    // if (error instanceof UserIdSchemaError) {
+    //   res.status(401).json({ error: "Unauthorized", details: error.message });
+    // } else if (error instanceof ResultIdSchemeError) {
+    //   res.status(400).json({ error: "Bad Request", details: error.message });
+    // } else if (error instanceof MongoError) {
+    //   res.status(500).json({ error: "Database Error", details: error.message });
+    // } else if (error instanceof ResultNotFoundError) {
+    //   res.status(404).json({ error: "Not Found", details: error.message });
+    // } else if (error instanceof UnauthorizedAccessError) {
+    //   res.status(403).json({ error: "Forbidden", details: error.message });
+    // } else if (error instanceof DbDataSchemaError) {
+    //   res
+    //     .status(500)
+    //     .json({ error: "Database Data Error", details: error.message });
+    // } else {
+    //   res.status(500).json({
+    //     error: "Internal Server Error",
+    //     details: "An unexpected error occurred",
+    //   });
+    // }
   }
 };
 

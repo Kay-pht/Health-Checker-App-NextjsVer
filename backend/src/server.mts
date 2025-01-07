@@ -44,12 +44,15 @@ app.get("/api/auth", verifyTokenMiddleware, getAuthToken);
 app.get("/api/result/:resultId", verifyTokenMiddleware, getResult);
 app.get("/api/mypage", verifyTokenMiddleware, getMyPage);
 app.get("/", (_req: Request, res: Response) => {
-  res.json("Hello, World! I'm running on Express Server.");
+  res.status(200).json("Hello, World! I'm running on Express Server.");
 });
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).send("Something broke!");
+  res.status(500).json({
+    error: "Internal Server Error",
+    details: "An unexpected error occurred",
+  });
 });
 
 app.listen(Number(port), () => {
