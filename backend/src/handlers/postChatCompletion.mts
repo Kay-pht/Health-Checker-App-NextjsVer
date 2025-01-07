@@ -17,16 +17,12 @@ import {
 } from "../errors/customErrors.mjs";
 import { MongoError } from "mongodb";
 
-const postChatCompletion = async (
-  req: CustomAuthRequest,
-  res: Response,
-  openai: OpenAI
-) => {
+const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
   try {
     const { content } = validateUserAnswer(req.body);
 
     // ChatGPTにユーザーの回答を投げる。診断結果をレスとして受け取る
-    const responseFromAI = await getChatCompletion(openai, content);
+    const responseFromAI = await getChatCompletion(content);
     const parsedResponse = JSON.parse(responseFromAI);
 
     // check if the response from chatGPT is valid format

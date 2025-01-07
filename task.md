@@ -13,6 +13,8 @@
 - [x] test DB CRUD control
 - [x] test openAI API
 - [x] validate all Env keys with zod in configEnv.mts
+- [ ] refactoring error handling
+- [ ] implement open AI test
 
 ## P1
 

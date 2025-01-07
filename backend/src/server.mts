@@ -5,7 +5,6 @@ import getAuthToken from "./handlers/getAuthToken.mjs";
 import getResult from "./handlers/getResult.mjs";
 import cors from "cors";
 import { verifyTokenMiddleware } from "./middlewares/verifyTokenMiddleware.mjs";
-import OpenAI from "openai";
 import { CustomAuthRequest } from "./interfaces/interfaces";
 import { initializeFirebaseAdmin } from "./service/firebase.mjs";
 import configEnv from "./configEnv.mjs";
@@ -34,16 +33,12 @@ initializeFirebaseAdmin(configEnv.serviceAccountKey, decodeAccountKey); // initi
 
 connectToDatabase(); // connecting to MongoDB
 
-const openai = new OpenAI({
-  apiKey: configEnv.openaiApiKey,
-});
-
 // routes
 app.post(
   "/api/completion",
   verifyTokenMiddleware,
   (req: Request, res: Response) =>
-    postChatCompletion(req as CustomAuthRequest, res, openai)
+    postChatCompletion(req as CustomAuthRequest, res)
 );
 app.get("/api/auth", verifyTokenMiddleware, getAuthToken);
 app.get("/api/result/:resultId", verifyTokenMiddleware, getResult);

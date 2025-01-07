@@ -6,8 +6,8 @@ import { ResponseNotFoundError } from "../errors/customErrors.mjs";
 
 // データアクセス(ChatGPTとの連携)部分の実装
 async function getChatCompletion(
-  openai: OpenAI,
-  orderedAnswers: UserAnswer["content"]
+  orderedAnswers: UserAnswer["content"],
+  openai: OpenAI = new OpenAI({ apiKey: configEnv.openaiApiKey })
 ) {
   try {
     // OpenAIのChatGPTに回答を送付して、返答をレスとして受け取る
@@ -28,7 +28,7 @@ async function getChatCompletion(
     return responseFromAI;
   } catch (error) {
     console.error("Can't connect to OpenAI", error);
-throw error
+    throw error;
   }
 }
 
