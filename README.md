@@ -23,52 +23,60 @@ AI が回答を分析し、不足している栄養素とそれを補うため�
 - **ブラウザ**: Chrome, Firefox, Safari, Edge (各最新版を推奨)
 - **OS**: Windows, macOS, Linux (各最新版を推奨)
 
-## 🛠️ 使用技術・ライブラリ・フレームワーク
+## 🛠️ 技術スタック
 
-- **フロントエンド**
+### 開発環境
 
-- **Next.js (v15, App Router)**: React フレームワーク
-    - **TypeScript**: 静的型付け言語
-    - **Tailwind CSS**: CSS フレームワーク
-    - **Material UI**: UI コンポーネントライブラリ
-    - **zod**: スキーマバリデーションライブラリ
-    - **Vercel**: デプロイプラットフォーム
-    - **Cloudflare**: プロキシ、CDN
+- **OS**: WSL 2 (Ubuntu)
 
-- **バックエンド**
+### フロントエンド
 
-- **Node.js**: JavaScript ランタイム
-    - **Express**: Web アプリケーションフレームワーク
-    - **TypeScript**: 静的型付け言語
-    - **zod**: スキーマバリデーションライブラリ
-    - **Docker**: コンテナ化プラットフォーム
-    - **AWS App Runner**: デプロイプラットフォーム
-    - **ECR**: コンテナレジストリ
+- **フレームワーク**: Next.js (v15, App Router)
+- **言語**: TypeScript
+- **スタイリング**:
+  - Tailwind CSS
+  - Material UI
+- **バリデーション**: zod
+- **デプロイ**:
+  - Vercel
+  - Cloudflare(Proxy)
 
-- **データベース**
+### バックエンド
 
-- **MongoDB**: NoSQL データベース
+- **ランタイム**: Node.js
+- **フレームワーク**: Express
+- **言語**: TypeScript
+- **バリデーション**: zod
+- **コンテナ化**: Docker
+- **デプロイ**:
+  - AWS App Runner
+  - Amazon ECR
 
-- **認証**
+### データベース
 
-- **Firebase Auth**: 認証サービス
+- MongoDB
 
-- **バージョン管理**
+### 認証
 
-- **Git**: バージョン管理システム
-    - **GitHub**: ホスティングサービス
+- Firebase Auth
 
-- **テスト**
+### バージョン管理
 
-- **Jest**: テストフレームワーク
+- Git
+- GitHub
 
-- **CI/CD**
+### テスト
 
-- **GitHub Actions**: CI/CD パイプライン
-    - **Vercel (デフォルト)**: CD
+- Jest
 
-- **外部 API**
-    - **OpenAI**: API (Gemini への移行を検討中)
+### CI/CD
+
+- GitHub Actions
+- Vercel
+
+### 外部 API
+
+- OpenAI
 
 ## 👨‍💻 使用方法・使い方
 
