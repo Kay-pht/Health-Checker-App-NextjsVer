@@ -8,6 +8,8 @@
 
 //   const orderedAnswers = { question1: "answer1" };
 
+it("should return the AI's response when successful", () => {});
+
 //   beforeEach(() => {
 //     jest.clearAllMocks();
 //     openai = {
