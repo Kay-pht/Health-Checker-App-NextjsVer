@@ -6,7 +6,6 @@ import { Result } from "../interfaces/interfaces.d";
 import { validateHistoryDataList, validateUserId } from "../helpers/utils.mjs";
 import handleErrors from "../helpers/handleErrors.mjs";
 
-
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {
     const userId = validateUserId(req.userId);
@@ -18,8 +17,17 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
 
     res.status(200).json(validatedResults);
   } catch (error) {
-    handleErrors(res, error)
+    // ?:resを下位の関数にまで渡してよいのか?
+    // possible errors are below:
+    // - UserIdSchemaError (401 Unauthorized)
+    // - DbDataSchemaError (500 Internal Server Error)
+    // - MongoError (500 Internal Server Error)
+    // - Generic Error (500 Internal Server Error)
+    // - Unexpected errors (500 Internal Server Error)
+    handleErrors(res, error);
+    console.error("Failed to get results", error);
 
+    // TODO:a below error handling should be erased after tests
     // if (error instanceof DbDataSchemaError) {
     //   res
     //     .status(500)
@@ -35,7 +43,6 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
     //     details: "An unexpected error occurred",
     //   });
     // }
-    console.error("Failed to get results", error);
   }
 };
 

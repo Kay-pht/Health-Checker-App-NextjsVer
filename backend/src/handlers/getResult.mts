@@ -23,6 +23,15 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
 
     res.status(200).json(validatedResult);
   } catch (error) {
+    // ? resを下位の関数にまで渡してよいのか?
+    // possible errors are below:
+    // - UserIdSchemaError (401 Unauthorized)
+    // - ResultIdSchemeError (400 Bad Request)
+    // - ResultNotFoundError (404 Not Found)
+    // - UnauthorizedAccessError (403 Forbidden)
+    // - MongoError (500 Internal Server Error)
+    // - DbDataSchemaError (500 Internal Server Error)
+    // - Generic Error (500 Internal Server Error)
     handleErrors(res, error);
     console.error("Failed to get results", error);
     // if (error instanceof UserIdSchemaError) {

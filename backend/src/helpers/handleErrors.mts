@@ -12,7 +12,8 @@ import {
 import { MongoError } from "mongodb";
 import OpenAI from "openai";
 
-// TODO:fix the messages which are written about server internal issues
+// TODO:write a test code
+// TODO:fix the messages which contains internal issues
 const handleErrors = (res: Response, error: unknown) => {
   console.error(error);
 

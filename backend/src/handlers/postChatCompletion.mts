@@ -31,8 +31,17 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
 
     res.json({ resultId: registeredDataId });
   } catch (error) {
-    // TODO:resを下位の関数にまで渡してよいのか?
+    // ?:resを下位の関数にまで渡してよいのか?
+    // possible errors are below:
+    // - UserAnswerSchemaError (400 Bad Request)
+    // - DbDataSchemaError (500 Internal Server Error)
+    // - UserIdSchemaError (401 Unauthorized)
+    // - MongoError (500 Internal Server Error)
+    // - OpenAI.APIError (500 Internal Server Error)
+    // - Generic Error (500 Internal Server Error)
     handleErrors(res, error);
+    console.error("Something broken", error);
+
     // if (error instanceof UserAnswerSchemaError) {
     //   res.status(400).json({ error: "Bad Request", details: error.message });
     // } else if (error instanceof DbDataSchemaError) {
@@ -56,7 +65,6 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
     //     details: "An unexpected error occurred",
     //   });
     // }
-    console.error("Something broken", error);
   }
 };
 
