@@ -6,8 +6,12 @@ const LandingPage = () => {
       <h1 className="text-4xl font-bold text-gray-800 mb-4">
         ようこそ！AI食生活診断テストへ
       </h1>
-      <p className="text-lg text-gray-600 mb-8">
+      <p className="text-lg text-gray-600 ">
         あなたの食生活を診断し、健康的な生活をサポートします。
+      </p>
+      <p className="text-lg text-gray-600 mb-8">
+        <strong className="text-gray-600">登録無し</strong>
+        でもご利用頂けます！
       </p>
       <StartButton />
       <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
