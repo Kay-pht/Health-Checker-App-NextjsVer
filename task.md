@@ -14,8 +14,8 @@
 - [x] test openAI API
 - [x] validate all Env keys with zod in configEnv.mts
 - [x] refactoring error handling
+- [x] test error handling
 - [ ] implement open AI test
-- [ ] test error handling
 - [ ]
 
 ## P1
