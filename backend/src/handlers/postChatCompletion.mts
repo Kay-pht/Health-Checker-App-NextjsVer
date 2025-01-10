@@ -4,12 +4,12 @@ import { getChatCompletion } from "../service/openAI.mjs";
 
 import { CustomAuthRequest } from "../interfaces/interfaces";
 import { resultsCollection } from "../helpers/connectDB.mjs";
+import handleErrors from "../helpers/handleErrors.mjs";
 import {
   validateAnalyzedResult,
   validateUserAnswer,
   validateUserId,
-} from "../helpers/utils.mjs";
-import handleErrors from "../helpers/handleErrors.mjs";
+} from "../helpers/validateSchemaFunc.mjs";
 
 const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
   try {

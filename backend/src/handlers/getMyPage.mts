@@ -3,8 +3,11 @@ import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getUserHistoryById } from "../service/mongoDB.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import { Result } from "../interfaces/interfaces.d";
-import { validateHistoryDataList, validateUserId } from "../helpers/utils.mjs";
 import handleErrors from "../helpers/handleErrors.mjs";
+import {
+  validateHistoryDataList,
+  validateUserId,
+} from "../helpers/validateSchemaFunc.mjs";
 
 const getMyPage = async (req: CustomAuthRequest, res: Response) => {
   try {

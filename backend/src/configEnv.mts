@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { getVerifiedEnv } from "./helpers/utils.mjs";
+import { validateEnv } from "./helpers/validateSchemaFunc.mjs";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -16,6 +16,6 @@ const rawConfigEnv = {
   taskPrompt: process.env.TASK_PROMPT,
 };
 
-const configEnv = getVerifiedEnv(rawConfigEnv);
+const configEnv = validateEnv(rawConfigEnv);
 
 export default configEnv;

@@ -2,12 +2,13 @@ import { Response } from "express";
 import { getResultById } from "../service/mongoDB.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import { CustomAuthRequest, Result } from "../interfaces/interfaces";
+import {} from "../helpers/utils.mjs";
+import handleErrors from "../helpers/handleErrors.mjs";
 import {
   validateAnalyzedData,
   validateResultId,
   validateUserId,
-} from "../helpers/utils.mjs";
-import handleErrors from "../helpers/handleErrors.mjs";
+} from "../helpers/validateSchemaFunc.mjs";
 
 const getResult = async (req: CustomAuthRequest, res: Response) => {
   try {
@@ -34,6 +35,7 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
     // - Generic Error (500 Internal Server Error)
     handleErrors(res, error);
     console.error("Failed to get results", error);
+
     // if (error instanceof UserIdSchemaError) {
     //   res.status(401).json({ error: "Unauthorized", details: error.message });
     // } else if (error instanceof ResultIdSchemeError) {
