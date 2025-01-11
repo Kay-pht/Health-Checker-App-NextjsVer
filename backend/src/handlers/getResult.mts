@@ -33,8 +33,9 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
     // - MongoError (500 Internal Server Error)
     // - DbDataSchemaError (500 Internal Server Error)
     // - Generic Error (500 Internal Server Error)
-    handleErrors(res, error);
-    console.error("Failed to get results", error);
+    const { statusCode, body } = handleErrors(error);
+    res.status(statusCode).json(body);
+    console.error("Failed to get a result", error);
 
     // if (error instanceof UserIdSchemaError) {
     //   res.status(401).json({ error: "Unauthorized", details: error.message });

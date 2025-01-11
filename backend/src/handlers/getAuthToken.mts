@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 
+// このハンドラはレスを返すだけの役割。ミドルウェアでの検証を目的とするルート
 const getAuthToken = async (_req: Request, res: Response) => {
   try {
     res.status(200).json("verifying token successfully");

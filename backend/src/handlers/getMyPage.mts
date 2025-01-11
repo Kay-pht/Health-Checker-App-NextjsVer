@@ -27,8 +27,9 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
     // - MongoError (500 Internal Server Error)
     // - Generic Error (500 Internal Server Error)
     // - Unexpected errors (500 Internal Server Error)
-    handleErrors(res, error);
-    console.error("Failed to get results", error);
+    const { statusCode, body } = handleErrors(error);
+    res.status(statusCode).json(body);
+    console.error("Failed to get a history", error);
 
     // TODO:a below error handling should be erased after tests
     // if (error instanceof DbDataSchemaError) {

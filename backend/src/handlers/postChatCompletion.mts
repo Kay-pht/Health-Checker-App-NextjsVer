@@ -39,8 +39,9 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
     // - MongoError (500 Internal Server Error)
     // - OpenAI.APIError (500 Internal Server Error)
     // - Generic Error (500 Internal Server Error)
-    handleErrors(res, error);
-    console.error("Something broken", error);
+    const { statusCode, body } = handleErrors(error);
+    res.status(statusCode).json(body);
+    console.error("fail to analyze", error);
 
     // if (error instanceof UserAnswerSchemaError) {
     //   res.status(400).json({ error: "Bad Request", details: error.message });

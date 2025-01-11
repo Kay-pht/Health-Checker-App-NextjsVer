@@ -1,4 +1,3 @@
-import { Response } from "express";
 import {
   ResultNotFoundError,
   UnauthorizedAccessError,
@@ -11,95 +10,137 @@ import {
 } from "../errors/customErrors.mjs";
 import { MongoError } from "mongodb";
 import OpenAI from "openai";
+import ERROR_MESSAGES from "../errors/errorMessages.mjs";
 
 // TODO:fix the messages which contains internal issues
-const handleErrors = (res: Response, error: unknown) => {
+const handleErrors = (
+  error: unknown
+): {
+  statusCode: number;
+  body: { error: { code: string; message: string } };
+} => {
   console.error(error);
 
   if (error instanceof ResultNotFoundError) {
-    res.status(404).json({
-      error: {
-        code: "RESULT_NOT_FOUND",
-        message: error.message,
+    return {
+      statusCode: 404,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.RESULT_NOT_FOUND.code,
+          message: ERROR_MESSAGES.RESULT_NOT_FOUND.message,
+        },
       },
-    });
+    };
   } else if (error instanceof UnauthorizedAccessError) {
-    res.status(403).json({
-      error: {
-        code: "UNAUTHORIZED_ACCESS",
-        message: error.message,
+    return {
+      statusCode: 403,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.code,
+          message: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.message,
+        },
       },
-    });
+    };
   } else if (error instanceof DbDataSchemaError) {
-    res.status(500).json({
-      error: {
-        code: "DB_DATA_SCHEMA_ERROR",
-        message: error.message,
+    return {
+      statusCode: 500,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.DB_DATA_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.DB_DATA_SCHEMA_ERROR.message,
+        },
       },
-    });
+    };
   } else if (error instanceof UserIdSchemaError) {
-    res.status(401).json({
-      error: {
-        code: "USER_ID_SCHEMA_ERROR",
-        message: error.message,
+    return {
+      statusCode: 401,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.USER_ID_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.USER_ID_SCHEMA_ERROR.message,
+        },
       },
-    });
+    };
   } else if (error instanceof ResultIdSchemeError) {
-    res.status(400).json({
-      error: {
-        code: "RESULT_ID_SCHEMA_ERROR",
-        message: error.message,
+    return {
+      statusCode: 400,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.RESULT_ID_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.RESULT_ID_SCHEMA_ERROR.message,
+        },
       },
-    });
+    };
   } else if (error instanceof UserAnswerSchemaError) {
-    res.status(400).json({
-      error: {
-        code: "USER_ANSWER_SCHEMA_ERROR",
-        message: error.message,
+    return {
+      statusCode: 400,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.USER_ANSWER_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.USER_ANSWER_SCHEMA_ERROR.message,
+        },
       },
-    });
+    };
   } else if (error instanceof ResponseNotFoundError) {
-    res.status(404).json({
-      error: {
-        code: "RESPONSE_NOT_FOUND",
-        message: error.message,
+    return {
+      statusCode: 404,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.RESPONSE_NOT_FOUND.code,
+          message: ERROR_MESSAGES.RESPONSE_NOT_FOUND.message,
+        },
       },
-    });
+    };
   } else if (error instanceof ResultSchemaError) {
-    res.status(500).json({
-      error: {
-        code: "RESULT_SCHEMA_ERROR",
-        message: error.message,
+    return {
+      statusCode: 500,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.RESULT_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.RESULT_SCHEMA_ERROR.message,
+        },
       },
-    });
+    };
   } else if (error instanceof MongoError) {
-    res.status(500).json({
-      error: {
-        code: "DATABASE_ERROR",
-        message: error.message,
+    return {
+      statusCode: 500,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.DATABASE_ERROR.code,
+          message: ERROR_MESSAGES.DATABASE_ERROR.message,
+        },
       },
-    });
+    };
   } else if (error instanceof OpenAI.APIError) {
-    res.status(500).json({
-      error: {
-        code: "OPENAI_API_ERROR",
-        message: error.message,
+    return {
+      statusCode: 500,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.OPENAI_API_ERROR.code,
+          message: ERROR_MESSAGES.OPENAI_API_ERROR.message,
+        },
       },
-    });
+    };
   } else if (error instanceof Error) {
-    res.status(500).json({
-      error: {
-        code: "INTERNAL_SERVER_ERROR",
-        message: error.message,
+    return {
+      statusCode: 500,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
+          message: error.message,
+        },
       },
-    });
+    };
   } else {
-    res.status(500).json({
-      error: {
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal server error",
+    return {
+      statusCode: 500,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
+          message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.message,
+        },
       },
-    });
+    };
   }
 };
 
