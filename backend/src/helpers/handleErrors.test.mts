@@ -1,4 +1,3 @@
-import { jest } from "@jest/globals";
 import {
   ResultNotFoundError,
   UnauthorizedAccessError,
@@ -12,22 +11,18 @@ import {
 import handleErrors from "./handleErrors.mjs";
 import { MongoError } from "mongodb";
 import OpenAI from "openai";
+import ERROR_MESSAGES from "../errors/errorMessages.mjs";
 
 describe("handleErrors", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
-
   it("should handle ResultNotFoundError", () => {
     const error = new ResultNotFoundError("Result not found");
     expect(handleErrors(error)).toEqual({
       statusCode: 404,
       body: {
-        error: { code: "RESULT_NOT_FOUND", message: "Result not found" },
+        error: {
+          code: ERROR_MESSAGES.RESULT_NOT_FOUND.code,
+          message: ERROR_MESSAGES.RESULT_NOT_FOUND.message,
+        },
       },
     });
   });
@@ -38,8 +33,8 @@ describe("handleErrors", () => {
       statusCode: 403,
       body: {
         error: {
-          code: "UNAUTHORIZED_ACCESS",
-          message: "Unauthorized access",
+          code: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.code,
+          message: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.message,
         },
       },
     });
@@ -51,8 +46,8 @@ describe("handleErrors", () => {
       statusCode: 500,
       body: {
         error: {
-          code: "DB_DATA_SCHEMA_ERROR",
-          message: "Database data schema error",
+          code: ERROR_MESSAGES.DB_DATA_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.DB_DATA_SCHEMA_ERROR.message,
         },
       },
     });
@@ -64,8 +59,8 @@ describe("handleErrors", () => {
       statusCode: 401,
       body: {
         error: {
-          code: "USER_ID_SCHEMA_ERROR",
-          message: "User ID schema error",
+          code: ERROR_MESSAGES.USER_ID_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.USER_ID_SCHEMA_ERROR.message,
         },
       },
     });
@@ -77,8 +72,8 @@ describe("handleErrors", () => {
       statusCode: 400,
       body: {
         error: {
-          code: "RESULT_ID_SCHEMA_ERROR",
-          message: "Result ID schema error",
+          code: ERROR_MESSAGES.RESULT_ID_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.RESULT_ID_SCHEMA_ERROR.message,
         },
       },
     });
@@ -90,8 +85,8 @@ describe("handleErrors", () => {
       statusCode: 400,
       body: {
         error: {
-          code: "USER_ANSWER_SCHEMA_ERROR",
-          message: "User answer schema error",
+          code: ERROR_MESSAGES.USER_ANSWER_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.USER_ANSWER_SCHEMA_ERROR.message,
         },
       },
     });
@@ -103,8 +98,8 @@ describe("handleErrors", () => {
       statusCode: 404,
       body: {
         error: {
-          code: "RESPONSE_NOT_FOUND",
-          message: "Response not found",
+          code: ERROR_MESSAGES.RESPONSE_NOT_FOUND.code,
+          message: ERROR_MESSAGES.RESPONSE_NOT_FOUND.message,
         },
       },
     });
@@ -116,8 +111,8 @@ describe("handleErrors", () => {
       statusCode: 500,
       body: {
         error: {
-          code: "RESULT_SCHEMA_ERROR",
-          message: "Result schema error",
+          code: ERROR_MESSAGES.RESULT_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.RESULT_SCHEMA_ERROR.message,
         },
       },
     });
@@ -129,8 +124,8 @@ describe("handleErrors", () => {
       statusCode: 500,
       body: {
         error: {
-          code: "DATABASE_ERROR",
-          message: "Database error",
+          code: ERROR_MESSAGES.DATABASE_ERROR.code,
+          message: ERROR_MESSAGES.DATABASE_ERROR.message,
         },
       },
     });
@@ -147,8 +142,8 @@ describe("handleErrors", () => {
       statusCode: 500,
       body: {
         error: {
-          code: "OPENAI_API_ERROR",
-          message: '500 "OpenAI API error"', // エラーメッセージは元のものを利用
+          code: ERROR_MESSAGES.OPENAI_API_ERROR.code,
+          message: ERROR_MESSAGES.OPENAI_API_ERROR.message,
         },
       },
     });
@@ -160,8 +155,8 @@ describe("handleErrors", () => {
       statusCode: 500,
       body: {
         error: {
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Internal server error",
+          code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
+          message: error.message,
         },
       },
     });
@@ -173,8 +168,8 @@ describe("handleErrors", () => {
       statusCode: 500,
       body: {
         error: {
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Internal server error",
+          code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
+          message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.message,
         },
       },
     });
