@@ -31,7 +31,7 @@ describe("handleErrors", () => {
     jest.clearAllMocks();
   });
 
-  it("should handle ResultNotFoundError with 404 status", () => {
+  it("should throw ResultNotFoundError with 404 status", () => {
     const error = new ResultNotFoundError("Result not found");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(404);
@@ -43,7 +43,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle UnauthorizedAccessError with 403 status", () => {
+  it("should throw UnauthorizedAccessError with 403 status", () => {
     const error = new UnauthorizedAccessError("Unauthorized access");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(403);
@@ -55,7 +55,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle DbDataSchemaError with 500 status", () => {
+  it("should throw DbDataSchemaError with 500 status", () => {
     const error = new DbDataSchemaError("Database data schema error");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(500);
@@ -67,7 +67,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle UserIdSchemaError with 401 status", () => {
+  it("should throw UserIdSchemaError with 401 status", () => {
     const error = new UserIdSchemaError("User ID schema error");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(401);
@@ -79,7 +79,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle ResultIdSchemeError with 400 status", () => {
+  it("should throw ResultIdSchemeError with 400 status", () => {
     const error = new ResultIdSchemeError("Result ID schema error");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -91,7 +91,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle UserAnswerSchemaError with 400 status", () => {
+  it("should throw UserAnswerSchemaError with 400 status", () => {
     const error = new UserAnswerSchemaError("User answer schema error");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(400);
@@ -103,7 +103,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle ResponseNotFoundError with 404 status", () => {
+  it("should throw ResponseNotFoundError with 404 status", () => {
     const error = new ResponseNotFoundError("Response not found");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(404);
@@ -115,7 +115,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle ResultSchemaError with 500 status", () => {
+  it("should throw ResultSchemaError with 500 status", () => {
     const error = new ResultSchemaError("Result schema error");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(500);
@@ -127,7 +127,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle MongoError with 500 status", () => {
+  it("should throw MongoError with 500 status", () => {
     const error = new MongoError("Database error");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(500);
@@ -139,7 +139,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle OpenAI.APIError with 500 status", () => {
+  it("should throw OpenAI.APIError with 500 status", () => {
     const error = new OpenAI.APIError(
       500,
       "OpenAI API error",
@@ -156,7 +156,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle generic Error with 500 status", () => {
+  it("should throw generic Error with 500 status", () => {
     const error = new Error("Internal server error");
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(500);
@@ -168,7 +168,7 @@ describe("handleErrors", () => {
     });
   });
 
-  it("should handle unknown error with 500 status", () => {
+  it("should throw unknown error with 500 status", () => {
     const error = "unknown error";
     handleErrors(res, error);
     expect(res.status).toHaveBeenCalledWith(500);
