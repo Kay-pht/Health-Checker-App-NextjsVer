@@ -20,7 +20,6 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
 
     res.status(200).json(validatedResults);
   } catch (error) {
-    // ?:resを下位の関数にまで渡してよいのか?
     // possible errors are below:
     // - UserIdSchemaError (401 Unauthorized)
     // - DbDataSchemaError (500 Internal Server Error)

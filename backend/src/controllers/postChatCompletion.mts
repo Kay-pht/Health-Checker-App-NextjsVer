@@ -31,7 +31,6 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
 
     res.json({ resultId: registeredDataId });
   } catch (error) {
-    // ?:resを下位の関数にまで渡してよいのか?
     // possible errors are below:
     // - UserAnswerSchemaError (400 Bad Request)
     // - DbDataSchemaError (500 Internal Server Error)

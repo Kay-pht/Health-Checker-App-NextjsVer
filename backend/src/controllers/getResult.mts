@@ -24,7 +24,6 @@ const getResult = async (req: CustomAuthRequest, res: Response) => {
 
     res.status(200).json(validatedResult);
   } catch (error) {
-    // ? resを下位の関数にまで渡してよいのか?
     // possible errors are below:
     // - UserIdSchemaError (401 Unauthorized)
     // - ResultIdSchemeError (400 Bad Request)

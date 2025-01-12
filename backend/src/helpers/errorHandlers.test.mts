@@ -17,7 +17,7 @@ describe("handleErrors", () => {
   it("should handle ResultNotFoundError", () => {
     const error = new ResultNotFoundError("Result not found");
     expect(handleErrors(error)).toEqual({
-      statusCode: 404,
+      statusCode: ERROR_MESSAGES.RESULT_NOT_FOUND.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.RESULT_NOT_FOUND.code,
@@ -30,7 +30,7 @@ describe("handleErrors", () => {
   it("should handle UnauthorizedAccessError", () => {
     const error = new UnauthorizedAccessError("Unauthorized access");
     expect(handleErrors(error)).toEqual({
-      statusCode: 403,
+      statusCode: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.code,
@@ -43,7 +43,7 @@ describe("handleErrors", () => {
   it("should handle DbDataSchemaError", () => {
     const error = new DbDataSchemaError("Database data schema error");
     expect(handleErrors(error)).toEqual({
-      statusCode: 500,
+      statusCode: ERROR_MESSAGES.DB_DATA_SCHEMA_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.DB_DATA_SCHEMA_ERROR.code,
@@ -56,7 +56,7 @@ describe("handleErrors", () => {
   it("should handle UserIdSchemaError", () => {
     const error = new UserIdSchemaError("User ID schema error");
     expect(handleErrors(error)).toEqual({
-      statusCode: 401,
+      statusCode: ERROR_MESSAGES.USER_ID_SCHEMA_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.USER_ID_SCHEMA_ERROR.code,
@@ -69,7 +69,7 @@ describe("handleErrors", () => {
   it("should handle ResultIdSchemeError", () => {
     const error = new ResultIdSchemeError("Result ID schema error");
     expect(handleErrors(error)).toEqual({
-      statusCode: 400,
+      statusCode: ERROR_MESSAGES.RESULT_ID_SCHEMA_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.RESULT_ID_SCHEMA_ERROR.code,
@@ -82,7 +82,7 @@ describe("handleErrors", () => {
   it("should handle UserAnswerSchemaError", () => {
     const error = new UserAnswerSchemaError("User answer schema error");
     expect(handleErrors(error)).toEqual({
-      statusCode: 400,
+      statusCode: ERROR_MESSAGES.USER_ANSWER_SCHEMA_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.USER_ANSWER_SCHEMA_ERROR.code,
@@ -95,7 +95,7 @@ describe("handleErrors", () => {
   it("should handle ResponseNotFoundError", () => {
     const error = new ResponseNotFoundError("Response not found");
     expect(handleErrors(error)).toEqual({
-      statusCode: 404,
+      statusCode: ERROR_MESSAGES.RESPONSE_NOT_FOUND.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.RESPONSE_NOT_FOUND.code,
@@ -108,7 +108,7 @@ describe("handleErrors", () => {
   it("should handle ResultSchemaError", () => {
     const error = new ResultSchemaError("Result schema error");
     expect(handleErrors(error)).toEqual({
-      statusCode: 500,
+      statusCode: ERROR_MESSAGES.RESULT_SCHEMA_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.RESULT_SCHEMA_ERROR.code,
@@ -121,7 +121,7 @@ describe("handleErrors", () => {
   it("should handle MongoError", () => {
     const error = new MongoError("Database error");
     expect(handleErrors(error)).toEqual({
-      statusCode: 500,
+      statusCode: ERROR_MESSAGES.DATABASE_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.DATABASE_ERROR.code,
@@ -139,7 +139,7 @@ describe("handleErrors", () => {
       {}
     );
     expect(handleErrors(error)).toEqual({
-      statusCode: 500,
+      statusCode: ERROR_MESSAGES.OPENAI_API_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.OPENAI_API_ERROR.code,
@@ -152,11 +152,11 @@ describe("handleErrors", () => {
   it("should handle generic Error", () => {
     const error = new Error("Internal server error");
     expect(handleErrors(error)).toEqual({
-      statusCode: 500,
+      statusCode: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
-          message: error.message,
+          message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.message,
         },
       },
     });
@@ -165,7 +165,7 @@ describe("handleErrors", () => {
   it("should handle unknown error", () => {
     const error = "unknown error";
     expect(handleErrors(error)).toEqual({
-      statusCode: 500,
+      statusCode: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.statusCode,
       body: {
         error: {
           code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
