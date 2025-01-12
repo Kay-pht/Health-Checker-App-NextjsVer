@@ -14,6 +14,12 @@ describe("decodeBase64", () => {
     const invalidBase64String = "invalid-base64";
     expect(() => decodeAccountKey(invalidBase64String)).toThrow();
   });
+
+  it("should throw an error for an empty Base64 string", () => {
+    // このテストは、空のBase64文字列が渡されたときに例外がスローされることを確認します。
+    const emptyBase64String = "";
+    expect(() => decodeAccountKey(emptyBase64String)).toThrow();
+  });
 });
 
 describe("prompt", () => {

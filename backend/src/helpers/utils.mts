@@ -1,3 +1,4 @@
+import { TokenNotFoundError } from "../errors/customErrors.mjs";
 import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
 import { ChatCompletionMessageParam } from "openai/resources";
 
@@ -52,7 +53,7 @@ export function getTokenFromRequestHeader(
 ): string {
   if (!authHeader) {
     console.error("No authorization header found");
-    throw new Error("No authorization header found");
+    throw new TokenNotFoundError("No authorization header found");
   } else {
     const idToken = authHeader.split(":")[1];
     return idToken;
