@@ -4,7 +4,7 @@ import { getChatCompletion } from "../service/openAI.mjs";
 
 import { CustomAuthRequest } from "../interfaces/interfaces";
 import { resultsCollection } from "../helpers/connectDB.mjs";
-import handleErrors from "../helpers/handleErrors.mjs";
+import handleErrors from "../helpers/errorHandlers.mjs";
 import {
   validateAnalyzedResult,
   validateUserAnswer,

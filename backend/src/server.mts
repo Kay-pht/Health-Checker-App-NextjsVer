@@ -1,8 +1,4 @@
 import express, { NextFunction, Request, Response } from "express";
-import postChatCompletion from "./handlers/postChatCompletion.mjs";
-import getMyPage from "./handlers/getMyPage.mjs";
-import getAuthToken from "./handlers/getAuthToken.mjs";
-import getResult from "./handlers/getResult.mjs";
 import cors from "cors";
 import { verifyTokenMiddleware } from "./middlewares/verifyTokenMiddleware.mjs";
 import { CustomAuthRequest } from "./interfaces/interfaces";
@@ -10,6 +6,10 @@ import { initializeFirebaseAdmin } from "./service/firebase.mjs";
 import configEnv from "./configEnv.mjs";
 import { connectToDatabase } from "./helpers/connectDB.mjs";
 import decodeAccountKey from "./helpers/utils.mjs";
+import postChatCompletion from "./controllers/postChatCompletion.mjs";
+import getAuthToken from "./controllers/getAuthToken.mjs";
+import getResult from "./controllers/getResult.mjs";
+import getMyPage from "./controllers/getMyPage.mjs";
 
 const app = express();
 

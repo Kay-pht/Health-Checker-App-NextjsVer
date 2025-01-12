@@ -3,7 +3,7 @@ import { CustomAuthRequest } from "../interfaces/interfaces.js";
 import { getUserHistoryById } from "../service/mongoDB.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import { Result } from "../interfaces/interfaces.d";
-import handleErrors from "../helpers/handleErrors.mjs";
+import handleErrors from "../helpers/errorHandlers.mjs";
 import {
   validateHistoryDataList,
   validateUserId,

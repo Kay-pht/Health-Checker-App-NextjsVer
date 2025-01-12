@@ -8,7 +8,7 @@ import {
   ResponseNotFoundError,
   ResultSchemaError,
 } from "../errors/customErrors.mjs";
-import handleErrors from "./handleErrors.mjs";
+import handleErrors from "./errorHandlers.mjs";
 import { MongoError } from "mongodb";
 import OpenAI from "openai";
 import ERROR_MESSAGES from "../errors/errorMessages.mjs";

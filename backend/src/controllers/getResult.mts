@@ -3,7 +3,7 @@ import { getResultById } from "../service/mongoDB.mjs";
 import { resultsCollection } from "../helpers/connectDB.mjs";
 import { CustomAuthRequest, Result } from "../interfaces/interfaces";
 import {} from "../helpers/utils.mjs";
-import handleErrors from "../helpers/handleErrors.mjs";
+import handleErrors from "../helpers/errorHandlers.mjs";
 import {
   validateAnalyzedData,
   validateResultId,
