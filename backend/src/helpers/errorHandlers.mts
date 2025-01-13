@@ -7,7 +7,7 @@ import {
   UserAnswerSchemaError,
   ResponseNotFoundError,
   ResultSchemaError,
-  TokenNotFoundError,
+  TokenSchemaError,
 } from "../errors/customErrors.mjs";
 import { MongoError } from "mongodb";
 import OpenAI from "openai";
@@ -30,13 +30,13 @@ const handleErrors = (
         },
       },
     };
-  } else if (error instanceof TokenNotFoundError) {
+  } else if (error instanceof TokenSchemaError) {
     return {
-      statusCode: ERROR_MESSAGES.TOKEN_NOT_FOUND.statusCode,
+      statusCode: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.statusCode,
       body: {
         error: {
-          code: ERROR_MESSAGES.TOKEN_NOT_FOUND.code,
-          message: ERROR_MESSAGES.TOKEN_NOT_FOUND.message,
+          code: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.message,
         },
       },
     };

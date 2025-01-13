@@ -1,4 +1,4 @@
-import { TokenNotFoundError } from "../errors/customErrors.mjs";
+import { TokenSchemaError } from "../errors/customErrors.mjs";
 import decodeAccountKey, { getTokenFromRequestHeader } from "./utils.mjs";
 import { prompt } from "./utils.mjs";
 
@@ -61,7 +61,7 @@ describe("getTokenFromRequestHeader", () => {
     const authHeader = undefined;
 
     expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
-      TokenNotFoundError
+      TokenSchemaError
     );
     expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
       "No authorization header found"
@@ -71,7 +71,7 @@ describe("getTokenFromRequestHeader", () => {
   it("throws an error if the authorization header is not in the correct format", () => {
     const authHeader = "";
     expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
-      TokenNotFoundError
+      TokenSchemaError
     );
     expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
       "No authorization header found"

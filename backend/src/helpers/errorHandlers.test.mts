@@ -7,6 +7,7 @@ import {
   UserAnswerSchemaError,
   ResponseNotFoundError,
   ResultSchemaError,
+  TokenSchemaError,
 } from "../errors/customErrors.mjs";
 import handleErrors from "./errorHandlers.mjs";
 import { MongoError } from "mongodb";
@@ -170,6 +171,19 @@ describe("handleErrors", () => {
         error: {
           code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
           message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.message,
+        },
+      },
+    });
+  });
+
+  it("should handle TokenSchemaError", () => {
+    const error = new TokenSchemaError("No authorization header found");
+    expect(handleErrors(error)).toEqual({
+      statusCode: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.statusCode,
+      body: {
+        error: {
+          code: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.code,
+          message: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.message,
         },
       },
     });

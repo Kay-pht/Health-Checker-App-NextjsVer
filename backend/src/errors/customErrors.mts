@@ -1,7 +1,7 @@
-export class TokenNotFoundError extends Error {
+export class TokenSchemaError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "TokenNotFoundError";
+    this.name = "TokenSchemaError";
   }
 }
 

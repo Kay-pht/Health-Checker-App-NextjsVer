@@ -1,7 +1,7 @@
-import { TokenNotFoundError } from "../errors/customErrors.mjs";
 import { UserAnswer } from "../schemas/userAnswerSchema.mjs";
 import { ChatCompletionMessageParam } from "openai/resources";
 import { authTokenSchema } from "../schemas/utilSchemas.mjs";
+import { TokenSchemaError } from "../errors/customErrors.mjs";
 
 // decode firebase service account key as JSON
 const decodeAccountKey = (serviceAccountKey: string): {} => {
@@ -56,6 +56,6 @@ export function getTokenFromRequestHeader(
     return idToken;
   } catch {
     console.error("No authorization header found");
-    throw new TokenNotFoundError("No authorization header found");
+    throw new TokenSchemaError("No authorization header found");
   }
 }
