@@ -49,10 +49,10 @@ const ERROR_MESSAGES = {
     code: "OPENAI_API_ERROR",
     message: "An error occurred with the OpenAI API.",
   },
-  TOKEN_NOT_FOUND: {
+  TOKEN_SCHEMA_ERROR: {
     statusCode: 401,
-    code: "TOKEN_NOT_FOUND",
-    message: "Token not found in header.",
+    code: "TOKEN_SCHEMA_ERROR",
+    message: "Token format is invalid.",
   },
   INTERNAL_SERVER_ERROR: {
     statusCode: 500,
