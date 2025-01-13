@@ -29,23 +29,6 @@ const getMyPage = async (req: CustomAuthRequest, res: Response) => {
     const { statusCode, body } = handleErrors(error);
     res.status(statusCode).json(body);
     console.error("Failed to get a history", error);
-
-    // TODO:a below error handling should be erased after tests
-    // if (error instanceof DbDataSchemaError) {
-    //   res
-    //     .status(500)
-    //     .json({ error: "Database Data Error", details: error.message });
-    // } else if (error instanceof UserIdSchemaError) {
-    //   // userIdがSchemaにマッチしない場合は401を返す
-    //   res.status(401).json({ error: "Unauthorized", details: error.message });
-    // } else if (error instanceof MongoError) {
-    //   res.status(500).json({ error: "Database Error", details: error.message });
-    // } else {
-    //   res.status(500).json({
-    //     error: "Internal Server Error",
-    //     details: "An unexpected error occurred",
-    //   });
-    // }
   }
 };
 

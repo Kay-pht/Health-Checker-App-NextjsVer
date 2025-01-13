@@ -41,30 +41,6 @@ const postChatCompletion = async (req: CustomAuthRequest, res: Response) => {
     const { statusCode, body } = handleErrors(error);
     res.status(statusCode).json(body);
     console.error("fail to analyze", error);
-
-    // if (error instanceof UserAnswerSchemaError) {
-    //   res.status(400).json({ error: "Bad Request", details: error.message });
-    // } else if (error instanceof DbDataSchemaError) {
-    //   res
-    //     .status(500)
-    //     .json({ error: "Database Data Error", details: error.message });
-    // } else if (error instanceof UserIdSchemaError) {
-    //   res.status(401).json({ error: "Unauthorized", details: error.message });
-    // } else if (error instanceof MongoError) {
-    //   res.status(500).json({ error: "Database Error", details: error.message });
-    // } else if (error instanceof OpenAI.APIError) {
-    //   res.status(500).json({ error: error.name, details: error.message });
-    // } else if (error instanceof Error) {
-    //   res.status(500).json({
-    //     error: "Internal Server Error",
-    //     details: error.message,
-    //   });
-    // } else {
-    //   res.status(500).json({
-    //     error: "Internal Server Error",
-    //     details: "An unexpected error occurred",
-    //   });
-    // }
   }
 };
 

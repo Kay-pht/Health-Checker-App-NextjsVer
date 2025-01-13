@@ -7,7 +7,7 @@ import {
   UserAnswerSchemaError,
   UserIdSchemaError,
 } from "../errors/customErrors.mjs";
-import userIdSchema from "../schemas/userIdSchema.mjs";
+import userIdSchema from "../schemas/utilSchemas.mjs";
 import { objectResultIdSchema } from "../schemas/resultIdSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
 import { z, ZodError } from "zod";

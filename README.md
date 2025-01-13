@@ -89,7 +89,7 @@ AI が回答を分析し、不足している栄養素とそれを補うため�
 
 - X: [@wannabean_eng](https://twitter.com/wannabean_eng)
 
-## 🚀 今後の予定・TODO
+## 🚀 今後の予定
 
 - DI コンテナの導入
 - フロントエンドのテスト拡充 (React Testing Library など)

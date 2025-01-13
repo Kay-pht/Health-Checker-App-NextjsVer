@@ -6,7 +6,6 @@ import { TokenNotFoundError } from "../errors/customErrors.mjs";
 import ERROR_MESSAGES from "../errors/errorMessages.mjs";
 
 // クライアントから送られてきたトークンの検証
-// TODO:identify error status code by customizing error
 export const verifyTokenMiddleware = async (
   req: CustomAuthRequest,
   res: Response,

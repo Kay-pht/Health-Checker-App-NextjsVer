@@ -1,4 +1,5 @@
-import decodeAccountKey from "./utils.mjs";
+import { TokenNotFoundError } from "../errors/customErrors.mjs";
+import decodeAccountKey, { getTokenFromRequestHeader } from "./utils.mjs";
 import { prompt } from "./utils.mjs";
 
 describe("decodeBase64", () => {
@@ -45,5 +46,35 @@ describe("prompt", () => {
         content: JSON.stringify(userAnswer),
       },
     ]);
+  });
+});
+
+describe("getTokenFromRequestHeader", () => {
+  it("returns the token from the request header", () => {
+    const authHeader = "Bearer:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
+    expect(getTokenFromRequestHeader(authHeader)).toBe(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    );
+  });
+
+  it("throws an error if no authorization header is found", () => {
+    const authHeader = undefined;
+
+    expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
+      TokenNotFoundError
+    );
+    expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
+      "No authorization header found"
+    );
+  });
+
+  it("throws an error if the authorization header is not in the correct format", () => {
+    const authHeader = "";
+    expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
+      TokenNotFoundError
+    );
+    expect(() => getTokenFromRequestHeader(authHeader)).toThrow(
+      "No authorization header found"
+    );
   });
 });

@@ -46,3 +46,5 @@ describe("validateEnv", () => {
     expect(process.exit).toHaveBeenCalledWith(1);
   });
 });
+
+// TODO: write tests
