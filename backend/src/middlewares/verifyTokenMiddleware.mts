@@ -34,26 +34,3 @@ export const verifyTokenMiddleware = async (
     console.error("Failed to verify token", error);
   }
 };
-
-// if (error instanceof TokenSchemaError) {
-//   res.status(ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.statusCode).json({
-//     error: {
-//       code: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.code,
-//       message: ERROR_MESSAGES.TOKEN_SCHEMA_ERROR.message,
-//     },
-//   });
-// } else if (error instanceof Error) {
-//   res.status(ERROR_MESSAGES.UNAUTHORIZED_ACCESS.statusCode).json({
-//     error: {
-//       code: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.code,
-//       message: ERROR_MESSAGES.UNAUTHORIZED_ACCESS.message,
-//     },
-//   });
-// } else {
-//   res.status(ERROR_MESSAGES.INTERNAL_SERVER_ERROR.statusCode).json({
-//     error: {
-//       code: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.code,
-//       message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR.message,
-//     },
-//   });
-// }

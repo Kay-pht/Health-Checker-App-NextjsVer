@@ -14,12 +14,12 @@
 - [x] test openAI API
 - [x] validate all Env keys with zod in configEnv.mts
 - [x] refactoring error handling
-- [ ] test error handling
+- [x] test error handling
 - [x] implement open AI test
 
 ## P1
 
-- [ ] fix hard coded error messages
+- [x] fix hard coded error messages
 - [x] add logo on top bar
 - [x] check who is trying to get resultData and if the user isn't invalid, return null
 
