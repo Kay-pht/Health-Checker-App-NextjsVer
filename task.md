@@ -23,6 +23,7 @@
 - [x] add logo on top bar
 - [x] check who is trying to get resultData and if the user isn't invalid, return null
 - [ ] add ER diagram
+- [ ]
 
 ## P2
 
