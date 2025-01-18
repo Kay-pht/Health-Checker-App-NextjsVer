@@ -50,7 +50,8 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5",
-    "typescript-eslint": "^8.11.0"
+    "typescript-eslint": "^8.11.0",
+    "whatwg-fetch": "^3.6.20"
   },
   "overrides": {
     "@types/react": "19.0.2",

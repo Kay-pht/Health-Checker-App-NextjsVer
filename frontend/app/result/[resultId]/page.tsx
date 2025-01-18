@@ -11,6 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/services/firebase";
 import { useParams } from "next/navigation";
 
+// TODO: fetch時のエラーコードに応じて表示内容を分岐させる(switch,caseを使用する)
 // 診断結果ページ
 const ResultPage = () => {
   const params = useParams();
