@@ -10,7 +10,6 @@ import {
 import userIdSchema from "../schemas/utilSchemas.mjs";
 import { objectResultIdSchema } from "../schemas/resultIdSchema.mjs";
 import { analyzedResultSchema } from "../schemas/analyzedResultSchema.mjs";
-import { z, ZodError } from "zod";
 import { userAnswerSchema } from "../schemas/userAnswerSchema.mjs";
 import envSchema, { envSchemaType } from "../schemas/envSchema.mjs";
 
@@ -19,12 +18,7 @@ export const validateEnv = (config: {}): envSchemaType => {
   try {
     return envSchema.parse(config);
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      console.error("Invalid environment variables: error.errors");
-      // error.errors を一つずつ出力する
-    } else {
-      console.error("Unexpected error:", error);
-    }
+    console.error("Invalid environment variables: ", error);
     process.exit(1);
   }
 };
@@ -34,11 +28,7 @@ export const validateHistoryDataList = (results: Result[]) => {
     return userHistoryDataListSchema.parse(results);
   } catch (error) {
     console.error("Failed to validate history data", error);
-    if (error instanceof ZodError) {
-      throw new DbDataSchemaError("The data is not in the correct format");
-    } else {
-      throw error;
-    }
+    throw new DbDataSchemaError("The data is not in the correct format");
   }
 };
 
@@ -47,11 +37,7 @@ export const validateUserId = (userId: string | undefined) => {
     return userIdSchema.parse(userId);
   } catch (error) {
     console.error("Failed to validate userId", error);
-    if (error instanceof ZodError) {
-      throw new UserIdSchemaError("Invalid userId");
-    } else {
-      throw error;
-    }
+    throw new UserIdSchemaError("Invalid userId");
   }
 };
 
@@ -60,11 +46,7 @@ export const validateResultId = (resultId: string) => {
     return objectResultIdSchema.parse(resultId);
   } catch (error) {
     console.error("Failed to validate resultId", error);
-    if (error instanceof ZodError) {
-      throw new ResultIdSchemeError("Invalid resultId");
-    } else {
-      throw error;
-    }
+    throw new ResultIdSchemeError("Invalid resultId");
   }
 };
 
@@ -73,11 +55,7 @@ export const validateAnalyzedData = (result: Result) => {
     return analyzedResultSchema.parse(result);
   } catch (error) {
     console.error("Failed to validate result", error);
-    if (error instanceof ZodError) {
-      throw new DbDataSchemaError("The data is not in the correct format");
-    } else {
-      throw error;
-    }
+    throw new DbDataSchemaError("The data is not in the correct format");
   }
 };
 
@@ -86,13 +64,7 @@ export const validateUserAnswer = (userAnswer: Record<string, string>) => {
     return userAnswerSchema.parse(userAnswer);
   } catch (error) {
     console.error("Failed to validate userAnswer", error);
-    if (error instanceof ZodError) {
-      throw new UserAnswerSchemaError(
-        "The answer is not in the correct format"
-      );
-    } else {
-      throw error;
-    }
+    throw new UserAnswerSchemaError("The answer is not in the correct format");
   }
 };
 
@@ -101,10 +73,6 @@ export const validateAnalyzedResult = (result: answerByChatGPTType) => {
     return analyzedResultSchema.parse(result);
   } catch (error) {
     console.error("Failed to validate result", error);
-    if (error instanceof ZodError) {
-      throw new ResultSchemaError("The data is not in the correct format");
-    } else {
-      throw error;
-    }
+    throw new ResultSchemaError("The data is not in the correct format");
   }
 };

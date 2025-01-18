@@ -1,3 +1,4 @@
+import { DbDataSchemaError } from "../errors/customErrors.mjs";
 import { validateEnv, validateHistoryDataList } from "./validateSchemaFunc.mjs";
 import { jest } from "@jest/globals";
 
@@ -61,7 +62,7 @@ describe("validateHistoryDataList", () => {
     expect(validateHistoryDataList(validInput)).toEqual(validInput);
   });
 
-  it("should throw an error for invalid input", () => {
+  it("should throw a DbDataSchemaError for invalid input", () => {
     const invalidInput = [
       {
         userId: "sampleUserId",
@@ -75,6 +76,10 @@ describe("validateHistoryDataList", () => {
     // @ts-expect-error: Testing for invalid input that should throw an error
     expect(() => validateHistoryDataList(invalidInput)).toThrow(
       "The data is not in the correct format"
+    );
+    // @ts-expect-error: Testing for invalid input that should throw an error
+    expect(() => validateHistoryDataList(invalidInput)).toThrow(
+      DbDataSchemaError
     );
   });
 });
