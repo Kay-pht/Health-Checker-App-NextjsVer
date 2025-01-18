@@ -1,4 +1,4 @@
-import { validateEnv } from "./validateSchemaFunc.mjs";
+import { validateEnv, validateHistoryDataList } from "./validateSchemaFunc.mjs";
 import { jest } from "@jest/globals";
 
 describe("validateEnv", () => {
@@ -48,3 +48,33 @@ describe("validateEnv", () => {
 });
 
 // TODO: write tests
+describe("validateHistoryDataList", () => {
+  it("should validate correct input", () => {
+    const validInput = [
+      {
+        recommendedFoods: ["sampleRecommendedFood1", "sampleRecommendedFood2"],
+        missingNutrients: ["sampleMissingNutrient1", "sampleMissingNutrient2"],
+        createdAt: new Date(),
+        score: 100,
+      },
+    ];
+    expect(validateHistoryDataList(validInput)).toEqual(validInput);
+  });
+
+  it("should throw an error for invalid input", () => {
+    const invalidInput = [
+      {
+        userId: "sampleUserId",
+        recommendedFoods: ["sampleRecommendedFood1", "sampleRecommendedFood2"],
+        missingNutrients: ["sampleMissingNutrient1", 100],
+        createdAt: new Date(),
+        score: 100,
+        resultId: "sampleResultId",
+      },
+    ];
+    // @ts-expect-error: Testing for invalid input that should throw an error
+    expect(() => validateHistoryDataList(invalidInput)).toThrow(
+      "The data is not in the correct format"
+    );
+  });
+});
