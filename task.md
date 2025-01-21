@@ -16,6 +16,8 @@
 - [x] refactoring error handling
 - [x] test error handling
 - [x] implement open AI test
+- [ ] test frontend
+- [ ]
 
 ## P1
 
