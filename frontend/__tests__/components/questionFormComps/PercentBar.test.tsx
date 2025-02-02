@@ -1,5 +1,5 @@
+import PercentBar from "@/components/questionFormComps/PercentBar";
 import { render, screen } from "@testing-library/react";
-import PercentBar from "./PercentBar";
 
 describe("PercentBar", () => {
   it("should render the percentage correctly", () => {

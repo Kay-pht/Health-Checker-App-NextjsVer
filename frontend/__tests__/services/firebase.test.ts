@@ -1,5 +1,5 @@
+import { getToken } from "@/services/firebase";
 import { User } from "firebase/auth";
-import { getToken } from "./firebase";
 
 describe("getToken", () => {
   beforeEach(() => {

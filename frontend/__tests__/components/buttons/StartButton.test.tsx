@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import StartButton from "./StartButton";
+import StartButton from "../../../components/buttons/StartButton";
 import { useRouter } from "next/navigation";
 
 jest.mock("next/navigation");

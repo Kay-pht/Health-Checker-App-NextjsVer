@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import LogInWithGoogleButton from "./LogInWithGoogleButton";
-import { signInWithPopup } from "firebase/auth";
-import { logOut } from "../../services/firebase";
 import userEvent from "@testing-library/user-event";
+import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
+import { signInWithPopup } from "firebase/auth";
+import { logOut } from "@/services/firebase";
 
 const user = userEvent.setup();
 
 jest.mock("firebase/auth");
-jest.mock("../../services/firebase");
+jest.mock("../../../services/firebase");
 
 describe("LogInWithGoogleButton", () => {
   beforeEach(() => {

@@ -60,4 +60,4 @@ app.listen(Number(port), () => {
   console.log(`NODE_ENV: ${configEnv.NODE_ENV}`);
 });
 
-export default app;
+// export default app;
