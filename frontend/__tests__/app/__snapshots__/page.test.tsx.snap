@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage should render without crashing 1`] = `
+<div>
+  <div
+    class="flex flex-col items-center justify-center min-h-screen bg-blue-50 text-center"
+  >
+    <h1
+      class="text-4xl font-bold text-gray-800 mb-4"
+    >
+      ようこそ！AI食生活診断テストへ
+    </h1>
+    <p
+      class="text-lg text-gray-600 "
+    >
+      あなたの食生活を診断し、健康的な生活をサポートします。
+    </p>
+    <p
+      class="text-lg text-gray-600 mb-8"
+    >
+      <strong
+        class="text-gray-600"
+      >
+        登録無し
+      </strong>
+      でもご利用頂けます！
+    </p>
+    <button
+      class="px-6 py-3 text-lg font-medium text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 hover:scale-105"
+    >
+      診断スタート
+    </button>
+    <div
+      class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+    >
+      <div
+        class="bg-white p-6 shadow-md rounded-lg transform transition-transform hover:scale-105"
+      >
+        <svg
+          class="text-4xl text-blue-600 mb-4"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"
+          />
+        </svg>
+        <h2
+          class="text-2xl font-bold mb-2 text-gray-800"
+        >
+          Step 1
+        </h2>
+        <p
+          class="text-gray-600"
+        >
+          3分で質問に答える！
+        </p>
+      </div>
+      <div
+        class="bg-white p-6 shadow-md rounded-lg transform transition-transform hover:scale-105"
+      >
+        <svg
+          class="text-4xl text-green-500 mb-4"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 640 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z"
+          />
+        </svg>
+        <h2
+          class="text-2xl font-bold mb-2 text-gray-800"
+        >
+          Step 2
+        </h2>
+        <p
+          class="text-gray-600"
+        >
+          AIが分析開始！
+        </p>
+      </div>
+      <div
+        class="bg-white p-6 shadow-md rounded-lg transform transition-transform hover:scale-105"
+      >
+        <svg
+          class="text-4xl text-red-500 mb-4"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 512 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M298.2 156.6c-52.7-25.7-114.5-10.5-150.2 32.8l55.2 55.2c6.3 6.3 6.3 16.4 0 22.6-3.1 3.1-7.2 4.7-11.3 4.7s-8.2-1.6-11.3-4.7L130.4 217 2.3 479.7c-2.9 6-3.1 13.3 0 19.7 5.4 11.1 18.9 15.7 30 10.3l133.6-65.2-49.2-49.2c-6.3-6.2-6.3-16.4 0-22.6 6.3-6.2 16.4-6.2 22.6 0l57 57 102-49.8c24-11.7 44.5-31.3 57.1-57.1 30.1-61.7 4.5-136.1-57.2-166.2zm92.1-34.9C409.8 81 399.7 32.9 360 0c-50.3 41.7-52.5 107.5-7.9 151.9l8 8c44.4 44.6 110.3 42.4 151.9-7.9-32.9-39.7-81-49.8-121.7-30.3z"
+          />
+        </svg>
+        <h2
+          class="text-2xl font-bold mb-2 text-gray-800"
+        >
+          Step 3
+        </h2>
+        <p
+          class="text-gray-600"
+        >
+          スコアと栄養アドバイスをゲット！
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
