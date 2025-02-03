@@ -37,29 +37,17 @@ export const signUpWithEmailAndPassword = async (
   password: string,
   name: string
 ) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    await updateProfile(user, {
-      displayName: name,
-    });
-    await sendEmailVerification(user);
-    console.log("User signed up successfully with name!");
-    return user;
-  } catch (error) {
-    console.error("Error creating user:", error);
-    alert(
-      `Error creating user: ${
-        error instanceof Error ? error.message : "An unknown error occurred."
-      }`
-    );
-    await logOut();
-    throw new Error("Failed to create user");
-  }
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  const user = userCredential.user;
+  await updateProfile(user, {
+    displayName: name,
+  });
+  await sendEmailVerification(user);
+  return user;
 };
 
 // メアド&パスワードでログインする用の関数
@@ -67,29 +55,15 @@ export const logInWithEmailAndPassword = async (
   email: string,
   password: string
 ) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-
-    const user = userCredential.user;
-
-    console.log("User logged in successfully!");
-    return user;
-  } catch (error) {
-    if (error instanceof Error) {
-      await logOut();
-      alert(`Error creating user: ${error.message}`);
-    } else {
-      await logOut();
-
-      alert("An unknown error occurred.");
-    }
-    throw error;
-  }
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+  const user = userCredential.user;
+  return user;
 };
+
 // ゲスト(匿名)でログイン(サインアップ)する用の関数
 export const logInWithAnonymous = async () => {
   try {
@@ -122,16 +96,7 @@ export const logOut = async () => {
   }
 };
 
-// パスワード忘れた場合の再設定用の関数
+// パスワード忘れた場合、再設定メールを送る用の関数
 export const submitPasswordResetEmail = async (email: string) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    console.log("Password reset email sent successfully!");
-  } catch (error) {
-    if (error instanceof Error) {
-      alert(`Error creating user: ${error.message}`);
-    } else {
-      alert("An unknown error occurred.");
-    }
-  }
+  await sendPasswordResetEmail(auth, email);
 };

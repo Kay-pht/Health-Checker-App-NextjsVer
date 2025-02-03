@@ -4,16 +4,13 @@ import Link from "next/link";
 import React from "react";
 import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
-import {
-  logInWithAnonymous,
-  logOut,
-  signUpWithEmailAndPassword,
-} from "@/services/firebase";
+import { logInWithAnonymous } from "@/services/firebase";
 import { RegisterFormValues } from "@/interfaces/interfaces";
 import useFormValidation from "@/hooks/useFormValidation";
 import { registerValidationSchema } from "@/schemas/authSchema";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
+import { registerUser } from "@/services/auth";
 
 const RegisterPage = () => {
   useCheckIsLoggedin("/questionnaire");
@@ -27,16 +24,7 @@ const RegisterPage = () => {
 
   // firebaseに入力情報を新規登録する
   const onSubmit = async (data: RegisterFormValues) => {
-    try {
-      await signUpWithEmailAndPassword(data.email, data.password, data.name);
-    } catch (error) {
-      if (error instanceof Error) {
-        await logOut();
-        alert(`Error logging in: ${error.message}`);
-      } else {
-        alert("An unknown error occurred.");
-      }
-    }
+    await registerUser(data);
   };
 
   return (

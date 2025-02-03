@@ -6,12 +6,10 @@ import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 import useFormValidation from "@/hooks/useFormValidation";
 import { loginValidationSchema, UserAuth } from "@/schemas/authSchema";
-import {
-  logInWithAnonymous,
-  logInWithEmailAndPassword,
-} from "@/services/firebase";
+import { logInWithAnonymous } from "@/services/firebase";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
+import { loginUser } from "@/services/auth";
 
 // ログインページ
 const LoginPage = () => {
@@ -26,16 +24,7 @@ const LoginPage = () => {
 
   // 入力情報(メアド・パスワード)をfirebaseで確認
   const onSubmit = async (data: UserAuth) => {
-    try {
-      await logInWithEmailAndPassword(data.email, data.password);
-      console.log(`Token verified successfully.`);
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(`Error logging in: ${error.message}`);
-      } else {
-        alert("An unknown error occurred.");
-      }
-    }
+    await loginUser(data);
   };
 
   return (
