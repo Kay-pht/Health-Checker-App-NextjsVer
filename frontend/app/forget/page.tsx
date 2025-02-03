@@ -3,13 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Alert, TextField } from "@mui/material";
-
 import TopBar from "../../components/TopBar";
 import useFormValidation from "../../hooks/useFormValidation";
 import { ForgetFormValues } from "../../interfaces/interfaces";
-import { submitPasswordResetEmail } from "../../services/firebase";
 import { forgetValidationSchema } from "../../schemas/authSchema";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
+import { sendEmail } from "@/services/auth";
 
 const ForgetPasswordPage = () => {
   useCheckIsLoggedin("/questionnaire");
@@ -24,7 +23,7 @@ const ForgetPasswordPage = () => {
 
   // パスワードリセットメールを送信
   const onSubmit = async (data: ForgetFormValues) => {
-    await submitPasswordResetEmail(data.email);
+    await sendEmail(data);
     setMessage("パスワードリセットメールを送信しました。");
   };
 
