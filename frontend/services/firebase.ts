@@ -10,6 +10,7 @@ import {
   User,
   sendPasswordResetEmail,
   GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { firebaseConfig } from "../config";
 
@@ -66,22 +67,14 @@ export const logInWithEmailAndPassword = async (
 
 // ゲスト(匿名)でログイン(サインアップ)する用の関数
 export const logInWithAnonymous = async () => {
-  try {
-    const userCredential = await signInAnonymously(auth);
-    const user = userCredential.user;
-    console.log("Anonymous user logged in successfully!");
-
-    return user;
-  } catch (error) {
-    console.error("Error logging in anonymously:", error);
-    await logOut();
-    alert(
-      `Error logging in anonymously: ${
-        error instanceof Error ? error.message : "An unknown error occurred."
-      }`
-    );
-  }
+  await signInAnonymously(auth);
 };
+
+// Googleでログイン
+export const logInWithGoogle = async () => {
+  await signInWithPopup(auth, provider);
+};
+
 // ログアウト用の関数
 export const logOut = async () => {
   try {

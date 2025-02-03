@@ -4,13 +4,13 @@ import Link from "next/link";
 import React from "react";
 import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
-import { logInWithAnonymous } from "@/services/firebase";
 import { RegisterFormValues } from "@/interfaces/interfaces";
 import useFormValidation from "@/hooks/useFormValidation";
 import { registerValidationSchema } from "@/schemas/authSchema";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
 import { registerUser } from "@/services/auth";
+import AnonymousLoginButton from "@/components/buttons/AnonymousLoginButton";
 
 const RegisterPage = () => {
   useCheckIsLoggedin("/questionnaire");
@@ -110,13 +110,7 @@ const RegisterPage = () => {
                   新規登録
                 </button>
                 <LogInWithGoogleButton register={true} />
-                <button
-                  type="button"
-                  onClick={logInWithAnonymous}
-                  className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition transform hover:scale-105"
-                >
-                  ゲストとしてログイン
-                </button>
+                <AnonymousLoginButton register={true} />
               </div>
               <p className="mt-4">
                 アカウントを持っている方は

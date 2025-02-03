@@ -1,6 +1,8 @@
 import { UserAuth } from "@/schemas/authSchema";
 import {
+  logInWithAnonymous,
   logInWithEmailAndPassword,
+  logInWithGoogle,
   logOut,
   signUpWithEmailAndPassword,
   submitPasswordResetEmail,
@@ -34,6 +36,37 @@ export const registerUser = async (data: RegisterFormValues) => {
     } else {
       alert("An unknown error occurred.");
     }
+  }
+};
+
+// Googleでログイン
+export const signInWithGoogle = async () => {
+  try {
+    await logInWithGoogle();
+    console.log(`logged in with Google`);
+  } catch (error) {
+    await logOut();
+    if (error instanceof Error) {
+      alert(`Error logging in: ${error.message}`);
+    } else {
+      alert("An unknown error occurred.");
+    }
+  }
+};
+
+// ゲスト(匿名)でログイン(サインアップ)する用の関数
+export const logInAnonymously = async () => {
+  try {
+    await logInWithAnonymous();
+    console.log("Anonymous user logged in successfully!");
+  } catch (error) {
+    console.error("Error logging in anonymously:", error);
+    await logOut();
+    alert(
+      `Error logging in anonymously: ${
+        error instanceof Error ? error.message : "An unknown error occurred."
+      }`
+    );
   }
 };
 

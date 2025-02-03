@@ -6,10 +6,10 @@ import { Alert, TextField } from "@mui/material";
 import { useCheckIsLoggedin } from "@/hooks/useCheckIsLoggedin";
 import useFormValidation from "@/hooks/useFormValidation";
 import { loginValidationSchema, UserAuth } from "@/schemas/authSchema";
-import { logInWithAnonymous } from "@/services/firebase";
 import TopBar from "@/components/TopBar";
 import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
 import { loginUser } from "@/services/auth";
+import AnonymousLoginButton from "@/components/buttons/AnonymousLoginButton";
 
 // ログインページ
 const LoginPage = () => {
@@ -82,13 +82,7 @@ const LoginPage = () => {
                   ログイン
                 </button>
                 <LogInWithGoogleButton register={false} />
-                <button
-                  type="button"
-                  onClick={logInWithAnonymous}
-                  className="w-full p-2 text-lg font-bold bg-gray-500 text-white rounded mt-2 hover:bg-gray-600 transition transform hover:scale-105"
-                >
-                  ゲストとしてログイン
-                </button>
+                <AnonymousLoginButton register={false} />
               </div>
               <p className="mt-4">
                 新規登録は

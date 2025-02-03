@@ -1,28 +1,14 @@
-import { signInWithPopup } from "firebase/auth";
-import { auth, logOut, provider } from "../../services/firebase";
 import { registerProps } from "../../interfaces/interfaces";
+import { signInWithGoogle } from "@/services/auth";
 
 const LogInWithGoogleButton = ({ register }: registerProps) => {
-  const signInWithGoogle = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-      // const { user } = userCredential;
-      // const token = await getToken(user);
-      // await verifyToken(token);
-      console.log(`logged in with Google`);
-    } catch (error) {
-      if (error instanceof Error) {
-        await logOut();
-        alert(`Error logging in: ${error.message}`);
-      } else {
-        await logOut();
-        alert("An unknown error occurred.");
-      }
-    }
+  const onClick = async () => {
+    await signInWithGoogle();
   };
+
   return (
     <button
-      onClick={signInWithGoogle}
+      onClick={onClick}
       className="bg-white border-2 border-red-400 rounded box-border text-gray-800 cursor-pointer font-sans tracking-wide outline-none overflow-hidden px-3 relative text-center  align-middle whitespace-nowrap w-full p-2 text-lg font-bold   mt-2  transition transform hover:scale-105"
     >
       <div className="transition-opacity bottom-0 left-0 opacity-0 absolute right-0 top-0"></div>
