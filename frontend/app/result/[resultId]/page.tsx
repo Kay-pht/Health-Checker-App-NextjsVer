@@ -3,45 +3,20 @@
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../../components/TopBar";
 import CautionInResult from "../../../components/CautionInResult";
-import { fetchUserLatestResult } from "@/services/fetchFromBackend";
 import ClientHandlersWrapper from "@/components/handlersComp/ClientHandlersWrapper";
-import { useEffect, useState } from "react";
-import { ResultType } from "@/interfaces/interfaces";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/services/firebase";
 import { useParams } from "next/navigation";
+import useFetchResult from "@/hooks/useFetchResult";
 
 // TODO: fetch時のエラーコードに応じて表示内容を分岐させる(switch,caseを使用する)
 // 診断結果ページ
 const ResultPage = () => {
   const params = useParams();
   const { resultId } = params;
-  const [result, setResult] = useState<ResultType | null>(null);
   const [user, loading] = useAuthState(auth);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (loading) return;
-    const fetchData = async () => {
-      try {
-        if (!user) {
-          setIsLoading(false);
-          throw new Error("User not found");
-        }
-        if (!resultId || typeof resultId !== "string") {
-          setIsLoading(false);
-          throw new Error("Result not found");
-        }
-        const res = await fetchUserLatestResult(resultId, user);
-        setResult(res);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, [user, loading, resultId]);
+  const { result, isLoading } = useFetchResult(user, loading, resultId);
 
   return (
     <ClientHandlersWrapper>

@@ -1,44 +1,19 @@
 "use client";
 // export const dynamic = "force-dynamic";
 
-import { useState, useEffect } from "react";
 import { Box, CircularProgress } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import { DBResultType } from "../../interfaces/interfaces";
-import { fetchUserHistoryData } from "@/services/fetchFromBackend";
 import ClientHandlersWrapper from "@/components/handlersComp/ClientHandlersWrapper";
 import { auth } from "@/services/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import useFetchHistoryData from "@/hooks/useFetchHistoryData";
 
 const MyPage = () => {
   // const data = await fetchUserHistoryData();
-  const [data, setData] = useState<DBResultType[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
   const [user, loading] = useAuthState(auth);
 
-  useEffect(() => {
-    if (loading) return;
-    const fetchData = async () => {
-      try {
-        if (!user) {
-          setIsLoading(false);
-          throw new Error("User not found");
-        }
-        const res = await fetchUserHistoryData(user);
-        setData(res);
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(`Error fetching data: ${error.message}`);
-        } else {
-          alert("An unknown error occurred.");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, [user, loading]);
+  const { data, isLoading } = useFetchHistoryData(user, loading);
 
   return (
     <ClientHandlersWrapper>

@@ -34,7 +34,7 @@ const RegisterPage = () => {
         <div className="bg-white p-8 pb-5 pt-3 m-10 rounded-lg shadow-md w-full max-w-lg">
           <h1 className="text-2xl font-bold mb-1 text-center">新規登録する</h1>
           <p className="text-sm text-center mt-1">
-            ログインするとこれまでの診断結果がチェックできます
+            登録するとこれまでの診断結果がチェックできます
           </p>
           <form
             onSubmit={handleSubmit(onSubmit)}

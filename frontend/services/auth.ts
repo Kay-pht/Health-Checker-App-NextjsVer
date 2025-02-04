@@ -62,11 +62,11 @@ export const logInAnonymously = async () => {
   } catch (error) {
     console.error("Error logging in anonymously:", error);
     await logOut();
-    alert(
-      `Error logging in anonymously: ${
-        error instanceof Error ? error.message : "An unknown error occurred."
-      }`
-    );
+    if (error instanceof Error) {
+      alert(`Error logging in anonymously: ${error.message}`);
+    } else {
+      alert("An unknown error occurred.");
+    }
   }
 };
 
