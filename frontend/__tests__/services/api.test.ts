@@ -9,178 +9,191 @@ import { jest } from "@jest/globals";
 jest.mock("whatwg-fetch");
 const token = "sampleToken";
 
-describe("fetchHistoryData", () => {
-  let resContent: object;
-  let responseStatus: boolean;
-
+describe("api.ts", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    global.fetch = jest.fn(
-      (): Promise<Response> =>
-        Promise.resolve({
-          ok: responseStatus,
-          json: () => Promise.resolve(resContent),
-        } as Response)
-    );
+    jest.spyOn(console, "log").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterAll(() => {
     jest.restoreAllMocks();
   });
 
-  it("should fetch history data", async () => {
-    resContent = { sample: "data" };
-    responseStatus = true;
-    const result = await fetchHistoryData(token);
-    expect(result).toEqual(resContent);
+  describe("fetchHistoryData", () => {
+    let resContent: object;
+    let responseStatus: boolean;
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+      global.fetch = jest.fn(
+        (): Promise<Response> =>
+          Promise.resolve({
+            ok: responseStatus,
+            json: () => Promise.resolve(resContent),
+          } as Response)
+      );
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("should fetch history data", async () => {
+      resContent = { sample: "data" };
+      responseStatus = true;
+      const result = await fetchHistoryData(token);
+      expect(result).toEqual(resContent);
+    });
+
+    it("should throw an error if the response is not ok", async () => {
+      resContent = { sample: "data" };
+      responseStatus = false;
+      await expect(fetchHistoryData(token)).rejects.toThrow(
+        "Failed to fetch data from the server"
+      );
+    });
   });
 
-  it("should throw an error if the response is not ok", async () => {
-    resContent = { sample: "data" };
-    responseStatus = false;
-    await expect(fetchHistoryData(token)).rejects.toThrow(
-      "Failed to fetch data from the server"
-    );
-  });
-});
+  describe("fetchResult", () => {
+    const resContent = { sample: "data" };
+    const resultId = "sample Id";
+    let responseStatus: boolean;
 
-describe("fetchResult", () => {
-  const resContent = { sample: "data" };
-  const resultId = "sample Id";
-  let responseStatus: boolean;
+    beforeEach(() => {
+      jest.clearAllMocks();
+      global.fetch = jest.fn(
+        (): Promise<Response> =>
+          Promise.resolve({
+            ok: responseStatus,
+            json: () => Promise.resolve(resContent),
+          } as Response)
+      );
+    });
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-    global.fetch = jest.fn(
-      (): Promise<Response> =>
-        Promise.resolve({
-          ok: responseStatus,
-          json: () => Promise.resolve(resContent),
-        } as Response)
-    );
-  });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
 
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
+    it("should fetch analyzed data", async () => {
+      responseStatus = true;
+      const result = await fetchResult(token, resultId);
+      expect(result).toEqual(resContent);
+    });
 
-  it("should fetch analyzed data", async () => {
-    responseStatus = true;
-    const result = await fetchResult(token, resultId);
-    expect(result).toEqual(resContent);
-  });
-
-  it("should throw an error if the response is not ok", async () => {
-    responseStatus = false;
-    await expect(fetchResult(token, resultId)).rejects.toThrow(
-      "Failed to fetch data from the server"
-    );
-  });
-});
-
-describe("postAnswersFunc", () => {
-  const resContent = { sample: "data" };
-  const validatedUserAnswer = {
-    content: {
-      question1: "answer1",
-    },
-  };
-  let responseStatus: boolean;
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-    global.fetch = jest.fn(
-      (): Promise<Response> =>
-        Promise.resolve({
-          ok: responseStatus,
-          json: () => Promise.resolve(resContent),
-        } as Response)
-    );
-  });
-  afterAll(() => {
-    jest.restoreAllMocks();
+    it("should throw an error if the response is not ok", async () => {
+      responseStatus = false;
+      await expect(fetchResult(token, resultId)).rejects.toThrow(
+        "Failed to fetch data from the server"
+      );
+    });
   });
 
-  it("should post user an answer", async () => {
-    responseStatus = true;
-    const result = await postAnswersFunc({ token, validatedUserAnswer });
-    const json = await result.json();
-    expect(json).toEqual(resContent);
+  describe("postAnswersFunc", () => {
+    const resContent = { sample: "data" };
+    const validatedUserAnswer = {
+      content: {
+        question1: "answer1",
+      },
+    };
+    let responseStatus: boolean;
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+      global.fetch = jest.fn(
+        (): Promise<Response> =>
+          Promise.resolve({
+            ok: responseStatus,
+            json: () => Promise.resolve(resContent),
+          } as Response)
+      );
+    });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("should post user an answer", async () => {
+      responseStatus = true;
+      const result = await postAnswersFunc({ token, validatedUserAnswer });
+      const json = await result.json();
+      expect(json).toEqual(resContent);
+    });
+
+    it("should throw an error if the response is not ok", async () => {
+      responseStatus = false;
+      await expect(
+        postAnswersFunc({ token, validatedUserAnswer })
+      ).rejects.toThrow("Failed to fetch data from the server");
+    });
   });
 
-  it("should throw an error if the response is not ok", async () => {
-    responseStatus = false;
-    await expect(
-      postAnswersFunc({ token, validatedUserAnswer })
-    ).rejects.toThrow("Failed to fetch data from the server");
-  });
-});
+  describe("postAnswersFunc", () => {
+    const resContent = { sample: "data" };
+    const validatedUserAnswer = {
+      content: {
+        question1: "answer1",
+      },
+    };
+    let responseStatus: boolean;
 
-describe("postAnswersFunc", () => {
-  const resContent = { sample: "data" };
-  const validatedUserAnswer = {
-    content: {
-      question1: "answer1",
-    },
-  };
-  let responseStatus: boolean;
+    beforeEach(() => {
+      jest.clearAllMocks();
+      global.fetch = jest.fn(
+        (): Promise<Response> =>
+          Promise.resolve({
+            ok: responseStatus,
+            json: () => Promise.resolve(resContent),
+          } as Response)
+      );
+    });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-    global.fetch = jest.fn(
-      (): Promise<Response> =>
-        Promise.resolve({
-          ok: responseStatus,
-          json: () => Promise.resolve(resContent),
-        } as Response)
-    );
-  });
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
+    it("should post user an answer", async () => {
+      responseStatus = true;
+      const result = await postAnswersFunc({ token, validatedUserAnswer });
+      const json = await result.json();
+      expect(json).toEqual(resContent);
+    });
 
-  it("should post user an answer", async () => {
-    responseStatus = true;
-    const result = await postAnswersFunc({ token, validatedUserAnswer });
-    const json = await result.json();
-    expect(json).toEqual(resContent);
-  });
-
-  it("should throw an error if the response is not ok", async () => {
-    responseStatus = false;
-    await expect(
-      postAnswersFunc({ token, validatedUserAnswer })
-    ).rejects.toThrow("Failed to fetch data from the server");
-  });
-});
-
-describe("verifyToken", () => {
-  const resContent = { sample: "data" };
-  let responseStatus: boolean;
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-    global.fetch = jest.fn(
-      (): Promise<Response> =>
-        Promise.resolve({
-          ok: responseStatus,
-          json: () => Promise.resolve(resContent),
-        } as Response)
-    );
-  });
-  afterAll(() => {
-    jest.restoreAllMocks();
+    it("should throw an error if the response is not ok", async () => {
+      responseStatus = false;
+      await expect(
+        postAnswersFunc({ token, validatedUserAnswer })
+      ).rejects.toThrow("Failed to fetch data from the server");
+    });
   });
 
-  it("should verify token", async () => {
-    responseStatus = true;
-    const result = await verifyToken(token);
-    const json = await result.json();
-    expect(json).toEqual(resContent);
-  });
+  describe("verifyToken", () => {
+    const resContent = { sample: "data" };
+    let responseStatus: boolean;
 
-  it("should throw an error if the response is not ok", async () => {
-    responseStatus = false;
-    await expect(verifyToken(token)).rejects.toThrow("Failed to verify token");
+    beforeEach(() => {
+      jest.clearAllMocks();
+      global.fetch = jest.fn(
+        (): Promise<Response> =>
+          Promise.resolve({
+            ok: responseStatus,
+            json: () => Promise.resolve(resContent),
+          } as Response)
+      );
+    });
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("should verify token", async () => {
+      responseStatus = true;
+      const result = await verifyToken(token);
+      const json = await result.json();
+      expect(json).toEqual(resContent);
+    });
+
+    it("should throw an error if the response is not ok", async () => {
+      responseStatus = false;
+      await expect(verifyToken(token)).rejects.toThrow(
+        "Failed to verify token"
+      );
+    });
   });
 });
