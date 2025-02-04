@@ -24,7 +24,13 @@ const LoginPage = () => {
 
   // 入力情報(メアド・パスワード)をfirebaseで確認
   const onSubmit = async (data: UserAuth) => {
-    await loginUser(data);
+    try {
+      await loginUser(data);
+      console.log("User logged in successfully!");
+    } catch (error) {
+      alert(`Error logging in: ${error}`);
+      console.error(error);
+    }
   };
 
   return (

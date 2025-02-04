@@ -81,11 +81,7 @@ export const logOut = async () => {
     await signOut(auth);
     console.log("User logged out successfully!");
   } catch (error) {
-    if (error instanceof Error) {
-      alert(`Error creating user: ${error.message}`);
-    } else {
-      alert("An unknown error occurred.");
-    }
+    console.error("Error logging out:", error);
   }
 };
 

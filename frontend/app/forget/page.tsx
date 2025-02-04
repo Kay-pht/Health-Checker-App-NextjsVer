@@ -23,8 +23,14 @@ const ForgetPasswordPage = () => {
 
   // パスワードリセットメールを送信
   const onSubmit = async (data: ForgetFormValues) => {
-    await sendEmail(data);
-    setMessage("パスワードリセットメールを送信しました。");
+    try {
+      await sendEmail(data);
+      setMessage("パスワードリセットメールを送信しました。");
+      console.log("Password reset email sent successfully!");
+    } catch (error) {
+      alert(`Error sending email: ${error}`);
+      console.error(error);
+    }
   };
 
   return (

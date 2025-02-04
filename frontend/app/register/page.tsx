@@ -24,7 +24,13 @@ const RegisterPage = () => {
 
   // firebaseに入力情報を新規登録する
   const onSubmit = async (data: RegisterFormValues) => {
-    await registerUser(data);
+    try {
+      await registerUser(data);
+      console.log("User signed up successfully with name!");
+    } catch (error) {
+      alert(`Error registering: ${error}`);
+      console.error(error);
+    }
   };
 
   return (

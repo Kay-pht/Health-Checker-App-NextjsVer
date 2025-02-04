@@ -11,6 +11,8 @@ jest.mock("../../../services/firebase.ts");
 describe("LogInWithGoogleButton", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(console, "log").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => {});
   });
 
   afterAll(() => {
@@ -37,7 +39,6 @@ describe("LogInWithGoogleButton", () => {
 
   it("calls logOut when failed to login", async () => {
     const mockAlert = jest.spyOn(window, "alert").mockImplementation(() => {});
-    jest.spyOn(console, "log").mockImplementation(() => {});
     (signInWithGoogle as jest.Mock).mockRejectedValue(
       new Error("Login failed")
     );

@@ -5,9 +5,10 @@ const LogInWithGoogleButton = ({ register }: registerProps) => {
   const onClick = async () => {
     try {
       await signInWithGoogle();
+      console.log(`logged in with Google`);
     } catch (error) {
-    alert("Error logging in: " + error);
-    console.log("Error logging in with Google:", error);
+      alert("Error logging in: " + error);
+      console.error("Error logging in with Google:", error);
     }
   };
 
