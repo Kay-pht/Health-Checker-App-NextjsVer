@@ -22,13 +22,17 @@ const provider = new GoogleAuthProvider();
 export { auth, provider };
 
 // JWTを取得
-export const getToken = async (user: User) => {
+export const getToken = async (user: User | null | undefined) => {
   try {
+    if (!user) {
+      console.error("User not authenticated");
+      throw new Error("User not authenticated");
+    }
     const token = await user.getIdToken();
     return token;
   } catch (error) {
     console.error("Error getting token:", error);
-    throw new Error("Failed to get token");
+    throw error;
   }
 };
 

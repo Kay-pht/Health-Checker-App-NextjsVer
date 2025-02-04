@@ -4,7 +4,12 @@ import React from "react";
 
 const AnonymousLoginButton = ({ register }: registerProps) => {
   const onClick = async () => {
-    await logInAnonymously();
+    try {
+      await logInAnonymously();
+    } catch (error) {
+      alert(`Error logging in: ${error}`);
+      console.error(error);
+    }
   };
 
   return (

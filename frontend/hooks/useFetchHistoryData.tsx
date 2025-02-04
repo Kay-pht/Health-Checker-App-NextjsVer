@@ -15,10 +15,6 @@ const useFetchHistoryData = (
     if (loading) return;
     const fetchData = async () => {
       try {
-        if (!user) {
-          setIsLoading(false);
-          throw new Error("User not found");
-        }
         const token = await getToken(user);
         const res = await fetchUserHistoryData(token);
         setData(res);

@@ -14,14 +14,10 @@ const useAIAnswerFetcher = () => {
   const fetchAnswer = async ({ e, userAnswer }: FetchAnswersFromAIType) => {
     e.preventDefault();
 
-    const submittedAnswer = { content: userAnswer };
-    const validatedUserAnswer = userAnswerSchema.parse(submittedAnswer);
+    // const submittedAnswer = { content: userAnswer };
+    const validatedUserAnswer = userAnswerSchema.parse({ content: userAnswer });
     // firebaseからトークンを取得
     const user = auth.currentUser;
-    if (!user) {
-      console.error("User not authenticated");
-      throw new Error("User not authenticated");
-    }
     const token = await getToken(user);
 
     // 回答を送信し、データidをレスとして受け取り、結果ページに遷移

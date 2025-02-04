@@ -16,10 +16,6 @@ const useFetchResult = (
     if (loading) return;
     const fetchData = async () => {
       try {
-        if (!user) {
-          setIsLoading(false);
-          throw new Error("User not found");
-        }
         if (!resultId || typeof resultId !== "string") {
           setIsLoading(false);
           throw new Error("Result not found");
