@@ -1,13 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import LogInWithGoogleButton from "@/components/buttons/LogInWithGoogleButton";
-import { signInWithPopup } from "firebase/auth";
-import { logOut } from "@/services/firebase";
+import { signInWithGoogle } from "@/services/auth";
 
 const user = userEvent.setup();
 
-jest.mock("firebase/auth");
-jest.mock("../../../services/firebase");
+jest.mock("../../../services/auth.ts");
+jest.mock("../../../services/firebase.ts");
 
 describe("LogInWithGoogleButton", () => {
   beforeEach(() => {
@@ -29,21 +28,24 @@ describe("LogInWithGoogleButton", () => {
   });
 
   it("calls signInWithPopup when clicked", async () => {
-    (signInWithPopup as jest.Mock).mockResolvedValue({});
+    (signInWithGoogle as jest.Mock).mockResolvedValue({});
     render(<LogInWithGoogleButton register={true} />);
     await user.click(screen.getByText("Googleで登録"));
     expect(screen.getByText("Googleで登録")).toBeInTheDocument();
-    expect(signInWithPopup).toHaveBeenCalled();
+    expect(signInWithGoogle).toHaveBeenCalled();
   });
 
   it("calls logOut when failed to login", async () => {
     const mockAlert = jest.spyOn(window, "alert").mockImplementation(() => {});
-    (signInWithPopup as jest.Mock).mockRejectedValue(new Error("Login failed"));
-    (logOut as jest.Mock).mockResolvedValue({});
+    jest.spyOn(console, "log").mockImplementation(() => {});
+    (signInWithGoogle as jest.Mock).mockRejectedValue(
+      new Error("Login failed")
+    );
 
     render(<LogInWithGoogleButton register={true} />);
     await user.click(screen.getByText("Googleで登録"));
-    expect(logOut).toHaveBeenCalled();
-    expect(mockAlert).toHaveBeenCalledWith("Error logging in: Login failed");
+    expect(mockAlert).toHaveBeenCalledWith(
+      "Error logging in: Error: Login failed"
+    );
   });
 });

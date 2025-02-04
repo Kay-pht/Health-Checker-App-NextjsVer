@@ -3,7 +3,12 @@ import { signInWithGoogle } from "@/services/auth";
 
 const LogInWithGoogleButton = ({ register }: registerProps) => {
   const onClick = async () => {
-    await signInWithGoogle();
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+    alert("Error logging in: " + error);
+    console.log("Error logging in with Google:", error);
+    }
   };
 
   return (

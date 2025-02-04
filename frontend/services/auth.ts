@@ -46,11 +46,7 @@ export const signInWithGoogle = async () => {
     console.log(`logged in with Google`);
   } catch (error) {
     await logOut();
-    if (error instanceof Error) {
-      alert(`Error logging in: ${error.message}`);
-    } else {
-      alert("An unknown error occurred.");
-    }
+    throw error;
   }
 };
 
